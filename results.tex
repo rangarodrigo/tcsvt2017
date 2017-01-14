@@ -1,1 +1,21 @@
-Experiments, results, comparison, and interpretations. 
+This section details our experimental methodology and the  video  datasets used. We evaluate our approach on the two popular datasets
+Youtube Action Dataset and the Olympic Sports dataset. On both datasets, we show that our work exceeds the current state-of-the-art
+results, by comparing with other popular techniques. Also, we vary the contribution of static and motion features, for the calculation
+of combined vector series, and explore what is optimum contribution from each domain. By this step, we also prove that both static and motion features
+provide vital information about the actions occuring in a video. Furthemore, we highlight the importance of considering the time evolution
+of sub activities, in order to identify a complex event, by comparing the results of RNN and other methodologies, which does not capture
+the temporal dynamics. 
+
+Datasets
+
+
+Comparison with the state-of-the-art
+
+The summery of comparison of our work, is shown in table. $\rho = \frac{1}{\sqrt{2}}$ is used to combine the static and motion vectors.
+
+Youtubedataset
+We were able to achieve an accuracy over 90\% for every class. We achieve an overall accuracy of 93.3\%. Our results are compared with the
+algorithms, . As it is clearly visible, our method surpasses the other
+methods in all the classes except in diving, golf swinging
+and volleyball spiking . Overall, our approach exceeded currently best reported results, for this dataset, to the best of our knowledge, 
+by a significant 8\% margin.
