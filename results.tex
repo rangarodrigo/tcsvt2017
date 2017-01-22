@@ -6,12 +6,54 @@ provide vital information about the actions occuring in a video. Furthemore, we 
 of sub activities, in order to identify a complex event, by comparing the results of RNN and other methodologies, which does not capture
 the temporal dynamics. 
 
-Datasets
+\subsection{Datasets}
+\noindent
+\textbf{Holywood 2}: It consists of 12 classes of human actions distributed over 1500 video clips:
+\textit{Answer phone, drive car, eat, fight person, get out car, hand shake, 
+hug person, kiss, run, sit down, sit up, }and \textit{stand up}.
+The dataset is composed of video clips from 69 movies and provides a challenging task, in automatic action detection.
+
+\noindent
+\textbf{UCF-11}: It consists over 1000
+sports and home videos from YouTube. This dataset contains 11 action classes: 
+\textit{basketball shooting, cycle, dive, golf swing, horse
+back ride, soccer juggle, swing, tennis swing, trampoline
+jump, volleyball spike}, and \textit{walk with a dog}. Each of the action 
+sets is subdivided into 25 groups sharing similar environment conditions. 
+This also is a challenging dataset with
+camera jitter, cluttered backgrounds and variable illumination. 
 
 
-Comparison with the state-of-the-art
+\subsection{Contribution of Static and Motion domains}
 
-The summery of comparison of our work, is shown in table. $\rho = \frac{1}{\sqrt{2}}$ is used to combine the static and motion vectors.
+The derivation done in section 4, for fusioning the static and motion vectors,
+provides us a insightful intuition. That is, we can controll the contribution
+of motion and static domains, to the fusion vector, by varying the $\rho$ value. 
+The derivation of $\rho$ values for different contribution ratios, is illustrated in 
+\ref{tbl:rho change}
+
+\begin{table}
+  
+\begin{center}
+  \begin{tabular}{ | l | c | r | }
+    \hline
+    \textbf{Contribution to $Z$} & \textbf{$\rho$ value} & \textbf{Fusion vector} \\ \hline
+    {\makecell{ 80\% Motion, 20\% Static \\ $\rho_{1}=4\rho_{2}$ }} & \makecell{$\frac{1}{4}\rho_{1}=\sqrt{1-\rho_{1}^2}$ \\ $\rho_{1} = \frac{4}{\sqrt{17}}$} & $Z=\frac{4}{\sqrt{17}}M + \frac{1}{\sqrt{17}}S$ \\ \hline
+    {\makecell{ 60\% Motion, 40\% Static \\ $2\rho_{1}=3\rho_{2}$ }} & \makecell{$\frac{2}{3}\rho_{1}=\sqrt{1-\rho_{1}^2}$ \\ $\rho_{1} = \frac{3}{\sqrt{13}}$} & $Z=\frac{3}{\sqrt{13}}M + \frac{2}{\sqrt{13}}S$ \\ \hline
+    {\makecell{ 40\% Motion, 60\% Static \\ $3\rho_{1}=2\rho_{2}$ }} & \makecell{$\frac{3}{2}\rho_{1}=\sqrt{1-\rho_{1}^2}$ \\ $\rho_{1} = \frac{2}{\sqrt{13}}$} & $Z=\frac{2}{\sqrt{13}}M + \frac{3}{\sqrt{13}}S$ \\ \hline
+     {\makecell{ 60\% Motion, 40\% Static \\ $4\rho_{1}=\rho_{2}$ }} & \makecell{$4\rho_{1}=\sqrt{1-\rho_{1}^2}$ \\ $\rho_{1} = \frac{1}{\sqrt{17}}$} & $Z=\frac{1}{\sqrt{17}}M + \frac{4}{\sqrt{17}}S$ \\ \hline
+      \label{tbl:rho change}
+  \end{tabular}
+\end{center}
+\caption{Derivation of contribution of static and motion domains to the fusion vector}
+\end{table}
+
+Accuracy values for these $\rho$ values, for each dataset, is shown in figure. 
+
+\subsection{Comparison with the state-of-the-art}
+
+The summery of comparison of our work, is shown in table. $\rho = \frac{1}{\sqrt{2}}$ is used to combine the static and motion vectors,
+since it gave the best results. 
 
 Youtubedataset
 We were able to achieve an accuracy over 90\% for every class. We achieve an overall accuracy of 93.3\%. Our results are compared with the
@@ -19,3 +61,15 @@ algorithms, . As it is clearly visible, our method surpasses the other
 methods in all the classes except in diving, golf swinging
 and volleyball spiking . Overall, our approach exceeded currently best reported results, for this dataset, to the best of our knowledge, 
 by a significant 8\% margin.
+
+\subsection{Effectiveness of Capturing Time Evolution}
+As discussed in earliar sections, complex actions are composed of sub activities, preserving
+a temporal pattern. In this work, we try to capture those underlying patterns, by a LSTM netwok.
+It is interesting to verify, whether this stratergy has an impact on the accuracy of the 
+classification. Here, we directly feed the fused vectors to a random forest classifier, which
+does not capture sequencial dynamic patterns, and compare it with the results obtained by
+the LSTM network. The results are shown in table
+
+As indicated by the results in chart, LSTM network significantly outperforms the 
+random forest classifier, for both datasets. Therefore, it can be concluded that, exploiting 
+temporal patterns of sub activities, benifits complex action classification. 

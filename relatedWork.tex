@@ -1,0 +1,59 @@
+
+There has been not many approaches in activity recognition, which highlight the
+importance of, exclusively engineering static and motion features. Most of the work
+relies on generating spatio-temporal interest regions, such as action tubes \cite{gkioxari2015finding},
+tubelets \cite{jain2014action}, dense trajectory based methods \cite{van2015apt}, \cite{wang2015action},
+spatio-temporal extensions of spatial pyramid pooling \cite{laptev2008learning},
+or spatioi-temporal low level features  \cite{schuldt2004recognizing}, \cite{ke2005efficient}, \cite{shechtman2005space},
+\cite{wang2011action}, \cite{klaser2008spatio}, \cite{yu2010real}. Action tubes in \cite{gkioxari2015finding} is quite similar to 
+our motion tubes, but our motion candidate regions are chosen, based on more powerful dense trajectories, instead of
+raw optic flows. Also, we employ a tracking mechanism of each moving area, through motion tubes, isolating actions 
+of each actor, throughout the video. Also, our static interest regions are independent from motion,
+unlike in \cite{gkioxari2015finding}, where we are able to extract background scenery information, for 
+action recognition. 
+One of the common attributes of these methods, is that, motion density is the 
+dominant factor, for identifying candidate regions, for engineering both motion and static features. 
+In contrast, in this study, motion and static features 
+are treated as two independent domains, and this dominant factor is eliminated. 
+
+Recently, few attempts are made on exclusive crafting and late fusion 
+of motion and static features. In \cite{simonyan2014two}, a video is first decomposed in to 
+spatial and temporal components, based on RGB and optical flow frames.
+Two deep ConvNets are then applied on these two components separately, to extract spacial and 
+temporal information. Each network, operates mutually exclusively, and performs action classification
+independently. Afterwards, softmax scores are coalesced by late fusion. 
+
+Work done in \cite{feichtenhofer2016convolutional}, is also similar. Instead of late fusion, 
+they fuse the two domains, in a convolutional layer. Both these approaches, rely explicitly on automatic feature 
+generation, in increasingly abstract layers. While this has provided promising results on static feature generation,
+we argue that motion patterns can be more more superiorly extracted by hand crafted features. Our logic behind
+this philosophy is, temporal dynamics extend to a longer range, unlike spatial variations. It is not possible 
+to capture and discriminate motion patterns in to classes, by a system, which has a smaller temporal support. There are models,
+which employ 3D convolution \cite{ji20133d}, \cite{tran2015learning}, which extends the traditional CNNs, into temporal domain. 
+\cite{7486474} applies CNNs on optic flows, and \cite{kim2007human} on low level hand-crafted inputs 
+(spatio-temporal outer boundaries volumes), to extract motion features. But even by generating hierarchical 
+features, on top of pixel level features, it is not easy to discriminate motion classes, as it does not extend to a long range. 
+Also, tracking and modeling actions of each actor separately, in longer time durations, is not possible with these 
+approaches. Our motion features, on the other hand, are capable of capturing motion patterns, in longer temporal durations.
+Furthermore, with the aid of \textit{motion tubes}, our system tracks and models the activities of each moving area separately. 
+
+Regarding video evolution, \cite{fernando2015modeling} postulate
+a function, capable of ordering the frames of a video,
+temporally. They learn a ranking function per a video, using a ranking machine, and use the learned parameters, as 
+a video descriptor. Several other methodologies, for example, HMM (\cite{wang2011hidden}, \cite{wu2014leveraging}), 
+CRF-based methods (\cite{song2013action}), also have been employed in this aspect. These methods model the video evolution in frame 
+level. In contrast, attempts for temporal ordering of atomic events, also has been carried out, such as \cite{rohrbach2012script}, \cite{bhattacharya2014recognition}.
+In \cite{rohrbach2012script}, transition probabilities of a series of events, are encoded statistically with a HMM model. 
+In  \cite{bhattacharya2014recognition}, they identify low level actions, using dense trajectories, and assign concept ID 
+probabilities for each action. Then a LDS is applied on these generated concept vectors, to exploit temporal 
+dynamics of the low level actions. \cite{li2013recognizing} uses simple dynamical systems \cite{jackson1992perspectives},
+\cite{kailath1974view} to create a dictionary of low-level spatio-temporal attributes, and these attributes 
+are later used as a histogram to represent high level actions. Our approach lies closely with these latter
+mentioned approaches, as we also generate descriptors, for sub events, and then extract temporal progression 
+of these sub events. But, instead of simple statistical models, which has a finite dynamic response, 
+we use a LSTM network \cite{hochreiter1997long} to capture these dynamics. 
+
+Such models, are starting to make appearance in the literature of action recognition, e.g. in 
+\cite{yue2015beyond} the LSTM network model the dynamics of the CNN activations, and in \cite{donahue2015long},
+the LSTM network learns the temporal dynamics of low level features, generated by a CNN. 
+
