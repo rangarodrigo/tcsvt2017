@@ -2,7 +2,7 @@ This section details our experimental methodology and the  video  datasets used.
 Youtube Action Dataset and the Olympic Sports dataset. On both datasets, we show that our work exceeds the current state-of-the-art
 results, by comparing with other popular techniques. Also, we vary the contribution of static and motion features, for the calculation
 of combined vector series, and explore what is optimum contribution from each domain. By this step, we also prove that both static and motion features
-provide vital information about the actions occuring in a video. Furthemore, we highlight the importance of considering the time evolution
+are complementery, and provide vital information about the actions occuring in a video. Furthemore, we highlight the importance of considering the time evolution
 of sub activities, in order to identify a complex event, by comparing the results of RNN and other methodologies, which does not capture
 the temporal dynamics. 
 
@@ -48,19 +48,152 @@ The derivation of $\rho$ values for different contribution ratios, is illustrate
 \caption{Derivation of contribution of static and motion domains to the fusion vector}
 \end{table}
 
-Accuracy values for these $\rho$ values, for each dataset, is shown in figure. 
+Results, for these $\rho$ values, for UCF-11 and Hollywood2 datasets, are shown in table and table, respectively. 
+We use accuracy and mean average precision as performance matrics, for UCF-11 and 
+Hollywood2, respectively.
+
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{|l||l|l|l|l|l|}
+\hline
+Class            & rho & rho & rho & rho & rho \\ \hline  \hline
+B shooting       &     &     &     &     &     \\ \hline
+Biking           &     &     &     &     &     \\ \hline
+Diving           &     &     &     &     &     \\ \hline
+G swinging       &     &     &     &     &     \\ \hline
+H riding         &     &     &     &     &     \\ \hline
+S juggling       &     &     &     &     &     \\ \hline
+Swinging         &     &     &     &     &     \\ \hline
+T swinging       &     &     &     &     &     \\ \hline
+T jumping        &     &     &     &     &     \\ \hline
+V spiking        &     &     &     &     &     \\ \hline
+W dog            &     &     &     &     &     \\ \hline \hline
+Overall Accuracy &     &     &     &     &     \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Class            & rho & rho & rho & rho & rho \\ \hline
+AnswerPhone       &     &     &     &     &     \\ \hline
+DriveCar           &     &     &     &     &     \\ \hline
+Eat           &     &     &     &     &     \\ \hline
+FightPerson         &     &     &     &     &     \\ \hline
+GetOutCar       &     &     &     &     &     \\ \hline
+HandShake        &     &     &     &     &     \\ \hline
+HugPerson       &     &     &     &     &     \\ \hline
+Kiss        &     &     &     &     &     \\ \hline
+Run        &     &     &     &     &     \\ \hline
+SitDown           &     &     &     &     &     \\ \hline
+SitUp           &     &     &     &     &     \\ \hline
+StandUp           &     &     &     &     &     \\ \hline
+mAP          &     &     &     &     &     \\ \hline
+\end{tabular}
+\end{table}
+
+Also, an overview distribution of the overall performance, over $\rho$ values, for both datasets, is shown in table.
+We can see that, the performance change, for different contribution precentages of motion and static domain. Also, the optimum contribution may change
+depending on the nature of the data. For example, if the motion patterns are indistinguishable accross actions, static information plays 
+a critical role, for determining the action, and vise versa. This highilghts
+our hypothesis, that being able to control this contibution explcitly, is vital for an action recognition system. 
+
+
+
+
+
+
+
+
 
 \subsection{Comparison with the state-of-the-art}
 
-The summery of comparison of our work, is shown in table. $\rho = \frac{1}{\sqrt{2}}$ is used to combine the static and motion vectors,
-since it gave the best results. 
+able 2 compares our results to state of the art. $\rho = \frac{1}{\sqrt{2}}$ is used to combine the static and motion vectors,
+since it gave the best results, for this dataset. On UCF-11, we significantly outperform 
+the state of the art \cite{} by \%. A mean average precision of \% is achieved by our system, which outperforms
+the state-of-the-art by \%. 
 
-Youtubedataset
-We were able to achieve an accuracy over 90\% for every class. We achieve an overall accuracy of 93.3\%. Our results are compared with the
-algorithms, . As it is clearly visible, our method surpasses the other
-methods in all the classes except in diving, golf swinging
-and volleyball spiking . Overall, our approach exceeded currently best reported results, for this dataset, to the best of our knowledge, 
-by a significant 8\% margin.
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{|l|l||l|l|}
+\hline
+\multicolumn{2}{|c||}{UCF-11}    & \multicolumn{2}{c|}{Hollywood2} \\ \hline
+Liu et al.            & 71.2\%  & Vig al.           & 59.4\%      \\ \hline
+Ikizler-Cinbis et al. & 75.21\% & Jiang et al.      & 59.5\%      \\ \hline
+Dense trajectories    & 84.2\%  & Mathe al.         & 61.0\%      \\ \hline
+Sameera et al         &         & Jain al           & 62.5\%      \\ \hline
+                      &         & Dense             & 58.3\%      \\ \hline
+                      &         & Improved          & 64.3\%      \\ \hline \hline
+Our method            &         & Our method        &             \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table*}[]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{|l||l|l|l|l|l|}
+\hline
+Class            & Ours & KLT & Wang et al. & kizler-Cinbis & Sameera et. al. \\ \hline  \hline
+B shooting       &     &     &     &     &     \\ \hline
+Biking           &     &     &     &     &     \\ \hline
+Diving           &     &     &     &     &     \\ \hline
+G swinging       &     &     &     &     &     \\ \hline
+H riding         &     &     &     &     &     \\ \hline
+S juggling       &     &     &     &     &     \\ \hline
+Swinging         &     &     &     &     &     \\ \hline
+T swinging       &     &     &     &     &     \\ \hline
+T jumping        &     &     &     &     &     \\ \hline
+V spiking        &     &     &     &     &     \\ \hline
+W dog            &     &     &     &     &     \\ \hline \hline
+Overall Accuracy &     &     &     &     &     \\ \hline
+\end{tabular}
+\end{table*}
+
+\begin{table*}[]
+\centering
+\caption{xsfsdfsdf}
+\label{my-label}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Class            & Ours & KLT & Wang et al. & Ullah   \\ \hline \hline
+AnswerPhone       &     &     &     &         \\ 
+DriveCar           &     &     &     &      \\ 
+Eat           &     &     &     &          \\
+FightPerson         &     &     &     &          \\ 
+GetOutCar       &     &     &     &        \\ 
+HandShake        &     &     &     &          \\ 
+HugPerson       &     &     &     &          \\ 
+Kiss        &     &     &     &          \\ 
+Run        &     &     &     &          \\ 
+SitDown           &     &     &     &          \\ 
+SitUp           &     &     &     &          \\ 
+StandUp           &     &     &     &          \\ \hline
+mAP          &     &     &     &          \\ \hline
+\end{tabular}
+\end{table*}
+
+
+
+
+Per action class results, are also compared in table and table. In UCF-11, our method excells
+in 8 out of 11 classes, when compared with \cite{}, \cite{}, \cite{} and \cite{} We only fall behind in asd and asda classes. In Hollywood2,
+we calculate the average precision of each class, and compare with \cite{}, \cite{}, \cite{} and \cite{}.
+We achieve best results in 8 out of 12 classes in this case. 
+
+
+
+
+
 
 \subsection{Effectiveness of Capturing Time Evolution}
 As discussed in earliar sections, complex actions are composed of sub activities, preserving
@@ -73,3 +206,42 @@ the LSTM network. The results are shown in table
 As indicated by the results in chart, LSTM network significantly outperforms the 
 random forest classifier, for both datasets. Therefore, it can be concluded that, exploiting 
 temporal patterns of sub activities, benifits complex action classification. 
+
+
+
+\begin{tikzpicture}
+\begin{axis}[
+    title={Temperature dependence of CuSO$_4\cdot$5H$_2$O solubility},
+    xlabel={Temperature [\textcelsius]},
+    ylabel={Solubility [g per 100 g water]},
+    xmin=0, xmax=100,
+    ymin=0, ymax=120,
+    xtick={0,20,40,60,80,100},
+    ytick={0,20,40,60,80,100,120},
+    legend pos=north west,
+    ymajorgrids=true,
+    grid style=dashed,
+]
+ 
+\addplot[
+    color=blue,
+    mark=square,
+    ]
+    coordinates {
+    (0,23.1)(10,27.5)(20,32)(30,37.8)(40,44.6)(60,61.8)(80,83.8)(100,114)
+    };
+    \legend{CuSO$_4\cdot$5H$_2$O}
+    
+    \addplot[
+    color=red,
+    mark=square,
+    ]
+    coordinates {
+    (0,10)(10,15)(20,56)(30,46)(40,44.6)(60,67)(80,83.8)(100,67)
+    };
+    \legend{CuSO$_4\cdot$5H$_2$O}
+\end{axis}
+\end{tikzpicture}
+
+
+

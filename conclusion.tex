@@ -1,1 +1,25 @@
-This is the conclusion
+This paper presents an end to end system, for action classification, which operates 
+on both static and motion features. Our approach relies on deep features,
+for creating static vectors, and \textit{motion tubes} for motion features. 
+\textit{motion tubes} are a novel concept, we introduce in this paper, which can be
+used to track individual actors/objects across frames, and model micro level actions. 
+We present three novel methods: Cholesky transformation,aas,asd, for efficient combining of features, 
+from different domains, which is a vital requirement in action classification. Additionally,
+Cholesky provide the power to control the contribution of each domain, in exact numbers. 
+We utilize this ability, and run experiments to show that, optimum contribution of 
+static and motion domains, may vary, depending on the scenario. 
+
+Through our experiments, we show that, our static and motion features are complementory,
+and contribute to the final result. We also compare our three fusion algorithms, and 
+show that choleky, is superioir, although all three of them gives impressive results. 
+
+
+we also model the temporal progression of subevents, using an LSTM network. Experimental 
+results indicate that this is indeed benificary, compared to a flat temporal structure. 
+
+Comparison of our work with mutiple state-of-the-art algorithms, on the 
+two popular datasets, UCF-11 and Hollywood2, conclude the superiority of our proposed system.
+
+In the future, it is interesting to improve the motion tubes, so that, it can maintain an identity over each actor object.
+While, even at the present state, it is mostly the case, there is no mathematical guarentee for that. 
+Also explore more powerful methods to describe micro actions, inside motion tubes. 
