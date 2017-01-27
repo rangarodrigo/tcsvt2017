@@ -344,6 +344,19 @@
 \usepackage{algpseudocode}
 \usepackage{mathtools}
 \usepackage{amsmath}
+\usepackage{makecell}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{pgfplots}
+%\usepackage[pdftex,active,tightpage]{preview}
+\usepackage{textcomp}
+\usepackage{siunitx}
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns}
+\usetikzlibrary{chains}
+\usetikzlibrary{matrix}
+\usepackage{graphicx}
+
 
 
 % *** Do not adjust lengths that control margins, column widths, etc. ***
@@ -469,6 +482,7 @@ Convolutional Neural Networks (CNN), Recurrent Neural Networks (RNN), Long Short
 
 
 \section{Introduction}
+
 \import{/}{introduction}
 % The very first letter is a 2 line initial drop letter followed
 % by the rest of the first word in caps.
@@ -491,273 +505,14 @@ Convolutional Neural Networks (CNN), Recurrent Neural Networks (RNN), Long Short
 % You must have at least 2 lines in the paragraph with the drop letter
 % (should never be an issue)
 
+\section{Related work}
+\import{/}{relatedWork}
 
-\section{Method}
+\section{Method1}
 \import{/}{method1}
-\subsection{Motion Features}
-\subsubsection{Clustering}
-In order to isolate each sub area in a frame, which contains significant movement, DBScan clustering is applied on dense trajectory points.
-Our clustering algorithm is illustrated in the psudocode in figure. We use 8 and 10 as epsilon and minpoint parameters.
 
-
-
-\begin{algorithm}
-   \caption{Clustering algorithm}
-    \begin{algorithmic}[1]
-      \Function{dbScan}{$Dataset, epsilon, MinPoints$}
-        \State $Cluster = 0$
-        \For{$each$ $P$ in $Dataset$}
-	  \If{$P$ is $visited$}
-	    \State{$continue$}
-	  \EndIf
-            \State mark $P$ as $visited$
-            \State $NeighborPts = getAllPoints(P, epsilon)$
-          \If{$size(NeighborPts) < MinPoints$}
-          \State{mark $P$ as $NOISE$}
-          \Else
-          \State{$Cluster$ = next cluster}
-          \State{$addToCluster(P, NeighborPts, Cluster, epsilon, MinPoints)$}
-          \EndIf
-        \EndFor
-       \EndFunction
-       
-       \Function{addToCluster}{$P, NeighborPts, Cluster, epsilon, MinPoints$}
-	\State $add P to cluster Cluster$
-	\For{$each$ $point$ $np$ in $NeighborPts$}
-	  \If{$P$ is $not$ $visited$}
-	    \State $mark$ $np$ as $visited$
-	    \State $NeighborPts' = getAllPoints(np, epsilon)$
-	    \If {$size(NeighborPts') >= MinPoints$}
-            \State $NeighborPts = NeighborPts joined with NeighborPts'$
-            \EndIf
-	    
-	  \EndIf
-	  \If{$np$ is $not$ yet member of any cluster}
-         \State $add$ $np$ to cluster $Cluster$
-         \EndIf
-	\EndFor
-       \EndFunction
-       
-       \Function{getAllPoints}{$P, epsilon$}
-       \State $return$ all points within $P$'s $epsilon$-neighborhood (including $P$)
-       \EndFunction
-
-\end{algorithmic}
-\end{algorithm}
-
-
-Eventhough there are many regions, which contain motion, in a video, some are not significant, nor discriptive.
-Those moving regions can be neglected without loss of performance.
-In order to achieve this, after clustering each trajectory point in to cluster groups, non-significant cluster groups are removed from consideration.
-This is done, in order to
-prevent the algorithm focusing on small random moving areas in a video, and to only create motion tubes along areas, which are significant and discriptive.
-Therefore, all the clusters, which are not atleast 50\% of the largest cluster of the frame, are discarded.
-
-After identifying the initial candidate clusters, for creating motion tubes, further processing is done to each cluster to ensure that they 
-contain only the important moving areas, according to the algorithm in figure. For each point, the chebychev distance from the centroid is calculated,
-and, furthest 20\% of the points, with respect to the total number of points, are discarded from the cluster. The reason behind the choice of chebychev 
-distance, over euclidian distance, is that, a symmetric square shaped cluster groups are obtained, rather than a circle. Which makes it
-easier to track moving areas, and create motion tubes. 
-
-\begin{equation}
- D_{chebychev} = max(|X_{2} - X_{1}|,|Y_{2}-Y_{1}|)
-\end{equation}
-
-\begin{algorithm}
-   \caption{}
-    \begin{algorithmic}[1]
-     \Function{formatCluster}{$inCluster, maxChebichevDistance$}
-	\State {$maxD_{chebichev}$ = $maxChebichevDistance$}
-	\State {$totalPoints$ = $getTotalPoints(inCluster, maxD_{chebichev})$}
-	\State $currentPoints$ = $totalPoints$
-	\While{$true$}
-	  \If{$number_of_count_currentPoints<number_of_count_totalPoints*80/100$}
-	    \State return $all the points bellong to currentPoints$
-	  \EndIf
-	  \State {$maxD_{chebichev}$ = $maxD_{chebichev}$ - 1}
-	  \State {$currentPoints$ = $getTotalPoints(inCluster, maxD_{chebichev})$}
-	  
-	\EndWhile
-     \EndFunction
-
-     
-\end{algorithmic}
-\end{algorithm}
-
-After identifying square shaped interest regions (action boxes), each of them is represented with a vector $b = (x,y,r)$, where, $x,y$ are the coordinates
-of the top left corner of the box and $r$ is the hight/width of the box. 
-
-
-\subsubsection{Motion Tubes}
-Since our work models the time evolution of activities, within a video, we divide each input video $V_{i}$ into temporal segments $V_{i} = [v_{i,1},
-v_{i,2},.....v_{i,n}]$,
-and create features for each individual segment seperately. Therefore, after creating the action boxes for each video segment,
-the action boxes within a segment $V_{i}$ can be represented as per equation, 
-
-\begin{equation}
-\begin{split}
-\MoveEqLeft
- f(V_{i}) = \big\{[b_{i,1,1},b_{i,1,2},...,b_{i,1,q}],\\
- & [b_{i,2,1},b_{i,2,2},...,b_{i,2,p}],...,[b_{i,n,1},b_{i,n,2},...,b_{i,n,k}]\big\}
-\end{split}
-\end{equation}
-
-Where $b_{i,j,k}$ is the $k^{th}$ action box in $j^{th}$ frame of the $i^{th}$ video segment. Note that the number of
-action boxes diffe from frame to frame.
-
-Therfore, Before linking the action boxes to create motion tubes, further pre processing is needed to ensure same number of action
-boxes exists in every frame, within a video segment. Otherwise, motion tubes could become joined halfway though the video, and capturing
-dynamics of each moving object seperately, is disturbed. 
-
-Therefore, mean action box number per a frame
-is calculated. And we iterate through each frame, until we come to a frame, which has the mean number action boxes.
-
-Then from that frame, we propagate forward and back along the frames, to eliminate, or add action boxes.
-
-If the action box count in a particular frame, is larger than the previous frame, the excess number of action boxes are removed, 
-in the decending order of the size of the action box.
-If the case, where action box count is lower than the previous frame, linear regression for each value $x,y and r$ of vector $b = (x,y,r)$,
-up to that frame, is used to create artificial action boxes, until the number of action boxes match the mean number of action boxes, as follows.
-
-\[
-\begin{bmatrix}
-    Y_{1}     \\
-    Y_{2}     \\
-    \hdotsfor{1} \\
-    Y_{n}     
-\end{bmatrix}
-=
-\begin{bmatrix}
-    1 & X_{1}     \\
-    1 & X_{2}     \\
-    \hdotsfor{2} \\
-    1 & X_{n}     
-\end{bmatrix}
-*
-\begin{bmatrix}
-    \beta_{0}     \\
-    \beta_{1}      
-\end{bmatrix}
-+
-\begin{bmatrix}
-    \epsilon_{1}     \\
-    \epsilon_{2}    \\
-    \hdotsfor{1} \\
-    \epsilon_{n}    
-\end{bmatrix}
-\]
-
-Where, $X$ may be $x,y$ or $r$. Then least square method is used to predict. Note that $n$ increases as the observed action boxes
-increases, hence the prediction becomes more accurate. Note after this processing, equation 3 is transformed in to equation 4, 
-which illustrates that the number of action boxes per frame is equal for all the frames within a video segment. 
-
-\begin{equation}
-\begin{split}
-\MoveEqLeft
- f(V_{i}) = \big\{[b_{i,1,1},b_{i,1,2},...,b_{i,1,k}],\\
- & [b_{i,2,1},b_{i,2,2},...,b_{i,2,k}],...,[b_{i,n,1},b_{i,n,2},...,b_{i,n,k}]\big\}
-\end{split}
-\end{equation}
-
-
-The following procedure
-is used to link the action boxes within consequetive frames.
-
-Assume $b_{t,1}$, $b_{t,2}$,...,$b_{t,k}$ and $b_{t+1,1}$, $b_{t+1,2}$,...,$b_{t+1,k}$  are action boxes in two 
-consequetive frames at time $t,t+1$. Then, following distance matrix is caculated.
-
-
-\[
-D=\begin{bmatrix}
-    D_{11}       & D_{12} & D_{13} & \dots & D_{1k} \\
-    D_{21}       & D_{22} & D_{23} & \dots & D_{2k} \\
-    \hdotsfor{5} \\
-    D_{k1}       & D_{k2} & D_{k3} & \dots & D_{kk}
-\end{bmatrix}
-\]
-
-
-Where, $D_{i,j}$ is the euclidian distance, between the centroids of $i^{th}$ action box in $t^{th}$ frame and $j^{th}$ action box in $(t+1)^{th}$ frame. 
-Then, $u^{th}$ action box at $t+1$, and $1_{st}$ action box at $t$ is linked, where $u$ is calculated using,
-
-
-\begin{equation}
-u=\underset{j\in J}{argmin_j}\{D_{1,j}\}, J=\{1,2,...,l\}
-\end{equation}
-
-Then, the $1_{st}$ row and the $j_{th}$ column is removed from the distance matrix, and the same process is applied repeatedly
-to link each of the action boxes at $t$ with $t+1$. By this removal process, we avoid combining of motion tubes in half-way through 
-the video segment, and keep them isolated from each other, which is vital to capture the dynamics seperately, for each moving object.
-
-
-
-
-Finally, we create matrix $M_{i}$ which encodes all the information in equation
-
-\[
-M=\begin{bmatrix}
-    1       & 1 & x_{1,1} & y_{1,1} & r_{1,1} \\
-    1       & 2 & x_{1,2} & y_{1,2} & r_{1,2} \\
-    \hdotsfor{5} \\
-    1       & n & x_{1,n} & y_{1,n} & r_{1,n} \\
-    2       & 1 & x_{2,1} & y_{2,1} & r_{2,1} \\
-    2       & 2 & x_{2,2} & y_{2,2} & r_{2,2} \\
-    \hdotsfor{5} \\
-    2       & n & x_{2,n} & y_{2,n} & r_{2,n} \\
-    \hdotsfor{5} \\
-    z       & 1 & x_{z,1} & y_{z,1} & r_{z,1} \\
-    z       & 2 & x_{z,2} & y_{z,2} & r_{z,2} \\
-    \hdotsfor{5} \\
-    z       & n & x_{z,n} & y_{z,n} & r_{z,n} \\
-    
-\end{bmatrix}
-\]
-
-
-\subsubsection{Histogram Oriented Optic Flows - HOOF}
-After identifying the $k$ number of motion tubes (n is a variable) for each video segment $v_{i,n}$, the optic flows along each motion tube,
-, are calculated, using Lucas et.al. After that, Histogram-Oriented-Optic-Flows, for each motion tube is created. We create HOOFs for every
-sub-frame within a motion tube. Each flow vector within a spatio-temporal sub-frame within a motion tube, is binned according
-to its primary angle from the horizontal axis and weighted according to its magnitude.  Thus, all optical flow vectors, $v=[x,y]^T$ with direction,
-$\theta = tan^{-1}(\frac{x}{y})$ in the range,
-
-\begin{equation}
-- \frac{\pi}{2} + \pi\frac{b-1}{B} \leq \theta < -\frac{\pi}{2} + \pi\frac{b}{B}
-\end{equation}
-
-will contribute by $\sqrt{x^2 + y^2}$ to the sum in bin $b$, $1 \leq b \leq B$ out of a total of
-$B$, bins. Finally, the histogram is normalized to sum up to 1. We choose 100 as the bin number.
-
-\subsubsection{Bag of HOOFs}
-We use a bag of features method to create a motion discriptor for each video segment. First, we create a code book for HOOF vectors. 
-All the HOOF vectors of all the video segments in all video classes are clustered using k-means clustering, and 1000 cluster heads
-are identified. We choose the number of cluster heads as 1000, because, the dimensions final motion discriptors are needed to be same as
-static discriptors, which is explained later. Then for each video segment $v_{i}$. a histogram is calculated using 
-
-\begin{equation}
-\forall k \in \big\{1,2,......n\big\}
-\end{equation}
-
-\begin{equation}
-H(p)_{i} = H(p)_{i}+1
-\end{equation}
-
-where $H_{i}(p)$ is the $p^{th}$ value of histogram of video segment $v_{i}$, and
-
-\begin{equation}
-p = argmin_{j}(Thf_{j}-hf_{i,k})
-\end{equation}
-
-This $H = [H_{1},H_{2},.......H_{n}]$ is the vector time series, which encodes the time evolution of motion information, in the video.
-
-\subsection{Static Features}
-
-In order to create static discriptors, we create a CNN of 1000 output classes, and train it on image-net dataset. The architecture is shown in figure.
-After 30 epochs, the training is stopped and used on each individual frame of each video segement. Then, the output vectors of the CNN,
-are averaged 
-along indexes, and a static discritor $s_{i}$ is obtained foe each video segment $v_{i}$. Following the 
-procidure for every $v_{i}$, finally, we have a vector time series 
-$S =[s_{1}, s_{2},...s_{n}]$, representing the static time evolution of the whole video. 
+\section{Method2}
+\import{/}{method2}
 
 \section{Experiments and Results}
 \import{/}{results}
