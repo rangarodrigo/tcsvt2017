@@ -286,14 +286,27 @@ H_{n}(p) = H_{n}(p)+1
 where $H_{n}(p)$ is the $p^{th}$ value, $1<p<1000$, of histogram of $n^{th}$ video segment $v_{i,n}$. After calculating the histogram vector $H_{n}$, for every video segment $v_{i,n}$, 
 this $H = [H_{1},H_{2},.......H_{n}]$ is the vector time series, which encodes the time evolution of motion information, in the video.
 
+\begin{figure}
+  \centering
+  \input{figures/motion}
+  \caption{Test Figure}\label{fi:hoof}
+\end{figure}
+
+
 \subsection{Static Features}
 
-In order to create static descriptors, we create a CNN of 1000 output classes, and train it on image-net dataset. The architecture is shown in figure.
+In order to create static descriptors, we create a CNN of 1000 output classes, and train it on image-net dataset. The architecture is shown in figure \ref{fi:cnn}.
 After 30 epochs, the training is stopped and used on each individual frame of each video segment. Then, the output vectors of the CNN,
 are averaged 
 along indexes, and a static descriptor $s_{i}$ is obtained foe each video segment $v_{i}$. Following the 
 procedure for every $v_{i}$, finally, we have a vector time series 
 $S =[s_{1}, s_{2},...s_{n}]$, representing the static time evolution of the whole video. 
+
+\begin{figure*}
+  \centering
+  \includegraphics[scale=0.5]{./figures/nw.pdf} 
+  \caption{Overall methodology}\label{fi:cnn}
+\end{figure*}
 
 \subsection{Fusioning of static and motion features}
 This work strongly relies on the philosophy, that both static and motion information
@@ -478,7 +491,13 @@ Where $W$ is the connection weight between two units and $\sigma(.)$ is the sigm
 Since the LSTM network is used only for capturing the temporal dynamic patterns between sub actions, one LSTM layer is enough.
 Our LSTM network is shown in figure. As it is seen, the network consists of an input layer, a 128 unit LSTM layer with 0.8 dropout, and
 a fully connected softmax output layer. As we have a sequence of activites per one classification, we use many to one approach,
-for feeding the fusioned vectors to the network, as shown in figure. 
+for feeding the fusioned vectors to the network, as shown in figure \ref{fi:lstm}
+
+\begin{figure}
+  \centering
+  \input{figures/lstm}
+  \caption{Test Figure}\label{fi:lstm}
+\end{figure}
 
 
 
