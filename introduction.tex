@@ -1,22 +1,23 @@
+
 \IEEEPARstart{A}{u}tomatic action recognition in videos recieves research attention  
 in computer vision mostly due to its wide range of real-world applications, such as, 
 sports, health care, surveillance, robot vision, and human-computer interaction.
 Furthermore, the rapid growth of digital video data, demands automatic
 classification and indexing of videos. 
 
+
 \tikzset{
   font={\fontsize{4pt}{5}\selectfont}}
-    
+
 
 
 Despite the increased interest, state-of-the-art
 systems are still far from human performance, in contrast to the success in image classification \cite{girshick2014rich},
- \cite{krizhevsky2012imagenet}. This is
-partially due to the complex intra-class variations in videos. Some
+ \cite{krizhevsky2012imagenet}. This is partially due to the complex intra-class variations in videos. Some
 obvious causes behind this are the view point, background 
 clutter, high dimensionality of data, lack of larger datasets, and low resolution. 
 
-Despite this reasons more-or-less affecting automatic image classification, it has been quite successful, in recent years,
+Despite these reasons more-or-less affecting automatic image classification, it has been quite successful, in recent years,
 largely owing to the rise of deep learning techniques. It is worthwhile investigating,
 what is holding back video classification. In this study, mainly, three key
 areas are addressed:exploiting underlying dynamics of sub events for high-level action reognition, crafting 
@@ -98,6 +99,7 @@ a LSTM network. The LSTM network discovers the underlying temporal patterns of t
 We feed the same vectors to a classifier which does not capture temporal dynamics
 to show that modeling temporal progression of sub events, indeed contribute for a better 
 accuracy. 
+=======
 
 We carry out our experiments on the two popular action datasets, UCF-11 \cite{liu2009recognizing}
 and Hollywood2 \cite{marszalek2009actions}. Our results surpasses existing best state-of-the-art
@@ -124,6 +126,7 @@ may vary depending on the dataset, and affects the final accuracy significantly.
   \item We model the underlying 
 temporal evolution of sub events for complex action recognition using a LSTM network. We experimentally 
 prove that, capturing these dynamics, indeed benefits the final accuracy. 
+
 \item With the proposed technique, and novel techniques,
 we outperform the existing best results for the popular datasets UCF-11 \cite{liu2009recognizing}
 and Hollywood2 \cite{marszalek2009actions}.
