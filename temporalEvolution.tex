@@ -1,4 +1,4 @@
-This sub section relates to 
+This sub section relates to
 the ``LSTM network'' block in Figure \ref{fi:test}.
 
 In our work, we represent a video as $n$
@@ -8,9 +8,9 @@ is represented with a fused vector $c_{t}$. Therefore, each video can be represe
 
 Now, each vector time series could be  analyzed using traditional time series modeling techniques,
 such as Auto Regressive Moving Average [1], to obtain features or model parameters, to describe the
-vector time series. 
+vector time series.
 But the main drawback of these methods is that they model current values of a series as a function of past values
-and have finite dynamic response to time series input. Also they lack the ability to grasp the internal state 
+and have finite dynamic response to time series input. Also they lack the ability to grasp the internal state
 representations of a complex time series. RNNs maintain hidden layers with directed feedback connections, and hence,
 have an infinite dynamic response. While training, it learns internal states of a sequence
 and are usually performed better in modeling complex dynamic temporal patterns of long sequences.
@@ -18,17 +18,17 @@ and are usually performed better in modeling complex dynamic temporal patterns o
 
 However, it is not ideal to train standard RNNs to solve problems,
 which require learning of long-term temporal dependencies. This is because of the vanishing-gradient problem, which occurs
-due to the exponential decay of gradient loss of the function with respect to time. 
+due to the exponential decay of gradient loss of the function with respect to time.
 
 In practice, LSTM(Long short term memory) networks typically perform better in such cases.
 LSTM networks are a special type of RNN, which include a ``memory cell'', and as the name suggests,
-it can maintain a certain state, in memory, for longer periods of time. 
+it can maintain a certain state, in memory, for longer periods of time.
 It also has a set of control gates for controlling the removal or addition information to the cell state.
 This special architecture gives them the ability to capture longer-term dependencies. First, we revise the operation of a LSTM
 network.
 
 The most important structure of a LSTM unit is its memory cell $m_{t}$, which preserves the state. Basic structure of a LSTM
-unit is shown in figure. The memory cell is self connected, and it has three gates(multiplicative units), i.e., input gate, forget gate and 
+unit is shown in figure. The memory cell is self connected, and it has three gates(multiplicative units), i.e., input gate, forget gate and
 output gate, which are used to control, how much to store, remove or output long range contextual information of a temporal sequence.
 
 The detailed activation process of the memory cell and three gates are
@@ -54,7 +54,7 @@ Where $W$ is the connection weight between two units and $\sigma(.)$ is the sigm
 
 Since the LSTM network is used only for capturing the temporal dynamic patterns between sub actions, one LSTM layer is enough.
 Our LSTM network is shown in figure \ref{fi:layers}. The network consists of an input layer, a 128 unit LSTM layer with 0.8 dropout, and
-a fully connected softmax output layer. As we have a sequence of activites per one classification, we use many to one approach,
+a fully connected softmax output layer. As we have a sequence of activities per one classification, we use many to one approach,
 for feeding the fusioned vectors to the network, as shown in figure \ref{fi:lstm}
 
 \begin{figure}

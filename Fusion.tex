@@ -1,33 +1,33 @@
 
 This work depends on three facts:both static and motion information
 are vital for action recognition, the final accuracy depends on the ratio of contribution of each domain,
-and the optimum contribution may depend on the dataset. We derive our fusion models to address these aspects. 
+and the optimum contribution may depend on the data set. We derive our fusion models to address these aspects.
 The three mathematical models we used
 to fuse the static and motion vectors are described next. This sub section relates to the ``Fusion layer'' block in Figure \ref{fi:test}.
 
 \subsubsection{Cholesky Transformation Based Method}
 
-This derivation is based on the Cholesky transformation. An 
-abstract version of Cholesky transformation is described below. 
+This derivation is based on the Cholesky transformation. An
+abstract version of Cholesky transformation is described below.
 
 Let $P$ and $Q$ be two random variables of unknown correlation. These random variables can be
-transformed into two new random variables ($R$ and $S$) with a known correlation of $\rho$, where the 
+transformed into two new random variables ($R$ and $S$) with a known correlation of $\rho$, where the
 value of $\rho$ can be chosen at will. The transformation can be performed as follows.
 
 \begin{equation}
 \begin{bmatrix}
     Y     \\
-    Z     
+    Z
 \end{bmatrix}
 =
 \begin{bmatrix}
     1  & 0 \\
-    \rho  & \sqrt{1-\rho^2}    
+    \rho  & \sqrt{1-\rho^2}
 \end{bmatrix}
 \times
 \begin{bmatrix}
     P     \\
-    Q     
+    Q
 \end{bmatrix}
 \end{equation}
 
@@ -49,23 +49,23 @@ $Y$ and $Z$ is $\rho$.
 Based on the above properties of the Cholesky transformation, we propose the following methodology to fuse the static and
 motion vectors.
 
-Let $S$ and $M$ be static and motion vectors, respectively. Cholesky transformation can be applied to the two vectors $S$ and $M$, 
+Let $S$ and $M$ be static and motion vectors, respectively. Cholesky transformation can be applied to the two vectors $S$ and $M$,
 with the correlation value $\rho_{1}$.
 
 \begin{equation}
 \begin{bmatrix}
     Y     \\
-    Z     
+    Z
 \end{bmatrix}
 =
 \begin{bmatrix}
     1  & 0 \\
-    \rho_{1}  & \sqrt{1-\rho_{1}^2}    
+    \rho_{1}  & \sqrt{1-\rho_{1}^2}
 \end{bmatrix}
 \times
 \begin{bmatrix}
     S    \\
-    M     
+    M
 \end{bmatrix}
 \end{equation}
 
@@ -83,17 +83,17 @@ Similarly, the transformation can be applied to $M$ and $S$, with the correlatio
 \begin{equation}
 \begin{bmatrix}
     A     \\
-    B     
+    B
 \end{bmatrix}
 =
 \begin{bmatrix}
     1  & 0 \\
-    \rho_{2}  & \sqrt{1-\rho_{2}^2}    
+    \rho_{2}  & \sqrt{1-\rho_{2}^2}
 \end{bmatrix}
 \times
 \begin{bmatrix}
     M    \\
-    S     
+    S
 \end{bmatrix}
 \end{equation}
 
@@ -105,7 +105,7 @@ A = M
 B = \rho_{2} S + \sqrt{1-\rho_{2}^2}S
 \end{equation}
 
-Again, the Cholesky transformation guarantees the follwing two properties.
+Again, the Cholesky transformation guarantees the following two properties.
 
 
 \begin{enumerate}
@@ -128,10 +128,10 @@ C=Z=B
 \end{equation}
 
 where the correlation between $C$ and $S$ is $\rho_{1}$ and the correlation between $C$ and $M$ is $\rho_{1}$. Here $S$ and $M$ represent the static and the
-motion vectors whereas $C$ represents the resultant vector. This derivation 
+motion vectors whereas $C$ represents the resultant vector. This derivation
 leads us to an important intuition: by choosing the value of $\rho_{1}$, we can
 choose the degree, in which the static features and the motion features contribute,
-in deriving the resultant vector. In section 4, it is shown, how this property is used to explore, the optimal contribution of 
+in deriving the resultant vector. In section 4, it is shown, how this property is used to explore, the optimal contribution of
 static and motion domain information, for recognizing actions.
 
 \subsubsection{Variance Ratio Based Method}
@@ -186,24 +186,24 @@ resulting vectors are an uncorrelated orthogonal basis set.
 
 If there are $n$ number of features in the input vector of the PCA, the output of the
 PCA will provide a new set of $n$ features which are orthogonal and uncorrelated. Also, if
-$output=[a_{1}, a_{2}, ..., a_{n}]$, then $var(a_{1})>var(a_{2})>...var(a_{n})$. 
-Due to the properties of the PCA, the original set of n features can be 
+$output=[a_{1}, a_{2}, ..., a_{n}]$, then $var(a_{1})>var(a_{2})>...var(a_{n})$.
+Due to the properties of the PCA, the original set of n features can be
 represented precisely using the first $k(n>k)$ principal
-components of the output vector, given that the total squared reconstruction error 
+components of the output vector, given that the total squared reconstruction error
 is minimized.
 
-In other words, the essence of the original $n$ dimensional dataset is now almost
-completely represented by the new $k$ dimensional dataset, with a minor data loss. Thus, the
-dimension of the dataset is reduced from $n$ to $k$.
+In other words, the essence of the original $n$ dimensional data set is now almost
+completely represented by the new $k$ dimensional data set, with a minor data loss. Thus, the
+dimension of the data set is reduced from $n$ to $k$.
 
 
-In our work, the dimensionality of the dataset $T$ is 2 (number of feature domains:static 
+In our work, the dimensionality of the data set $T$ is 2 (number of feature domains:static
 and motion).
-Using PCA on $T$, we receive a new set $T’$, with 2 new features domains. We need only one new feature 
+Using PCA on $T$, we receive a new set $T’$, with 2 new features domains. We need only one new feature
 domain in the feature space to
-represent motion and static domains. Therefore, it is our aim to extract only the first principal component. 
+represent motion and static domains. Therefore, it is our aim to extract only the first principal component.
 In order to do this, we need to justify that the first principal component contains a significant majority of
-the essence of the original dataset, in other words, only negligible amount of data is lost by
+the essence of the original data set, in other words, only negligible amount of data is lost by
 eliminating the second principal component.
 
 Therefore, we perform PCA on over 15000 samples of motion and static
@@ -211,11 +211,11 @@ vectors and plot the variance percentage of the total variance
 explained by the first and the second principal components respectively, as in figure and figure
 
 
-It is evident from the figure that the first principal component almost always accounts 
-for over 97\% of the essence of the original dataset, except for only a neglegible amount
+It is evident from the figure that the first principal component almost always accounts
+for over 97\% of the essence of the original data set, except for only a negligible amount
 of samples. The lowest The lowest percentage registered is approximately 85\%, which is still a
 significantly high value.
 
 Therefore, by eliminating the second principal component, only less than 5\% of data
 is lost in average, and hence only the first principal component can be used to accurately
-represent the original dataset.
+represent the original data set. 
