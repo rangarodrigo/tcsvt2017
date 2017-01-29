@@ -1,0 +1,49 @@
+\documentclass{article}
+
+\usepackage[margin=1.5in,footskip=0.5in]{geometry}
+\usepackage{amsmath}
+
+\begin{document}
+
+The second method employed to combine the motion and static vectors is based on a Gaussian probability model. We model each vector as a histogram. Further, we assume the two vectors are independent to each other. Using the histogram model, the mean and variance of each vector is calculated in order to fit the two vectors into Gaussian distributions. The joint Gaussian distribution is then computed based on this data.
+
+\begin{equation}
+G_{SM}= \frac{1}{2\pi\sigma_M\sigma_S} e^{-\left[\frac{[N-\mu_S]^2}{2\sigma_S^2}+ \frac{[N-\mu_M]^2}{2\sigma_M^2} \right]}
+\end{equation}
+
+This computation corresponds to the evaluation line obtained when equating the two random variables as shown below. The combined distribution is then be obtained through this process.
+
+It must be noted that both histograms (corresponding to static and motion components) do not contain equal information. Hence varying the contribution of each histogram to the resultant distribution is necessary. This requires varying of the evaluation line which can be achieved through scaling of the motion and static axes. This scaling process is carried out by the following matrix.
+
+
+\[
+\begin{bmatrix}
+    \frac {\sigma_S}{\sigma_S + \sigma_M} & 0  \\
+    0 & \frac {\sigma_M}{\sigma_S + \sigma_M}
+\end{bmatrix}
+\]
+
+We may conclude that higher variance of a component along one axis reflects lower detail in the model with regards to the other axis. Considering the motion axis, the contribution of the static vector towards the resultant vector may be defined by $(1-\frac{\sigma_M}{\sigma_M+\sigma_S})$. A high variance always corresponds to a flatter histogram containing less detail.
+
+This parameter we derive is significant as it defines the contribution of each individual motion and static vector pair independent of explicit terms. Hence the optimum ratio for combination of motion and static components of a given data set can be mathematically evaluated. With regards to the data sets used for experimenting, 10\% of motion
+vector and 90\% of static vector constitute this parameter on average. This mathematical inference is further verified through the experiment results with report an optimum combination ratio of 20:80 on average for the same data sets.
+
+Defining new parameters $N_S$ and $N_M$ as follows, we build a new distribution which is a scaled version of the joint Gaussian distribution obtained previously.
+
+\begin{align*}
+N_S &= N \frac{\sigma_M}{\sigma_M+\sigma_S}  \\
+N_M &= N \frac{\sigma_S}{\sigma_M+\sigma_S}
+\end{align*}
+
+Dropping our initial assumption of independence between the motion and static vectors, we define the following distribution representative of the combined vector.
+
+\begin{equation}
+G_{SM}= \frac{1}{2\pi\sigma_M\sigma_S\sqrt{1-\rho^2}} e^{-\frac{1}{2(1-\rho^2)}\left[\frac{[N-\mu_S]^2}{2\sigma_S^2}+ \frac{[N-\mu_M]^2}{2\sigma_M^2} \right]}
+\end{equation}
+
+
+\end{document}
+
+
+
+
