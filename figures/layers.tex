@@ -1,4 +1,4 @@
-\begin{tikzpicture}
+\begin{tikzpicture}[x=0.5cm, y=0.5cm, every node/.append style={text=black, font=\scriptsize}]
 	\draw  (0,0) -- ++(2, 0) -- ++(0, 0.5) coordinate  (a)  node [midway, anchor=west] {Input layer} -- ++(-4, 0) coordinate  (b) -- ++(0, -0.5) -- cycle;
 	
 	
@@ -13,5 +13,5 @@
 	\draw[-latex] (d) -- (h);	
 	
 	\draw[-latex] (t) -- ++(0, 1);		
-	\draw[-latex] (e)  .. controls ++(-2,2) and ++(-2, -2) ..  (f);
+	\draw[-latex] (e)  .. controls ++(-1,1) and ++(-1, -1) ..  (f);
 \end{tikzpicture}

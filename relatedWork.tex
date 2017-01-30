@@ -2,14 +2,13 @@
 There has been not many approaches in activity recognition, which highlight the
 importance of exclusively engineering static and motion features. Most of the work
 relies on generating spatio-temporal interest regions such as action tubes \cite{gkioxari2015finding},
-tubelets \cite{jain2014action}, dense trajectory based methods \cite{van2015apt}, \cite{wang2015action},
+tubelets \cite{jain2014action}, dense trajectory based methods \cite{van2015apt, wang2015action},
 spatio-temporal extensions of spatial pyramid pooling \cite{laptev2008learning},
-or spatioi-temporal low level features  \cite{schuldt2004recognizing}, \cite{ke2005efficient}, \cite{shechtman2005space},
-\cite{wang2011action}, \cite{klaser2008spatio}, \cite{yu2010real}. Action tubes \cite{gkioxari2015finding} is quite similar to
+or spatioi-temporal low level features  \cite{schuldt2004recognizing, ke2005efficient,shechtman2005space, wang2011action, klaser2008spatio, yu2010real}. Action tubes \cite{gkioxari2015finding} is quite similar to
 our motion tubes, but our motion candidate regions are chosen based on more powerful dense trajectories \cite{wang2011action} instead of
 raw optic flows. Also, we employ a tracking mechanism of each moving area through motion tubes isolating actions
 of each actor throughout the video. Our static interest regions are independent from motion
-unlike in Gkioxari \textit{et al.}\cite{gkioxari2015finding}, where we are able to extract background scenery information using CNNS, for
+unlike in Gkioxari \textit{et al.}~\cite{gkioxari2015finding}, where we are able to extract background scenery information using CNNS, for
 action recognition.
 One of the common attributes of these methods is that motion density is the
 dominant factor for identifying candidate regions.
@@ -17,7 +16,7 @@ In contrast, in this study we treat motion and static features
 as two independent domains and eliminate dominance factor.
 
 A few attempts has recently been made on exclusive crafting and late fusion
-of motion and static features. Simonyan \textit{et al.}\cite{simonyan2014two} first decomposes a video in to
+of motion and static features. Simonyan \textit{et al.}~\cite{simonyan2014two} first decomposes a video in to
 spatial and temporal components based on RGB and optical flow frames.
 Then they apply two deep CNNs on these two components separately to extract spacial and
 temporal information. Each network operates mutually exclusively and performs action classification
@@ -29,20 +28,20 @@ generation in increasingly abstract layers. While this has provided promising re
 we argue that motion patterns can be more more superiorly extracted by hand crafted features. This is because
 temporal dynamics extend to a longer motion duration unlike spatial variations. It is not possible
 to capture and discriminate motion patterns in to classes by a system which has a smaller temporal support. There are models
-which employ 3D convolution \cite{ji20133d}, \cite{tran2015learning}, which extends the traditional CNNs into temporal domain.
-Ramasinghe \textit{et al.}\cite{7486474} applies CNNs on optic flows, and Kim \textit{et al.}\cite{kim2007human} on low level hand-crafted inputs
+which employ 3D convolution \cite{ji20133d, tran2015learning}, which extends the traditional CNNs into temporal domain.
+Ramasinghe \textit{et al.}\cite{7486474} applies CNNs on optic flows, and Kim \textit{et al.}~\cite{kim2007human} on low level hand-crafted inputs
 (spatio-temporal outer boundaries volumes), to extract motion features. However, even by generating hierarchical
 features on top of pixel level features, it is not easy to discriminate motion classes as it does not extend to a long range.
 Also, tracking and modeling actions of each actor separately in longer time durations is not possible with these
 approaches. Our motion features, on the other hand, are capable of capturing motion patterns in longer temporal durations.
 Furthermore, with the aid of \textit{motion tubes} our system tracks and models the activities of each moving area separately.
 
-Regarding video evolution, Fernando \textit{et al.}\cite{fernando2015modeling} postulate
+Regarding video evolution, Fernando \textit{et al.}~\cite{fernando2015modeling} postulate
 a function capable of ordering the frames of a video
 temporally. They learn a ranking function per video using a ranking machine and use the learned parameters as
-a video descriptor. Several other methodologies, e.g., HMM (\cite{wang2011hidden}, \cite{wu2014leveraging}),
+a video descriptor. Several other methodologies, e.g., HMM (\cite{wang2011hidden, wu2014leveraging}),
 CRF-based methods (\cite{song2013action}), also have been employed in this aspect. These methods model the video evolution in frame
-level. In contrast, attempts for temporal ordering of atomic events also has been carried out \cite{rohrbach2012script}, \cite{bhattacharya2014recognition}.
+level. In contrast, attempts for temporal ordering of atomic events also has been carried out \cite{rohrbach2012script, bhattacharya2014recognition}.
 In Rohrbach \textit{et al.}\cite{rohrbach2012script}, transition probabilities of a series of events are encoded statistically with a HMM model.
 In Bhattacharya \textit{et al.}\cite{bhattacharya2014recognition}, they identify low level actions using dense trajectories and assign concept identity
 probabilities for each action. They apply a LDS on these generated concept vectors to exploit temporal
