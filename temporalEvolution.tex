@@ -59,8 +59,8 @@ where $W$ is the connection weight between two units and $\sigma(\cdot)$ is the 
 
 Since the LSTM network is used only for capturing the temporal dynamic patterns between sub actions, one LSTM layer is enough.
 Our LSTM network is shown in figure \ref{fi:layers}. The network consists of an input layer, a 128 unit LSTM layer with 0.8 dropout, and
-a fully connected softmax output layer. As we have a sequence of activities per one classification, we use many to one approach,
-for feeding the fused vectors to the network, as shown in figure \ref{fi:lstm}
+a fully connected softmax output layer. As we have a sequence of activities per classification, we use a many to one approach
+for feeding the fused vectors to the network, as shown in figure \ref{fi:lstm}.
 
 \begin{figure}
   \centering
