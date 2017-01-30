@@ -1,10 +1,10 @@
 %& C:\Users\RANGAR~1\AppData\Roaming\TikzEdt\TikzEdt\023~1.0\TEMP_H~1
 \begin{document}
-\begin{tikzpicture}[x=0.7cm, y=0.7cm] 
+\begin{tikzpicture}[x=0.7cm, y=0.7cm, every node/.append style={text=black, font=\scriptsize}]
 	\foreach \i/\l in {1/1, 2/2, 3/3, 4/4, 6/n}
 	{
 		\node[draw=black, minimum height=20] (1\i) at (2*\i, 0) {LSTM};
-		\node[draw=black, minimum height=20, text width=30, align=center] (2\i) at (2*\i, -1.5) {$w_l$};
+		\node[draw=black, minimum height=20, align=center] (2\i) at (2*\i, -1.5) {$w_l$};
 		\node[text width=30, align=center] (3\i) at (2*\i, -3) {$c_\l$};		
 	}
 	
@@ -44,6 +44,7 @@
 \immediate\write\metadatafile{\p1,\p2}
 };
 \immediate\closeout\metadatafile
-\end{tikzpicture}
+\end{tikzpicture} 
 
 \end{document}
+end{document}
