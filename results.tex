@@ -1,182 +1,286 @@
-This section details our experimental methodology and the  video  datasets used. We evaluate our approach on the two popular datasets
-Youtube Action Dataset and the Olympic Sports dataset. On both datasets, we show that our work exceeds the current state-of-the-art
-results, by comparing with other popular techniques. Also, we vary the contribution of static and motion features, for the calculation
-of combined vector series, and explore what is optimum contribution from each domain. By this step, we also prove that both static and motion features
-are complementery, and provide vital information about the actions occuring in a video. Furthemore, we highlight the importance of considering the time evolution
-of sub activities, in order to identify a complex event, by comparing the results of RNN and other methodologies, which does not capture
-the temporal dynamics. 
+This section details our experimental methodology and the  video  data sets used. We evaluate our approach on the two popular data sets
+UCF-11 and Hollywood2. On both data sets, we show that our work exceeds the current state-of-the-art
+results. We also vary the contribution of static and motion features for the calculation
+of combined vector series and explore what is optimum contribution from each domain. We show that optimum contribution
+may vary depending on the data set. We also prove that static and motion features
+are complementary, and provide vital information about the actions occurring in a video. We compare our three fusion models and show that
+all the methods give impressive results. Furthermore, we highlight the importance of considering the time evolution
+of sub activities in order to identify complex events by comparing the results of LSTM and Random Forest Classification algorithm(which does not capture
+the temporal dynamics), when applied on our features.
 
-\subsection{Datasets}
+\subsection{Data Sets}
 \noindent
-\textbf{Holywood 2}: It consists of 12 classes of human actions distributed over 1500 video clips:
-\textit{Answer phone, drive car, eat, fight person, get out car, hand shake, 
+\textbf{Holywood 2} \cite{marszalek2009actions}: This consists of 12 classes of human actions distributed over 1500 video clips:
+\textit{answer phone, drive car, eat, fight person, get out car, hand shake,
 hug person, kiss, run, sit down, sit up, }and \textit{stand up}.
-The dataset is composed of video clips from 69 movies and provides a challenging task, in automatic action detection.
+The data set is composed of video clips from 69 movies and provides a challenging task, in automatic action detection.
 
 \noindent
-\textbf{UCF-11}: It consists over 1000
-sports and home videos from YouTube. This dataset contains 11 action classes: 
+\textbf{UCF-11} \cite{liu2009recognizing}: This consists over 1000
+sports and home videos from YouTube. This data set contains 11 action classes:
 \textit{basketball shooting, cycle, dive, golf swing, horse
 back ride, soccer juggle, swing, tennis swing, trampoline
-jump, volleyball spike}, and \textit{walk with a dog}. Each of the action 
-sets is subdivided into 25 groups sharing similar environment conditions. 
-This also is a challenging dataset with
-camera jitter, cluttered backgrounds and variable illumination. 
+jump, volleyball spike}, and \textit{walk with a dog}. Each of the action
+sets is subdivided into 25 groups sharing similar environment conditions.
+This is a challenging data set with
+camera jitter, cluttered backgrounds and variable illumination.
 
 
-\subsection{Contribution of Static and Motion domains}
+\subsection{Contribution of Static and Motion Domains}
 
-The derivation done in section 4, for fusioning the static and motion vectors,
-provides us a insightful intuition. That is, we can controll the contribution
-of motion and static domains, to the fusion vector, by varying the $\rho$ value. 
-The derivation of $\rho$ values for different contribution ratios, is illustrated in 
-\ref{tbl:rho change}
+The derivation done in Cholesky based method for fusing the static and motion vectors,
+provides us an insightful intuition: we can control the contribution
+of motion and static domains to the fusion vector by varying the $\rho$ value.
+The derivation of $\rho$ values for different contribution ratios is illustrated in
+table \ref{tbl:rho change}
+
+
+
 
 \begin{table}
-  
+\caption{Derivation of $\rho$ values for different contribution levels of static and motion domains to the fused vector}\label{ta:table1}
 \begin{center}
   \begin{tabular}{ | l | c | r | }
     \hline
     \textbf{Contribution to $Z$} & \textbf{$\rho$ value} & \textbf{Fusion vector} \\ \hline
     {\makecell{ 80\% Motion, 20\% Static \\ $\rho_{1}=4\rho_{2}$ }} & \makecell{$\frac{1}{4}\rho_{1}=\sqrt{1-\rho_{1}^2}$ \\ $\rho_{1} = \frac{4}{\sqrt{17}}$} & $Z=\frac{4}{\sqrt{17}}M + \frac{1}{\sqrt{17}}S$ \\ \hline
     {\makecell{ 60\% Motion, 40\% Static \\ $2\rho_{1}=3\rho_{2}$ }} & \makecell{$\frac{2}{3}\rho_{1}=\sqrt{1-\rho_{1}^2}$ \\ $\rho_{1} = \frac{3}{\sqrt{13}}$} & $Z=\frac{3}{\sqrt{13}}M + \frac{2}{\sqrt{13}}S$ \\ \hline
+      {\makecell{ 50\% Motion, 50\% Static \\ $\rho_{1}=\rho_{2}$ }} & \makecell{$\rho_{1}=\sqrt{1-\rho_{1}^2}$ \\ $\rho_{1} = \frac{1}{\sqrt{2}}$} & $Z=\frac{1}{\sqrt{2}}M + \frac{1}{\sqrt{2}}S$ \\ \hline
     {\makecell{ 40\% Motion, 60\% Static \\ $3\rho_{1}=2\rho_{2}$ }} & \makecell{$\frac{3}{2}\rho_{1}=\sqrt{1-\rho_{1}^2}$ \\ $\rho_{1} = \frac{2}{\sqrt{13}}$} & $Z=\frac{2}{\sqrt{13}}M + \frac{3}{\sqrt{13}}S$ \\ \hline
      {\makecell{ 60\% Motion, 40\% Static \\ $4\rho_{1}=\rho_{2}$ }} & \makecell{$4\rho_{1}=\sqrt{1-\rho_{1}^2}$ \\ $\rho_{1} = \frac{1}{\sqrt{17}}$} & $Z=\frac{1}{\sqrt{17}}M + \frac{4}{\sqrt{17}}S$ \\ \hline
       \label{tbl:rho change}
   \end{tabular}
 \end{center}
-\caption{Derivation of contribution of static and motion domains to the fusion vector}
+
 \end{table}
 
-Results, for these $\rho$ values, for UCF-11 and Hollywood2 datasets, are shown in table and table, respectively. 
-We use accuracy and mean average precision as performance matrics, for UCF-11 and 
-Hollywood2, respectively.
-
-\begin{table}[]
-\centering
-\caption{My caption}
-\label{my-label}
-\begin{tabular}{|l||l|l|l|l|l|}
-\hline
-Class            & rho & rho & rho & rho & rho \\ \hline  \hline
-B shooting       &     &     &     &     &     \\ \hline
-Biking           &     &     &     &     &     \\ \hline
-Diving           &     &     &     &     &     \\ \hline
-G swinging       &     &     &     &     &     \\ \hline
-H riding         &     &     &     &     &     \\ \hline
-S juggling       &     &     &     &     &     \\ \hline
-Swinging         &     &     &     &     &     \\ \hline
-T swinging       &     &     &     &     &     \\ \hline
-T jumping        &     &     &     &     &     \\ \hline
-V spiking        &     &     &     &     &     \\ \hline
-W dog            &     &     &     &     &     \\ \hline \hline
-Overall Accuracy &     &     &     &     &     \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[]
-\centering
-\caption{My caption}
-\label{my-label}
-\begin{tabular}{|l|l|l|l|l|l|}
-\hline
-Class            & rho & rho & rho & rho & rho \\ \hline
-AnswerPhone       &     &     &     &     &     \\ \hline
-DriveCar           &     &     &     &     &     \\ \hline
-Eat           &     &     &     &     &     \\ \hline
-FightPerson         &     &     &     &     &     \\ \hline
-GetOutCar       &     &     &     &     &     \\ \hline
-HandShake        &     &     &     &     &     \\ \hline
-HugPerson       &     &     &     &     &     \\ \hline
-Kiss        &     &     &     &     &     \\ \hline
-Run        &     &     &     &     &     \\ \hline
-SitDown           &     &     &     &     &     \\ \hline
-SitUp           &     &     &     &     &     \\ \hline
-StandUp           &     &     &     &     &     \\ \hline
-mAP          &     &     &     &     &     \\ \hline
-\end{tabular}
-\end{table}
-
-Also, an overview distribution of the overall performance, over $\rho$ values, for both datasets, is shown in table.
-We can see that, the performance change, for different contribution precentages of motion and static domain. Also, the optimum contribution may change
-depending on the nature of the data. For example, if the motion patterns are indistinguishable accross actions, static information plays 
-a critical role, for determining the action, and vise versa. This highilghts
-our hypothesis, that being able to control this contibution explcitly, is vital for an action recognition system. 
-
-
-
-
-
-
-
-
-
-\subsection{Comparison with the state-of-the-art}
-
-able 2 compares our results to state of the art. $\rho = \frac{1}{\sqrt{2}}$ is used to combine the static and motion vectors,
-since it gave the best results, for this dataset. On UCF-11, we significantly outperform 
-the state of the art \cite{} by \%. A mean average precision of \% is achieved by our system, which outperforms
-the state-of-the-art by \%. 
-
-\begin{table}[]
-\centering
-\caption{My caption}
-\label{my-label}
-\begin{tabular}{|l|l||l|l|}
-\hline
-\multicolumn{2}{|c||}{UCF-11}    & \multicolumn{2}{c|}{Hollywood2} \\ \hline
-Liu et al.            & 71.2\%  & Vig al.           & 59.4\%      \\ \hline
-Ikizler-Cinbis et al. & 75.21\% & Jiang et al.      & 59.5\%      \\ \hline
-Dense trajectories    & 84.2\%  & Mathe al.         & 61.0\%      \\ \hline
-Sameera et al         &         & Jain al           & 62.5\%      \\ \hline
-                      &         & Dense             & 58.3\%      \\ \hline
-                      &         & Improved          & 64.3\%      \\ \hline \hline
-Our method            &         & Our method        &             \\ \hline
-\end{tabular}
-\end{table}
-
-
+Results for these different contribution values for UCF-11 and Hollywood2 data sets, are shown in table \ref{tbl:rho ucf}
+ and table \ref{tbl:rho hollywood2}.
+We use accuracy and mean average precision as performance metrics, for UCF-11 and
+Hollywood2, respectively. For UCF-11, we obtain the optimum contribution ratio as 80:20 between static and motion vectors.
+For Hollywood2, it is 60:40.
 
 \begin{table*}[]
 \centering
-\caption{My caption}
-\label{my-label}
-\begin{tabular}{|l||l|l|l|l|l|}
+\caption{Per-class accuracy for different contribution of static and motion vectors for UCF-11. The vectors are fused using Cholesky method. Ratios are indicated in the
+format static:motion. Highest accuracy for UCF-11 is achieved using a
+80:20 ratio between static and motion vectors.}\label{tbl:rho ucf}
+\begin{tabular}{|l||l|l|l|l|l|l|l|}
 \hline
-Class            & Ours & KLT & Wang et al. & kizler-Cinbis & Sameera et. al. \\ \hline  \hline
-B shooting       &     &     &     &     &     \\ \hline
-Biking           &     &     &     &     &     \\ \hline
-Diving           &     &     &     &     &     \\ \hline
-G swinging       &     &     &     &     &     \\ \hline
-H riding         &     &     &     &     &     \\ \hline
-S juggling       &     &     &     &     &     \\ \hline
-Swinging         &     &     &     &     &     \\ \hline
-T swinging       &     &     &     &     &     \\ \hline
-T jumping        &     &     &     &     &     \\ \hline
-V spiking        &     &     &     &     &     \\ \hline
-W dog            &     &     &     &     &     \\ \hline \hline
-Overall Accuracy &     &     &     &     &     \\ \hline
+Class           & 100:0  & 80:20     & 60:40   & 50:50    & 40:60     & 20:80   & 0:100 \\ \hline  \hline
+B shooting      & 92.4\% & \textbf{96.3\%}   & 92.7\%  &  96.3\%  &  91.3\%   & 91.9\%  & 91.3\%  \\
+Biking          & 94.3\% &  \textbf{97.8\%}   & 95.6\%  &  95.4\%  &  95.4\%   & 92.6\%  & 89.5\%   \\
+Diving          & 90.3\% &  \textbf{95.8\%}   & 94.3\%  &  94.3\%  &  93.1\%   &  89.6\% & 86.2\%  \\
+G swinging      & 93.2\% & \textbf{96.7\%}   &  96.0\% &  95.8\%  &  93.3\%   &  92.8\% & 90.5\% \\
+H riding        & 94.0\% &  \textbf{98.0\%}   &  96.6\% &  95.6\%  &  93.1\%   &  90.2\% & 87.2\% \\
+S juggling      & 92.4\%&  \textbf{96.5\%}    & 96.0\%  &  96.0\%  &  93.7\%   &  90.2\% & 85.4\%  \\
+Swinging        & 89.3\%&  \textbf{94.3\%}    & 94.3\%  &  93.6\%  &  94.1\%   &  91.7\% & 88.2\% \\
+T swinging      & 92.3\%& \textbf{96.9\% }    &  95.7\% &  94.5\%  &  94.1\%   &  93.3\% &  90.6\% \\
+T jumping       & 93.7\%&  \textbf{97.6\%}    &  96.7\% &  94.5\%  &  94.1\%   &  93.1\% & 90.6\% \\
+V spiking       & 88.2\%&  93.4\%    &  94.2\% &  \textbf{97.2\%}  &  94.1\%   &  93.0\% & 89.3\% \\
+W dog           & 90.2\%&  \textbf{96.7\% }   &   96.2\%&  95.4\%  &  93.3\%   &  91.9\% & 87.2\% \\  \hline
+Accuracy        &   91.8\%&  \textbf{96.3\%}    &   95.3\%&  95.3\%  &  93.6\%   & 91.8\%  & 88.72\%  \\ \hline
 \end{tabular}
 \end{table*}
 
 \begin{table*}[]
 \centering
-\caption{xsfsdfsdf}
-\label{my-label}
+\caption{mAP for each class for different contribution of static and motion vectors to the fused vector for Hollywood2. ratios are indicated in the
+format static:motion. Highest mAP for Hollywood2 is achieved using a
+80:20 ratio between static and motion vectors.}\label{tbl:rho hollywood2}
+\begin{tabular}{|l||l|l|l|l|l|l|l|}
+\hline
+Class           & 100:0 & 80:20 & 60:40 & 50:50 & 40:60 & 20:80 & 0:100 \\ \hline \hline
+AnswerPhone       &     &     &     &     &   &&  \\
+DriveCar           &     &     &     &     &   &&  \\
+Eat           &     &     &     &     &    && \\
+FightPerson         &     &     &     &     &  &&   \\
+GetOutCar       &     &     &     &     &    && \\
+HandShake        &     &     &     &     &   &&  \\
+HugPerson       &     &     &     &     &   &&  \\
+Kiss        &     &     &     &     &   &&  \\
+Run        &     &     &     &     &  &&   \\
+SitDown           &     &     &     &     &  &&   \\
+SitUp           &     &     &     &     &   &&  \\
+StandUp           &     &     &     &     &   &&  \\ \hline
+mAP          &     &     &     &     &    && \\ \hline
+
+\end{tabular}
+\end{table*}
+
+An overview distribution of the overall performance over different contribution levels, from static and motion domains, for both data sets is shown in Fig. \ref{contribution chart}.
+We can see that the performance change for different contribution percentages of motion and static domain. Also, the optimum contribution may change
+depending on the nature of the data set. For example, if the motion patterns are indistinguishable across actions, static information plays
+a critical role, for determining the action, and vise versa. This highlights
+our hypothesis, that being able to control this contribution explicitly, is vital for an action recognition system.
+
+
+
+
+
+\begin{figure}
+\begin{tikzpicture}
+\begin{axis}[
+    title={},
+    xlabel={Contribution level of motion and static domains},
+    ylabel={Accuracy},
+    ymin=0, ymax=100,
+    symbolic x coords={100:0,80:20,60:40,50:50,40:60,20:80,0:100},
+    ytick={0,20,40,60,80,100,120},
+    legend pos=north west,
+    ymajorgrids=true,
+    grid style=dashed,
+    legend style={at={(0.5,-0.2)},anchor=north}
+]
+
+\addplot[
+    color=blue,
+    mark=square,
+    ]
+    coordinates {
+    (100:0,91.8)(80:20,96.3)(60:40,95.3)(50:50,95.3)(40:60,93.6)(20:80,91.8)(0:100,88.72)
+    };
+    \addlegendentry{UCF-11}
+
+    \addplot[
+    color=red,
+    mark=square,
+    ]
+    coordinates {
+    (100:0,50)(80:20,52)(60:40,55)(50:50,58)(40:60,65)(20:80,62)(0:100,58)
+    };
+    \addlegendentry{Hollywood2}
+\end{axis}
+\end{tikzpicture}
+\caption{Accuracy distribution for different contribution levels of motion and static domains.
+This figure illustrates that motion:static ratio affects the accuracy and the optimum contribution depends on the data set.}
+\label{contribution chart}
+\end{figure}
+
+
+\subsection{Mathematical Validation of Optimum Contribution}
+As it is evident from the results of table \ref{tbl:rho ucf} and table \ref{tbl:rho hollywood2}, we experimentally obtain the
+optimum contribution ratio for each data set as 80:20 and 60:40, for UCF-11 and Hollywood2, respectively. In section III, in the derivation of the variance ratio based fusion model,
+we mathematically obtained values for the optimum contribution as 70:30 and 60:40 for the same data sets. It should be noted that these values closely
+represent the experimental values, and hence, the results are further verified.
+
+\subsection{Comparison of Fusion Models}
+The per-class accuracies obtained for each fusion model is illustrated in table \ref{tbl:per-action fusionucf} and
+table \ref{tbl:per-action fusionhollywood}. Although all three methods give impressive results, Cholesky based fusion
+model is superior, and has an overall accuracy of 96.3\% for UCF-11. For Hollywood2 data set, it achieves a mean average precision
+of .
+
+
+\begin{table}[]
+\centering
+\caption{Comparison of fusion models on UCF-11 data set.}\label{tbl:per-action fusionucf}
+\begin{tabular}{|l||l|l|l|l|l|}
+\hline
+Class            & Cholesky & Variance ratio & PCA   \\ \hline  \hline
+B shooting       & 96.3\%    &  34.0\%   &  90.6\%  \\
+Biking           & 97.8\%    &  87.6\%   &  91.0\%    \\
+Diving           & 95.8\%    &  99.0\%   &  89.3\%   \\
+G swinging       & 96.7\%    &  95.0\%   &  92.3\%   \\
+H riding         & 98.0\%    &  76.0\%   &  88.6\%    \\
+S juggling       & 96.5\%    &  65.0\%   &  92.8\%    \\
+Swinging         & 94.3\%    &  86.0\%   &  88.0\%    \\
+T swinging       & 96.9\%    &  71.0\%   &  93.0\%   \\
+T jumping        & 97.6\%    &  93.0\%   &  91.0\%    \\
+V spiking        & 93.4\%    &  96.0\%   &  91.7\%   \\
+W dog            & 96.7\%    &  76.4\%   &  93.4\%   \\ \hline \hline
+Accuracy &  96.3\%   &  79.0\%   &  84.2\%  91.06\%   \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\caption{Comparison of fusion models on Hollywood2 data set}\label{tbl:per-action fusionhollywood}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
-Class            & Ours & KLT & Wang et al. & Ullah   \\ \hline \hline
-AnswerPhone       &     &     &     &         \\ 
-DriveCar           &     &     &     &      \\ 
+Class            & Ours & KLT\cite{lucas1981iterative} & Wang et al.\cite{wang2011action} & Ullah\cite{ullah2010improving}   \\ \hline \hline
+AnswerPhone       &     &     &     &         \\
+DriveCar           &     &     &     &      \\
 Eat           &     &     &     &          \\
-FightPerson         &     &     &     &          \\ 
-GetOutCar       &     &     &     &        \\ 
-HandShake        &     &     &     &          \\ 
-HugPerson       &     &     &     &          \\ 
-Kiss        &     &     &     &          \\ 
-Run        &     &     &     &          \\ 
-SitDown           &     &     &     &          \\ 
-SitUp           &     &     &     &          \\ 
+FightPerson         &     &     &     &          \\
+GetOutCar       &     &     &     &        \\
+HandShake        &     &     &     &          \\
+HugPerson       &     &     &     &          \\
+Kiss        &     &     &     &          \\
+Run        &     &     &     &          \\
+SitDown           &     &     &     &          \\
+SitUp           &     &     &     &          \\
+StandUp           &     &     &     &          \\ \hline
+mAP          &     &     &     &          \\ \hline
+\end{tabular}
+\end{table}
+
+
+\subsection{Comparison with the state-of-the-art}
+
+Table \ref{tbl:comparison} compares our results to state of the art. We use a motion:static ratio of 20:80 for UCF-11 and 60:40
+for Hollywood2 to combine the static and motion vectors,
+since these values gave the best results for the corresponding data sets. On UCF-11, we significantly outperform
+the state of the art Ramasinghe \emph{et al.}~\cite{7486474} by 3.2\%. A mean average precision of \% is achieved by our system for Hollywood2, which outperforms
+the state-of-the-art by \%.
+
+\begin{table}[]
+\centering
+\caption{Comparison of our method with state-of-the-art methods in the literature. Motion:static ratios are 20:10 and 60:40 for
+UCF-11 and Hollywood2 respectively.}\label{tbl:comparison}
+\begin{tabular}{|l|l||l|l|}
+\hline
+\multicolumn{2}{|c||}{UCF-11}    & \multicolumn{2}{c|}{Hollywood2} \\ \hline
+Liu \textit{et al.}\cite{liu2009recognizing}            & 71.2\%  & Vig \textit{et al.}\cite{vig2012space}           & 59.4\%      \\
+Ikizler-Cinbis \textit{et al.}\cite{ikizler2010object} & 75.21\% & Jiang \textit{et al.}\cite{jiang2012trajectory}      & 59.5\%      \\
+Wang \textit{et al.}\cite{wang2011action}    & 84.2\%  & Mathe \textit{et al.}\cite{mathe2012dynamic}         & 61.0\%      \\
+Sameera \textit{et al.}\cite{7486474}         & 93.1\%        & Jain \textit{et al.}\cite{jain2013better}           & 62.5\%      \\
+                      &         & Wang \textit{et al.}\cite{wang2011action}             & 58.3\%      \\
+                      &         & Wang \textit{et al.}\cite{wang2013action}          & 64.3\%      \\ \hline \hline
+Our method(Cholesky)  & 96.3\%       & Our method        &             \\ \hline
+
+\end{tabular}
+
+\end{table}
+
+
+
+\begin{table*}[]
+\centering
+\caption{Per-class accuracy comparison with state-of-the-art on UCF-11.}\label{tbl:per-action ucf}
+\begin{tabular}{|l||l|l|l|l|l|}
+\hline
+Class            & Ours(Cholesky) & KLT\cite{lucas1981iterative} & Wang et al.\cite{wang2011action} & Ikizler-Cinbis\cite{ikizler2010object} & Sameera et. al.\cite{7486474} \\ \hline  \hline
+B shooting       & 96.3\%    &  34.0\%   &  43.0\%   & 48.5\%    &   95.6\%  \\
+Biking           & 97.8\%    &  87.6\%   &  91.7\%   & 75.17\%    &  93.1\%   \\
+Diving           & 95.8\%    &  99.0\%   &  99.0\%   & 95.0\%    &   92.8\%  \\
+G swinging       & 96.7\%    &  95.0\%   &  97.0\%   & 95.0\%    &   95.0\%  \\
+H riding         & 98.0\%    &  76.0\%   &  85.0\%   & 73.0\%    &   94.3\%  \\
+S juggling       & 96.5\%    &  65.0\%   &  76.0\%   & 53.0\%    &   87.8\%  \\
+Swinging         & 94.3\%    &  86.0\%   &  88.0\%   & 66.0\%    &   92.4\%  \\
+T swinging       & 96.9\%    &  71.0\%   &  71.0\%   & 77.0\%    &   94.9\%  \\
+T jumping        & 97.6\%    &  93.0\%   &  94.0\%   & 93.0\%    &   94.0\%  \\
+V spiking        & 93.4\%    &  96.0\%   &  95.0\%   & 85.0\%    &   93.2\%  \\
+W dog            & 96.7\%    &  76.4\%   &  87.0\%   & 66.7\%    &   91.4\%  \\ \hline \hline
+Accuracy &  96.3\%   &  79.0\%   &  84.2\%   & 75.2\%    &   93.1\%  \\ \hline
+\end{tabular}
+\end{table*}
+
+\begin{table*}[]
+\centering
+\caption{Per-class mAP comparison with state-of-the-art on Hollywood2.}\label{tbl:per-action hollywood}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Class            & Ours & KLT\cite{lucas1981iterative} & Wang et al.\cite{wang2011action} & Ullah\cite{ullah2010improving}   \\ \hline \hline
+AnswerPhone       &     &     &     &         \\
+DriveCar           &     &     &     &      \\
+Eat           &     &     &     &          \\
+FightPerson         &     &     &     &          \\
+GetOutCar       &     &     &     &        \\
+HandShake        &     &     &     &          \\
+HugPerson       &     &     &     &          \\
+Kiss        &     &     &     &          \\
+Run        &     &     &     &          \\
+SitDown           &     &     &     &          \\
+SitUp           &     &     &     &          \\
 StandUp           &     &     &     &          \\ \hline
 mAP          &     &     &     &          \\ \hline
 \end{tabular}
@@ -185,10 +289,11 @@ mAP          &     &     &     &          \\ \hline
 
 
 
-Per action class results, are also compared in table and table. In UCF-11, our method excells
-in 8 out of 11 classes, when compared with \cite{}, \cite{}, \cite{} and \cite{} We only fall behind in asd and asda classes. In Hollywood2,
-we calculate the average precision of each class, and compare with \cite{}, \cite{}, \cite{} and \cite{}.
-We achieve best results in 8 out of 12 classes in this case. 
+Per-action class results, are also compared in table \ref{tbl:per-action udf} and table \ref{tbl:per-action hollywood}. In UCF-11, our method excells
+in all the classes, when compared with Lucas et al.\cite{lucas1981iterative}, Wang et al.\cite{wang2011action}, Ikizler et al.\cite{ikizler2010object}
+and Ramasinghe \emph{et al.}~\cite{7486474}. In Hollywood2,
+we calculate the average precision of each class, and compare with Lucas et al.\cite{lucas1981iterative}, Wang et al.\cite{wang2011action}, and \cite{}.
+We achieve best results in 8 out of 12 classes in this case.
 
 
 
@@ -196,52 +301,106 @@ We achieve best results in 8 out of 12 classes in this case.
 
 
 \subsection{Effectiveness of Capturing Time Evolution}
-As discussed in earliar sections, complex actions are composed of sub activities, preserving
-a temporal pattern. In this work, we try to capture those underlying patterns, by a LSTM netwok.
-It is interesting to verify, whether this stratergy has an impact on the accuracy of the 
-classification. Here, we directly feed the fused vectors to a random forest classifier, which
-does not capture sequencial dynamic patterns, and compare it with the results obtained by
-the LSTM network. The results are shown in table
-
-As indicated by the results in chart, LSTM network significantly outperforms the 
-random forest classifier, for both datasets. Therefore, it can be concluded that, exploiting 
-temporal patterns of sub activities, benifits complex action classification. 
+As discussed in earlier sections, complex actions are composed of sub activities preserving
+a temporal pattern. In this work, we try to capture those underlying patterns by a LSTM network.
+It is interesting to verify whether this strategy has an impact on the accuracy of the
+classification. Here we directly feed the fused vectors to a random forest classifier, which
+does not capture sequential dynamic patterns, and compare it with the results obtained by
+the LSTM network. The results are shown in Fig. \ref{randomucf} and Fig. \ref{randomHollywood}.
 
 
+As it is evident from the results in in Fig. \ref{randomucf} and Fig. \ref{randomHollywood}, LSTM network significantly outperforms the
+random forest classifier for both data sets. In Hollywood2, the LSTM network wins by a 12\% margin. In UCF-11, the LSTM network wins by a 12\% margin.
+Therefore, it can be concluded that, exploiting
+temporal patterns of sub activities, benefits complex action classification.
 
-\begin{tikzpicture}
-\begin{axis}[
-    title={Temperature dependence of CuSO$_4\cdot$5H$_2$O solubility},
-    xlabel={Temperature [\textcelsius]},
-    ylabel={Solubility [g per 100 g water]},
-    xmin=0, xmax=100,
-    ymin=0, ymax=120,
-    xtick={0,20,40,60,80,100},
-    ytick={0,20,40,60,80,100,120},
-    legend pos=north west,
+
+
+\pgfplotstableread[row sep=\\,col sep=&]{
+    class     & LSTM & RF  \\
+    Bshooting   & 96.3  & 90.2   \\
+    Biking       & 97.8 & 93.2    \\
+    Diving       & 95.8 & 93.2 \\
+    Gswinging   & 96.7 & 90.3  \\
+    Hriding     & 98.0  & 92.3 \\
+    Sjuggling   & 96.5  & 93.8  \\
+    Swinging     & 94.3  & 89.2  \\
+    Tswinging   & 96.9  & 91.3  \\
+    Tjumping    & 97.6  & 94.5  \\
+    Vspiking    & 93.4  & 89.6  \\
+    Wdog        & 96.7  & 91.9  \\
+    Accuracy     & 96.3  & 84.32  \\
+    }\mydata
+
+  \begin{figure}
+   \begin{tikzpicture}
+    \begin{axis}[
+            ybar,
+            bar width=.1cm,
+            width=0.5\textwidth,
+            height=.2\textwidth,
+            legend pos=north west,
     ymajorgrids=true,
     grid style=dashed,
-]
- 
-\addplot[
-    color=blue,
-    mark=square,
-    ]
-    coordinates {
-    (0,23.1)(10,27.5)(20,32)(30,37.8)(40,44.6)(60,61.8)(80,83.8)(100,114)
-    };
-    \legend{CuSO$_4\cdot$5H$_2$O}
-    
-    \addplot[
-    color=red,
-    mark=square,
-    ]
-    coordinates {
-    (0,10)(10,15)(20,56)(30,46)(40,44.6)(60,67)(80,83.8)(100,67)
-    };
-    \legend{CuSO$_4\cdot$5H$_2$O}
-\end{axis}
+    legend style={at={(0.5,-0.4)},anchor=north},
+            symbolic x coords={Bshooting,Biking,Diving,Gswinging,Hriding,Sjuggling,Swinging,Tswinging,Tjumping,Vspiking,Wdog,Accuracy},
+            x tick label style={rotate=45, anchor=north east, inner sep=0mm},
+            xtick=data,
+            ymin=0,ymax=100,
+            xlabel={Action Classes},
+            ylabel={Accuracy},
+        ]
+        \addplot table[x=class,y=LSTM]{\mydata};
+        \addplot table[x=class,y=RF]{\mydata};
+        \legend{LSTM, Random Forest}
+    \end{axis}
 \end{tikzpicture}
+\caption{Accuracy comparison between Random Forest Classifier and LSTM for UCF-11 data set. Motion:static ratio of 20:80 is used. Accuracy is significantly higher
+when the temporal dynamics of sub events are captured.}
+\label{randomucf}
+\end{figure}
 
+\pgfplotstableread[row sep=\\,col sep=&]{
+    class     & LSTM & RF  \\
+    Bshooting   & 96.3  & 90.2   \\
+    Biking       & 97.8 & 93.2    \\
+    Diving       & 95.8 & 93.2 \\
+    Gswinging   & 96.7 & 90.3  \\
+    Hriding     & 98.0  & 92.3 \\
+    Sjuggling   & 96.5  & 93.8  \\
+    Swinging     & 94.3  & 89.2  \\
+    Tswinging   & 96.9  & 91.3  \\
+    Tjumping    & 97.6  & 94.5  \\
+    Vspiking    & 93.4  & 89.6  \\
+    Wdog        & 96.7  & 91.9  \\
+    Accuracy     & 96.3  & 84.32  \\
+    }\mydata
 
+  \begin{figure}
+   \begin{tikzpicture}
+    \begin{axis}[
+            ybar,
+            bar width=.1cm,
+            width=0.5\textwidth,
+            height=.2\textwidth,
+            legend pos=north west,
+    ymajorgrids=true,
+    grid style=dashed,
+    legend style={at={(0.5,-0.4)},anchor=north},
+            symbolic x coords={Bshooting,Biking,Diving,Gswinging,Hriding,Sjuggling,Swinging,Tswinging,Tjumping,Vspiking,Wdog,Accuracy},
+            x tick label style={rotate=45, anchor=north east, inner sep=0mm},
+            xtick=data,
+            ymin=0,ymax=100,
+            xlabel={Action Classes},
+            ylabel={Accuracy},
+        ]
+        \addplot table[x=class,y=LSTM]{\mydata};
+        \addplot table[x=class,y=RF]{\mydata};
+        \legend{LSTM, Random Forest}
+    \end{axis}
+\end{tikzpicture}
+\caption{mAP comparison for Random Forest Classifier and LSTM for Hollywood2 data set. Motion:static ratio of 20:80 is used. mAP is significantly higher
+when the temporal dynamics of sub events are captured.}
+\label{randomHollywood}
+\end{figure}
 

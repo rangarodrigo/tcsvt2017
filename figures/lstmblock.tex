@@ -1,0 +1,59 @@
+\begin{tikzpicture}[x=0.5cm, y=0.5cm, every node/.append style={text=black, font=\scriptsize}]
+
+	\node [draw, circle, minimum height=18, fill=blue!20] (input) at (0,0) {$i^t$};
+	\node [draw, circle, minimum height=18, fill=blue!20] (output) at (6,0) {$o^t$};	
+	\node [draw, circle, minimum height=18, fill=red!20] (a) at (-2,-2) {};	
+	\node [draw, circle, minimum height=8] (b) at (0,-2) {};
+	\node [draw, circle, minimum height=24, fill=green!20] (c) at (2,-2) {$c^t$};	
+	\node [draw, circle, minimum height=18, fill=red!20] (d) at (4,-2) {};	
+	\node [draw, circle, minimum height=8] (e) at (6,-2) {};	
+	\node [] (h) at (8,-2) {$h^t$};	
+	\node [draw, circle, minimum height=8] (g) at (2,-3.5) {};	
+	\node [draw, circle, minimum height=18, fill=blue!20] (f) at (2,-5) {$f^t$};		
+	
+	\draw (a.south west) .. controls ( $(a) +(0.2,-0.4)$)  and  ( $(a) +(-0.2,0.4)$) .. (a.north east);
+	\draw (d.south west) .. controls ( $(d) +(0.2,-0.4)$)  and  ( $(d) +(-0.2,0.4)$) .. (d.north east);
+	\draw (b.south west) -- (b.north east) (b.north west) -- (b.south east);
+	\draw (e.south west) -- (e.north east) (e.north west) -- (e.south east);
+	\draw (g.south west) -- (g.north east) (g.north west) -- (g.south east);	
+	
+	\draw[-latex] (a) -- (b);
+	\draw[-latex] (b) -- (c);
+	\draw[-latex] (c) -- (d);
+	\draw[-latex] (d) -- (e);
+	\draw[-latex] (e) -- (h);
+	\draw[-latex] (output) -- (e);
+	\draw[-latex] (c) -- (output);
+	\draw[-latex] (c) -- (input);
+	\draw[-latex] (input) -- (b);
+	\draw[-latex] (f) -- (g);
+	
+	\draw[-latex] (c)  to[out=-150,in=-180] 	(f);
+	
+	\draw[-latex] (c.south east)   to[out=-45,in=0] 	node[midway, anchor=west] {Feedback} (g.east) ;
+	\draw[-latex] (g.west)   to[out=180,in=-135] 	(c.south west);	
+	
+	\draw[latex-] (input) -- ++(60:1.5);
+	\draw[latex-] (input) -- ++(90:1.5) node[anchor=south] {$X^t$};
+	\draw[latex-] (input) -- ++(120:1.5);
+	
+	\draw[latex-] (output) -- ++(60:1.5);
+	\draw[latex-] (output) -- ++(90:1.5) node[anchor=south] {$X^t$};
+	\draw[latex-] (output) -- ++(120:1.5);	
+	
+	
+	\draw[latex-] (a) -- ++(150:1.5);
+	\draw[latex-] (a) -- ++(180:1.5) node[anchor=east] {$X^t$};;
+	\draw[latex-] (a) -- ++(210:1.5);
+	
+	\draw[latex-] (f) -- ++(-120:1.5);
+	\draw[latex-] (f) -- ++(-90:1.5) node[anchor=north] {$X^t$};;
+	\draw[latex-] (f) -- ++(-60:1.5);
+	
+	\node at (f.east) [anchor=west] {Forget gate};
+	\node at (output.west) [anchor=east, text width=0.8cm] {Output gate};
+	\node at (input.west) [anchor=east, text width=0.6cm] {Input gate};
+	\node at (c.north) [anchor=south] {Cell};
+
+\draw  (-2.8,0.9) rectangle (7,-6);
+\end{tikzpicture}

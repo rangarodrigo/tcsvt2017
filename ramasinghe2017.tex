@@ -50,7 +50,7 @@
 
 
 
-\documentclass[journal]{IEEEtran}
+\documentclass[journal, peerreview]{IEEEtran}
 %
 % If IEEEtran.cls has not been installed into the LaTeX system files,
 % manually specify the path to it like:
@@ -356,8 +356,12 @@
 \usetikzlibrary{chains}
 \usetikzlibrary{matrix}
 \usepackage{graphicx}
+\usepackage{color,soul}
+\usepackage{balance}
 
 
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
 
 % *** Do not adjust lengths that control margins, column widths, etc. ***
 % *** Do not use packages that alter fonts (such as pslatex).         ***
@@ -400,7 +404,7 @@
 \thanks{S. Ramasinghe, J. Rajasegaran, K. Ranasinghe, R. Rodrigo, and A. Pasqual were with the Department
 of Electronic and Telecommunication Engineering, the University of Moratuwa, 10400, Sri Lanka,
  e-mail: (ranga@uom.lk).}% <-this % stops a space
-\thanks{Manuscript received January XX, 201X; revised XXXX 26, 201X.}}
+\thanks{Manuscript received January XX, 201X; revised XXXX XX, 201X.}}
 
 % note the % following the last \IEEEmembership and also \thanks -
 % these prevent an unwanted space from occurring between the last author name
@@ -421,10 +425,12 @@ of Electronic and Telecommunication Engineering, the University of Moratuwa, 104
 % space somehow managed to creep in.
 
 
-
+\ifCLASSOPTIONpeerreview
+\else
 % The paper headers
-\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}%
-{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for IEEE Journals}
+\markboth{ IEEE Transactions On Circuits And Systems for Video Technology, Vol. XX, No. XX, Month 201X}%
+{Ramasinghe \MakeLowercase{\textit{et al.}}: Static and Motion Features for Deep-Networks Based Activity Recognition in Videos}
+\fi
 % The only time the second header will appear is for the odd numbered pages
 % after the title page when using the twoside option.
 %
@@ -452,6 +458,7 @@ of Electronic and Telecommunication Engineering, the University of Moratuwa, 104
 
 % make the title area
 \maketitle
+\IEEEpeerreviewmaketitle
 
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
@@ -477,7 +484,7 @@ Convolutional Neural Networks (CNN), Recurrent Neural Networks (RNN), Long Short
 %
 % For peerreview papers, this IEEEtran command inserts a page break and
 % creates the second title. It will be ignored for other modes.
-\IEEEpeerreviewmaketitle
+
 
 
 
@@ -508,11 +515,24 @@ Convolutional Neural Networks (CNN), Recurrent Neural Networks (RNN), Long Short
 \section{Related work}
 \import{/}{relatedWork}
 
-\section{Method1}
+\section{Methodology}
 \import{/}{method1}
 
-\section{Method2}
-\import{/}{method2}
+
+\subsection{Motion Features}
+\label{ss:motion_features}
+\import{/}{motionFeatures}
+
+\subsection{Static Features}
+\import{/}{StaticFeatures}
+
+\subsection{Fusing of Static and Motion Features}
+\label{ss:fusing_static_and_motion}
+\import{/}{Fusion}
+
+\subsection{Capturing Temporal Evolution}
+\import{/}{temporalEvolution}
+
 
 \section{Experiments and Results}
 \import{/}{results}
@@ -620,7 +640,6 @@ Convolutional Neural Networks (CNN), Recurrent Neural Networks (RNN), Long Short
 
 
 \section{Conclusion}
-The conclusion goes here.
 \import{/}{conclusion}
 
 
@@ -641,23 +660,24 @@ The conclusion goes here.
 %
 
 
-\appendices
-\section{Proof of the First Zonklar Equation}
-Appendix one text goes here.
+%\appendices
+%\section{Proof of the First Zonklar Equation}
+%Appendix one text goes here.
+%
+%% you can choose not to have a title for an appendix
+%% if you want by leaving the argument blank
+%\section{}
+%Appendix two text goes here.
 
-% you can choose not to have a title for an appendix
-% if you want by leaving the argument blank
-\section{}
-Appendix two text goes here.
-
-
+\ifCLASSOPTIONpeerreview
+\else
 % use section* for acknowledgment
 \section*{Acknowledgment}
 
 
 The authors would like to thank the National Research Council of Sri Lanka for support received under the Grant NRC/XX
-CITES for computational resources. 
-
+CITES for computational resources.
+\fi
 
 % Can use something like this to put references on a page
 % by themselves when using endfloat and the captionsoff option.
@@ -683,6 +703,7 @@ CITES for computational resources.
 % The IEEEtran BibTeX style support page is at:
 % http://www.michaelshell.org/tex/ieeetran/bibtex/
 \bibliographystyle{IEEEtran}
+\balance
 % argument is your BibTeX string definitions and bibliography database(s)
 %\bibliography{IEEEabrv}
 \bibliography{IEEEabrv,./bibliography}
@@ -709,6 +730,8 @@ CITES for computational resources.
 %\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
 % or if you just want to reserve a space for a photo:
 
+\ifCLASSOPTIONpeerreview
+\else
 \begin{IEEEbiography}{Sameera Ramasinghe}
 Biography text here.
 \end{IEEEbiography}
@@ -733,7 +756,7 @@ Biography text here.
 \begin{IEEEbiography}{Ajith A. Pasqual}
 Biography text here.
 \end{IEEEbiography}
-
+\fi
 % You can push biographies down or up by placing
 % a \vfill before or after them. The appropriate
 % use of \vfill depends on what kind of text is

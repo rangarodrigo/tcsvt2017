@@ -1,20 +1,16 @@
 %\usetikzlibrary{matrix}
-\begin{tikzpicture}[x=0.5cm, y=0.4cm] [
-	cnn/.pic={
-		\draw (0,0) rectangle (0.5,0.55);
-	}
-]
+\begin{tikzpicture}[x=0.7cm, y=0.7cm, every node/.append style={text=black, font=\scriptsize}]
 
-	  \matrix (m) [matrix of nodes, 
-    column sep=5mm,
-    row sep=1cm,
+	  \matrix (m) [matrix of nodes,
+    column sep=0.2cm,
+    row sep=-0.2cm,
     nodes={draw, % General options for all nodes
-      line width=1pt,
-      anchor=center, 
+      anchor=center,
       text centered,
       %rounded corners,
-      minimum width=1.5cm, minimum height=8mm
-    }, 
+      %minimum width=1.5cm,
+      minimum height=8mm
+    },
     % Define styles for some special nodes
     right iso/.style={isosceles triangle,scale=0.5,sharp corners, anchor=center, xshift=-4mm},
     left iso/.style={right iso, rotate=180, xshift=-8mm},
@@ -26,10 +22,10 @@
   %Row 1
    &   \begin{tikzpicture} \draw (-0.1,-0.3) rectangle ++(0.5,0.5); \draw (0.6,0.6) rectangle ++(0.4, -0.4);
   \draw (0.8,0.3) rectangle ++(0.4, -0.4);
-  \draw (1.2,-0.3) rectangle ++(0.4, -0.4);  
+  \draw (1.2,-0.3) rectangle ++(0.4, -0.4);
   \draw (2, 0.3) rectangle ++(0.3, -0.8);
   \draw[-latex] (0.4, -0.05) -- ++(0.3, 0);
-  \end{tikzpicture} & Addition &  & 
+  \end{tikzpicture} & Addition &  &
   \begin{tikzpicture}
   	\draw[-latex] (0,0) -- (2.5,0);
   	\draw[-latex] (0,0) -- (0,2);  	
@@ -37,7 +33,7 @@
   	{
   		\draw[fill={\c}] (0.3*\i, 0) rectangle ++(0.3, \h);
   	}
-  \end{tikzpicture}  
+  \end{tikzpicture}
   &  &  & \\
 $v_{i,1}$ & & & & & Fusion layer&
 
@@ -48,7 +44,7 @@ $v_{i,1}$ & & & & & Fusion layer&
   	{
   		\draw[fill={\c}] (0.3*\i, 0) rectangle ++(0.3, \h);
   	}
-  \end{tikzpicture}  
+  \end{tikzpicture}
 
  \\
 %Row 3
@@ -85,7 +81,7 @@ BoW &
   	{
   		\draw[fill={\c}] (0.3*\i, 0) rectangle ++(0.3, \h);
   	}
-  \end{tikzpicture}  
+  \end{tikzpicture}
 \\
 
 $v_{i,n}$ & & & & & & & &
@@ -106,41 +102,41 @@ $v_{i,n}$ & & & & & & & &
 	
 	\draw[-latex] (t) -- ++(0, 1);		
 	\draw[-latex] (e)  .. controls ++(-2,2) and ++(-2, -2) ..  (f);
-\end{tikzpicture} 
+\end{tikzpicture}
 \\
   };
-  
-  \node at (m-1-2) [anchor=south, yshift=25] {CNN};
-  \node at (m-3-3) [anchor=south, yshift=35] {HOOF};
-    \node at (m-4-9) [anchor=south, yshift=30] {LSTM network};
-        \node at (m-1-5) [anchor=south, yshift=35] {Static vector};
-        \node at (m-3-5) [anchor=south, yshift=35] {Motion vector};        
-        \node at (m-3-2) [anchor=south, yshift=30] {Motion tubes};               
-  
+
+  \node at (m-1-2) [anchor=south, yshift=20] {CNN};
+  \node at (m-3-3) [anchor=south, yshift=20] {HOOF};
+    \node at (m-4-9) [anchor=south, yshift=20] {LSTM network};
+        \node at (m-1-5) [anchor=south, yshift=20] {Static vector};
+        \node at (m-3-5) [anchor=south, yshift=20] {Motion vector};
+        \node at (m-3-2) [anchor=south, yshift=20] {Motion tubes};
+
   \draw[-latex] (m-2-1) |- (m-1-2);
   \draw[-latex] (m-2-1) |- (m-3-2);
-  
+
     \draw[-latex] (m-1-2) -- (m-1-3);
   \draw[-latex] (m-3-2) -- (m-3-3);
-  
+
    \draw[-latex] (m-1-3) --(m-1-5);
   \draw[-latex] (m-3-3) -- (m-3-4);
     \draw[-latex] (m-3-4) --  (m-3-5);
-    
+
      \draw[-latex] (m-1-5) -| (m-2-6);
     \draw[-latex] (m-3-5) -|  (m-2-6);
-    
+
 \draw[-latex] (m-2-6) -- (m-2-7);
 
 \draw[-latex] (m-2-7) |- ($(m-4-9.west)+(0, 0.8)$);
 \draw[-latex] ($(m-4-9.west)+(-2.4, 0.4)$) -- ++(2.4, 0);
 \draw[-latex] ($(m-4-9.west)+(-2.4, 0)$) -- ++(2.4, 0);
-\node at ($(m-4-9.west)+(-2.4, -0.25)$) {$\vdots$}; 
+\node at ($(m-4-9.west)+(-2.4, -0.25)$) {$\vdots$};
 \draw[-latex] ($(m-4-9.west)+(-2.4, -0.8)$) -- ++(2.4, 0);
 
-\node at ($(m-4-1)+(0, 1)$) {$\vdots$}; 
-\node at ($(m-4-1)+(5, 0)$) {$\cdots$}; 
+\node at ($(m-4-1)+(0, 1.5)$) {$\vdots$};
+\node at ($(m-4-1)+(5, 0)$) {$\cdots$};
 
 \draw[-latex] (m-4-9) -- ++(2,0) node [anchor=west] {Classification};
-  
+
 \end{tikzpicture}
