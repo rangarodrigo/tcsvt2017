@@ -28,21 +28,21 @@ This section outlines our approach. The overall methodology is illustrated in Fi
 
 
 First, we segment a video in to smaller segments of 15 frames with a constant frame overlap
-and carry out feature construction pipeline for each of these sub segments, as shown in Fig. \ref{fi:overall}.
+and carry out feature construction pipelining for each of these sub segments, as shown in Fig. \ref{fi:overall}.
 We create features for describing both motion and static domains.
 
 For extracting motion features we create \textit{motion tubes} across frames, where we track each moving area along the frames using ``action boxes''.
 Action boxes are square regions, which contain significant motion in each frame. We choose candidate areas by first creating dense trajectories for each frame,
 and then clustering trajectory points preceded by a significant amount of pre-processing. This process is explained in sub-section \ref{ss:motion_features}.
 These action boxes create motion tubes by linking across the frames. Then, we calculate HOOF~\cite{chaudhry2009histograms} features within these motion tubes and apply a
-bag-of-features method on these them to create a descriptor for each video segment.
+bag-of-features method on these to create a descriptor for each video segment.
 
-For extracting static features, we train a deep CNN, on Imagenet. Then we apply this CNN,
+For extracting static features we train a deep CNN on Imagenet. Then we apply this CNN
 on the frames of each video segment to retrieve deep features---output vector from the final softmax layer of the CNN---from it. Then, we use these features
-to create a static descriptor for the video segment. Afterwards, we combine these features, using one of the fusion models described in sub-section \ref{ss:fusing_static_and_motion}.
+to create a static descriptor for the video segment. Afterwards, we combine these features using one of the fusion models described in sub-section \ref{ss:fusing_static_and_motion}.
 
-The system can then represent a video as a vector time series $C = [c_{t_0}, c_{t_1}, \dots, c_{t_{n-1}}]$,
-where $n$ is the number of segments. Then, we apply a LSTM network on these features, and exploit the dynamics of time evolution of the combined vector.
+The system can then represent a video as a vector time series, $C = [c_{t_0}, c_{t_1}, \dots, c_{t_{n-1}}]$,
+where $n$ is the number of segments. Then, we apply an LSTM network on these features, and exploit the dynamics of time evolution of the combined vector.
 Then, we classify the dynamics of this time series and predict actions.
 
 
