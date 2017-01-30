@@ -76,7 +76,7 @@ distance, over Euclidean distance is that a symmetric square shaped cluster grou
 easier to track moving areas and create motion tubes.
 
 \begin{equation}\label{eq:chebichev}
- D_{Chebychev} = max(|X_{2} - X_{1}|,|Y_{2}-Y_{1}|)
+ D_{Chebychev} = \max(|X_{2} - X_{1}|,|Y_{2}-Y_{1}|)
 \end{equation}
 
 \begin{algorithm*}
@@ -107,7 +107,7 @@ of the top left corner of the box, $r$ is the height or width of the box, and $f
 
 \subsubsection{Motion Tubes}
 Since our work models the time evolution of sub activities, within a video, we divide each input video $V_{i}$ into temporal segments $f(V_{i}) = [v_{i,1},
-v_{i,2}, ..., v_{i,n}]$,
+v_{i,2}, \dots, v_{i,n}]$,
 and create features for each individual segment separately. Therefore, after creating the action boxes for each video segment,
 the action boxes within a segment $v_{i,t}$ can be represented as,
 
@@ -115,8 +115,8 @@ the action boxes within a segment $v_{i,t}$ can be represented as,
 \label{eqn:action box}
 \begin{split}
 \MoveEqLeft
- g(v_{i,t}) = \big\{[b_{t,1,1},b_{t,1,2},...,b_{t,1,q}],\\
- & [b_{t,2,1},b_{t,2,2},...,b_{t,2,p}],...,[b_{t,n,1},b_{t,n,2},...,b_{t,n,k}]\big\}
+ g(v_{i,t}) = \big\{[b_{t,1,1},b_{t,1,2},\dots,b_{t,1,q}],\\
+ & [b_{t,2,1},b_{t,2,2},\dots,b_{t,2,p}],\dots,[b_{t,n,1},b_{t,n,2},\dots,b_{t,n,k}]\big\}
 \end{split}
 \end{equation}
 
@@ -177,8 +177,8 @@ which illustrates that the number of action boxes per frame is equal for all the
 \label{eqn:action box transformed}
 \begin{split}
 \MoveEqLeft
- h(g(v_{i,t})) = \big\{[b_{t,1,1},b_{i,1,2},...,b_{t,1,k}],\\
- & [b_{t,2,1},b_{t,2,2},...,b_{t,2,k}],...,[b_{t,n,1},b_{t,n,2},...,b_{t,n,k}]\big\}
+ h(g(v_{i,t})) = \big\{[b_{t,1,1},b_{i,1,2},\dots,b_{t,1,k}],\\
+ & [b_{t,2,1},b_{t,2,2},\dots,b_{t,2,k}],\dots,[b_{t,n,1},b_{t,n,2},\dots,b_{t,n,k}]\big\}
 \end{split}
 \end{equation}
 
@@ -186,7 +186,7 @@ which illustrates that the number of action boxes per frame is equal for all the
 The following procedure
 is used to link the action boxes in consecutive frames.
 
-Assume $b_{t,k,1}$,$b_{t,k,2}$,...,$b_{t,k,n}$ and $b_{t,k+1,1}$,$b_{t,k+1,2}$,...,$b_{t,k+1,n}$  are action boxes in two
+Assume $b_{t,k,1}$,$b_{t,k,2}$,\dots,$b_{t,k,n}$ and $b_{t,k+1,1}$,$b_{t,k+1,2}$,\dots,$b_{t,k+1,n}$  are action boxes in two
 consecutive frames at time $k$ and $k+1$. Then, the following distance matrix is calculated.
 
 
@@ -206,7 +206,7 @@ Then, $u^{th}$ action box at $k+1$, and $1^{st}$ action box at $k$ is linked, wh
 
 
 \begin{equation}
-u=\underset{j\in J}{argmin_j}\{D_{1,j}\}, J=\{1,2,...,l\}
+u=\underset{j\in J}{argmin_j}\{D_{1,j}\}, J=\{1,2,\dots,l\}
 \label{link eq}
 \end{equation}
 
@@ -267,10 +267,10 @@ the static descriptors, which is explained in section V. Then for each video seg
 
 we calculate,
 \begin{equation}
-p = \underset{j\in J}{argmin_{j}}(T_{j}-h_{n,k}), J=\{1,2,...,1000\}
+p = \underset{j\in J}{\mathrm{argmin}_{j}}(T_{j}-h_{n,k}), J=\{1,2,\dots,1000\}
 \end{equation}
 
-for each, $k$ in $\big\{1,2,......l\big\}$, where $h_{n,k}$ is the $k^{th}$ HOOF vector of the $n^{th}$ video segment, and $T_{j}$ is the $j^{th}$ cluster head. Then,
+for each, $k$ in $\{1,2,\dots, l\}$, where $h_{n,k}$ is the $k^{th}$ HOOF vector of the $n^{th}$ video segment, and $T_{j}$ is the $j^{th}$ cluster head. Then,
 we increment the histogram values as,
 
 \begin{equation}

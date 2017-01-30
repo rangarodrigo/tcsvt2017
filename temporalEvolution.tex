@@ -31,8 +31,15 @@ The most important structure of a LSTM unit is its memory cell $m_{t}$, which pr
 unit is shown in figure. The memory cell is self connected, and it has three gates(multiplicative units), i.e., input gate, forget gate and
 output gate, which are used to control, how much to store, remove or output long range contextual information of a temporal sequence.
 
-The detailed activation process of the memory cell and three gates are
+The detailed activation process of the memory cell and three gates, as shown in Fig. \ref{fi:lstmblock} are
 illustrated as follows:
+
+
+\begin{figure}
+  \centering
+  \input{figures/lstmblock}
+  \caption{Long short-term memory (LSTM) block cell. Source XX.}\label{fi:lstmblock}
+\end{figure}
 
 \begin{equation}
 i^{t} = \sigma (W_{xi}x^t + W_{hi}h^{t-1} + W_{mi}m^{t-1} + b_{i})
@@ -47,7 +54,7 @@ m^{t} = f^tm^{t-1} + i^ttanh(W_{xm}x^t + W_{hm}h^{t-1} + b_{m})
 o^{t} = \sigma (W_{xo}x^t + W_{ho}h^{t-1} + W_{mo}m^{t-1} + b_{o})
 \end{equation}
 \begin{equation}
-h^t = o^ttanh(m^t)
+h^t = o^t\tanh(m^t)
 \end{equation}
 
 Where $W$ is the connection weight between two units and $\sigma(.)$ is the sigmoid function.

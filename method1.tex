@@ -39,12 +39,12 @@ bag of features
 method on these features to create a descriptor for each video segment.
 
 For extracting static features, we train a deep CNN, on Imagenet, and then apply this CNN,
-on the frames of a video segment to retrieve deep features--output vector from the final softmax layer of the CNN---from it. Then, we use these features
+on the frames of a video segment to retrieve deep features---output vector from the final softmax layer of the CNN---from it. Then, we use these features
 to create a static descriptor for the video segment.
 
 Afterwards, we combine these features, using one of the fusion models described in sub section $D$.
 
-The system can then represent a video as a vector time series $C = [c_{t_0}, c_{t_1}, ...c_{t_{n-1}}]$,
+The system can then represent a video as a vector time series $C = [c_{t_0}, c_{t_1}, \dots, c_{t_{n-1}}]$,
 where $n$ is the number of segments. Then, we apply a LSTM network on these features, and exploit the dynamics of time evolution of the combined vector.
 Then, we classify the dynamics of this time series and predict actions.
 
