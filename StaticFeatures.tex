@@ -1,5 +1,5 @@
 In this sub section we discuss crafting of static features. This section relates to
-the ``CNN'' and ``Addition'' blocks in Figure \ref{fi:test}.
+the ``CNN'' and ``Addition'' blocks in Fig. \ref{fi:overall}.
 
 In order to create static descriptors, we create a CNN of 1000 output classes, and train it on Imagenet data set. The architecture is shown in figure \ref{fi:cnn}.
 After training, we apply the trained model on each individual frame of each video segment. Then we average the the output vectors of the CNN

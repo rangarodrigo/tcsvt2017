@@ -108,7 +108,7 @@ mAP          &     &     &     &     &    && \\ \hline
 \end{tabular}
 \end{table*}
 
-An overview distribution of the overall performance over different contribution levels, from static and motion domains, for both data sets is shown in Figure \ref{contribution chart}.
+An overview distribution of the overall performance over different contribution levels, from static and motion domains, for both data sets is shown in Fig. \ref{contribution chart}.
 We can see that the performance change for different contribution percentages of motion and static domain. Also, the optimum contribution may change
 depending on the nature of the data set. For example, if the motion patterns are indistinguishable across actions, static information plays
 a critical role, for determining the action, and vise versa. This highlights
@@ -306,10 +306,10 @@ a temporal pattern. In this work, we try to capture those underlying patterns by
 It is interesting to verify whether this strategy has an impact on the accuracy of the
 classification. Here we directly feed the fused vectors to a random forest classifier, which
 does not capture sequential dynamic patterns, and compare it with the results obtained by
-the LSTM network. The results are shown in Figure \ref{randomucf} and Figure \ref{randomHollywood}.
+the LSTM network. The results are shown in Fig. \ref{randomucf} and Fig. \ref{randomHollywood}.
 
 
-As it is evident from the results in in Figure \ref{randomucf} and Figure \ref{randomHollywood}, LSTM network significantly outperforms the
+As it is evident from the results in in Fig. \ref{randomucf} and Fig. \ref{randomHollywood}, LSTM network significantly outperforms the
 random forest classifier for both data sets. In Hollywood2, the LSTM network wins by a 12\% margin. In UCF-11, the LSTM network wins by a 12\% margin.
 Therefore, it can be concluded that, exploiting
 temporal patterns of sub activities, benefits complex action classification.

@@ -1,5 +1,4 @@
-This section discusses the detailed methodology of creating motion features. Subsections 1-3, 4, 5 relates to
-the ``Motion tubes'', ``HOOF'', and ``BoW'' blocks, respectively, in Figure \ref{fi:test}.
+This section discusses the detailed methodology of creating motion features, particulary, ``Motion tubes'', ``HOOF'', and ``BoW'' blocks, in Fig. \ref{fi:overall}.
 
 
 \subsubsection{Low level motion descriptor}
@@ -12,54 +11,54 @@ we choose dense trajectories as the low level descriptor for capturing raw motio
 Initially, we create dense trajectories for every frame in the video.
 Then, in order to isolate each sub area in a frame, which contains significant motion, we apply DBScan clustering on the
 calculated trajectory points.
-Algorithm~\ref{alg:Clustering algorithm}  illustrates our clustering approach. Empirically, we use 8 and 10 as $epsilon$ and $minpoint$ parameters.
+Algorithm~\ref{alg:Clustering algorithm}  illustrates our clustering approach. Empirically, we use 8 and 10 as $\epsilon$ and MinPoints parameters, respectively.
 
 
 
-\begin{algorithm*}
+\begin{algorithm}
  \caption{Clustering algorithm.}
    \label{alg:Clustering algorithm}
     \begin{algorithmic}[1]
-      \Function{dbScan}{$Dataset, epsilon, MinPoints$}
-        \State $Cluster = 0$
-        \For{$each$ $P$ in $Dataset$}
+      \Function{dbScan}{DataSet, $\epsilon$, MinPoints}
+        \State $c \leftarrow 0$ \Comment{initialize cluster no.}
+        \ForEach {$P \in$ DataSet}
 	  \If{$P$ is $visited$}
-	    \State{$continue$}
+	    \State{\textbf{continue}}
 	  \EndIf
             \State mark $P$ as $visited$
-            \State $NeighborPts = getAllPoints(P, epsilon)$
-          \If{$size(NeighborPts) < MinPoints$}
-          \State{mark $P$ as $NOISE$}
+            \State NeighborPts = getAllPoints($P$, $\epsilon$)
+          \If{size(NeighborPts) $<$ MinPoints}
+          \State{mark $P$ as noise}
           \Else
-          \State{$Cluster$ = next cluster}
-          \State{$addToCluster(P, NeighborPts, Cluster, epsilon, MinPoints)$}
+          \State{$c$ = next cluster}
+          \State{\textsc{addToCluster}($P$, NeighborPts, $c$, $\epsilon$, MinPoints)}
           \EndIf
         \EndFor
        \EndFunction
 
-       \Function{addToCluster}{$P, NeighborPts, Cluster, epsilon, MinPoints$}
-	\State $add P to cluster Cluster$
-	\For{$each$ $point$ $np$ in $NeighborPts$}
-	  \If{$P$ is $not$ $visited$}
-	    \State $mark$ $np$ as $visited$
-	    \State $NeighborPts' = getAllPoints(np, epsilon)$
-	    \If {$size(NeighborPts') >= MinPoints$}
-            \State $NeighborPts = NeighborPts joined with NeighborPts'$
+       \Function{addToCluster}{$P$, NeighborPts, c, $\epsilon$, MinPoints}
+	\State add $P$ to cluster $c$
+	\ForEach  {point $np \in$ NeighborPts}
+	  \If{$P$ is not $visited$}
+	    \State mark $np$ as $visited$
+	    \State NeighborPts' = \textsc{getAllPoints}($np$, $\epsilon$)
+	    \If {size(NeighborPts) $\geq$ MinPoints}
+            \State NeighborPts' $\leftarrow$ NeighborPts joined with NeighborPts'
             \EndIf
 	
 	  \EndIf
-	  \If{$np$ is $not$ yet member of any cluster}
-         \State $add$ $np$ to cluster $Cluster$
+	  \If{$np$ is not yet member of any cluster}
+         \State add $np$ to cluster $c$
          \EndIf
 	\EndFor
        \EndFunction
 
-       \Function{getAllPoints}{$P, epsilon$}
-       \State $return$ all points within $P$'s $epsilon$-neighborhood (including $P$)
+       \Function{getAllPoints}{$P$, $\epsilon$}
+       \Return all points within $P$'s $\epsilon$-neighborhood (including $P$)
        \EndFunction
 \end{algorithmic}
 
-\end{algorithm*}
+\end{algorithm}
 
 
 Even though there are many regions which contain motion in a video, some are neither significant nor descriptive.
@@ -255,7 +254,7 @@ $\theta = \tan^{-1}(\frac{x}{y})$ in the range,
 \end{equation}
 
 will contribute a weight of $\sqrt{x^2 + y^2}$ to the sum in bin $b$, $1 \leq b \leq B$ out of a total of
-$B$ bins. Finally, the histogram is normalized. We choose 100 number of bins. Example HOOF creation for 6 bins is illustrated in Figure \ref{fi:hoof}.
+$B$ bins. Finally, the histogram is normalized. We choose 100 number of bins. Example HOOF creation for 6 bins is illustrated in Fig. \ref{fi:hoof}.
 
 \subsubsection{Bag of HOOFs}
 We use a bag of features method to create a motion descriptor for each video segment. First, we create a code book for HOOF vectors.

@@ -1,5 +1,5 @@
 This sub section relates to
-the ``LSTM network'' block in Figure \ref{fi:test}.
+the ``LSTM network'' block in Fig. \ref{fi:overall}.
 
 In our work, we represent a video as $n$
 fixed-length segments ($n$ differ for videos of different lengths),  with overlapping frames.  Each segment
@@ -20,7 +20,7 @@ However, it is not ideal to train standard RNNs to solve problems,
 which require learning of long-term temporal dependencies. This is because of the vanishing-gradient problem, which occurs
 due to the exponential decay of gradient loss of the function with respect to time.
 
-In practice, LSTM(Long short term memory) networks typically perform better in such cases.
+In practice, LSTM networks typically perform better in such cases.
 LSTM networks are a special type of RNN, which include a ``memory cell'', and as the name suggests,
 it can maintain a certain state, in memory, for longer periods of time.
 It also has a set of control gates for controlling the removal or addition information to the cell state.

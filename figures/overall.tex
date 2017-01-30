@@ -1,9 +1,9 @@
 %\usetikzlibrary{matrix}
-\begin{tikzpicture}[x=0.6cm, y=0.6cm, every node/.append style={text=black, font=\scriptsize}]
+\begin{tikzpicture}[x=0.8cm, y=0.6cm, every node/.append style={text=black, font=\scriptsize}]
 
 	  \matrix (m) [matrix of nodes,
     column sep=0.2cm,
-    row sep=0.2cm,
+    row sep=-0.2cm,
     nodes={draw, % General options for all nodes
       anchor=center,
       text centered,
@@ -134,7 +134,7 @@ $v_{i,n}$ & & & & & & & &
 \node at ($(m-4-9.west)+(-2.4, -0.25)$) {$\vdots$};
 \draw[-latex] ($(m-4-9.west)+(-2.4, -0.8)$) -- ++(2.4, 0);
 
-\node at ($(m-4-1)+(0, 1)$) {$\vdots$};
+\node at ($(m-4-1)+(0, 1.5)$) {$\vdots$};
 \node at ($(m-4-1)+(5, 0)$) {$\cdots$};
 
 \draw[-latex] (m-4-9) -- ++(2,0) node [anchor=west] {Classification};
