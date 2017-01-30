@@ -7,7 +7,7 @@ is represented with a fused vector $c_{t}$. Therefore, each video can be represe
 
 
 Now, each vector time series could be  analyzed using traditional time series modeling techniques,
-such as Auto Regressive Moving Average [1], to obtain features or model parameters, to describe the
+such as Auto Regressive Moving Average, to obtain features or model parameters, to describe the
 vector time series.
 But the main drawback of these methods is that they model current values of a series as a function of past values
 and have finite dynamic response to time series input. Also they lack the ability to grasp the internal state
@@ -27,7 +27,7 @@ It also has a set of control gates for controlling the removal or addition infor
 This special architecture gives them the ability to capture longer-term dependencies. First, we revise the operation of a LSTM
 network.
 
-The most important structure of a LSTM unit is its memory cell $m_{t}$, which preserves the state. Basic structure of a LSTM
+The most important structure of a LSTM unit is its memory cell $c_{t}$, which preserves the state. Basic structure of a LSTM
 unit is shown in figure. The memory cell is self connected, and it has three gates(multiplicative units), i.e., input gate, forget gate and
 output gate, which are used to control, how much to store, remove or output long range contextual information of a temporal sequence.
 
@@ -42,22 +42,22 @@ illustrated as follows:
 \end{figure}
 
 \begin{equation}
-i^{t} = \sigma (W_{xi}x^t + W_{hi}h^{t-1} + W_{mi}m^{t-1} + b_{i})
+i^{t} = \sigma (W_{xi}x^t + W_{hi}h^{t-1} + W_{ci}c^{t-1} + b_{i})
 \end{equation}
 \begin{equation}
-f^{t} = \sigma (W_{xf}x^t + W_{hf}h^{t-1} + W_{mf}m^{t-1} + b_{f})
+f^{t} = \sigma (W_{xf}x^t + W_{hf}h^{t-1} + W_{cf}c^{t-1} + b_{f})
 \end{equation}
 \begin{equation}
-m^{t} = f^tm^{t-1} + i^ttanh(W_{xm}x^t + W_{hm}h^{t-1} + b_{m})
+c^{t} = f^tc^{t-1} + i^ttanh(W_{xc}x^t + W_{hc}h^{t-1} + b_{c})
 \end{equation}
 \begin{equation}
-o^{t} = \sigma (W_{xo}x^t + W_{ho}h^{t-1} + W_{mo}m^{t-1} + b_{o})
+o^{t} = \sigma (W_{xo}x^t + W_{ho}h^{t-1} + W_{co}c^{t-1} + b_{o})
 \end{equation}
 \begin{equation}
-h^t = o^t\tanh(m^t)
+h^t = o^t\tanh(c^t)
 \end{equation}
 
-Where $W$ is the connection weight between two units and $\sigma(.)$ is the sigmoid function.
+Where $W$ is the connection weight between two units and $\sigma(\cdot)$ is the sigmoid function.
 
 Since the LSTM network is used only for capturing the temporal dynamic patterns between sub actions, one LSTM layer is enough.
 Our LSTM network is shown in figure \ref{fi:layers}. The network consists of an input layer, a 128 unit LSTM layer with 0.8 dropout, and

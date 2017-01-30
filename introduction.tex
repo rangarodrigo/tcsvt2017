@@ -1,7 +1,7 @@
 \tikzset{ font={\fontsize{4pt}{5}\selectfont}}
   
 \IEEEPARstart{A}{utomatic} activity recognition in videos receives research attention
-in computer vision mostly due to its wide range of real-world applications, such as,
+in computer vision mostly due to its wide range of real-world applications in
 sports, health care, surveillance, robot vision, and human-computer interaction.
 Furthermore, the rapid growth of digital video data demands automatic
 classification and indexing of videos. Despite the increased interest, state-of-the-art
@@ -10,7 +10,8 @@ obvious causes behind this are the view point, background
 clutter, high dimensionality of data, lack of larger data sets, and low resolution.
 
 Despite these reasons more-or-less affecting automatic image classification, it has been quite successful in recent years,
-largely owing to the rise of deep learning techniques. It is worthwhile investigating
+largely owing to the rise of deep learning techniques. This is not the case in video classification, although deep learning is 
+starting to be widely applied. Therefore, it is worthwhile investigating
 what is holding back video classification. In this study, we address three key
 areas: exploiting the underlying dynamics of sub-events for high-level action recognition, crafting
 self explanatory, independent static and motion features---in which, motion features should capture micro-level actions
@@ -93,7 +94,7 @@ The key contributions of this paper are as follows:
   \item We propose an end-to-end system, which  extracts both static and motion information, fuses, and models the
 temporal evolution of sub-events, and does action classification.
   \item We propose a novel, moving actor and object tracking mechanism, called \textit{motion tubes},
-which enables the system to track each actor or object independently, and model the motion patterns individually.
+which enables the system to track each actor or object independently, and model the motion patterns individually over a long time period.
 This allows the system to model actions occurring in a video in micro level, and use these learned dynamics
 at a high level afterwards.
  \item We propose three novel, simple, and an efficient mathematical models for fusing two vectors,
