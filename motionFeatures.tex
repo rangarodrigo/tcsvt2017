@@ -78,16 +78,16 @@ Eq. \ref{eq:chebichev}. We discard the furthest 20\% of the points from the clus
    \caption{Boundary noise removal algorithm of clusters.}
    \label{alg:boundary removal}
     \begin{algorithmic}[1]
-     \Function{formatCluster}{$inCluster, maxChebichevDistance$}
-	\State {$maxD_{chebichev}$ = $maxChebichevDistance$}
-	\State {$totalPoints$ = $getTotalPoints(inCluster, maxD_{chebichev})$}
-	\State $currentPoints$ = $totalPoints$
+     \Function{formatCluster}{inCluster, maxChebichevDistance}
+	\State {$M_{d}$ = maxChebichevDistance}
+	\State {totalPoints = \textsc{getTotalPoints}(inCluster, $M_{d}$)}
+	\State {currentPoints $=$ totalPoints}
 	\While{$true$}
-	  \If{$number_of_count_currentPoints<number_of_count_totalPoints*80/100$}
-	    \State return $all the points bellong to currentPoints$
+	  \If{\textsc{count}(currentPoints) $<$ \textsc{count}(totalPoints) $\times80/100$}
+	    \State {$return$ all the points bellong to currentPoints}
 	  \EndIf
-	  \State {$maxD_{chebichev}$ = $maxD_{chebichev}$ - 1}
-	  \State {$currentPoints$ = $getTotalPoints(inCluster, maxD_{chebichev})$}
+	  \State {$M_{d}= M_{d} - 1$}
+	  \State {currentPoints $=$ \textsc{getTotalPoints}(inCluster, $M_{d}$)}
 	
 	\EndWhile
      \EndFunction
