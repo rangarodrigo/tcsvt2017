@@ -16,25 +16,28 @@ Algorithm~\ref{alg:Clustering algorithm}  illustrates our clustering approach. E
 
 
 \begin{algorithm}
- \caption{Clustering algorithm.}
+ \caption{DBScan Clustering algorithm.}
    \label{alg:Clustering algorithm}
     \begin{algorithmic}[1]
-      \Function{dbScan}{DataSet, $\epsilon$, MinPoints}
+    \Require  $\mathcal{D}$ \Comment{Data set of sub-areas in frame}
+    \Require $M$ \Comment{minimum no. of points}
+    \Require $\epsilon$ \Comment{$\epsilon$  parameter}
+      %\Function{dbScan}{DataSet, $\epsilon$, MinPoints}
         \State $c \leftarrow 0$ \Comment{initialize cluster no.}
-        \ForEach {$P \in$ DataSet}
+        \ForEach {$P \in$ $\mathcal{D}$}
 	  \If{$P$ is $visited$}
 	    \State{\textbf{continue}}
 	  \EndIf
             \State mark $P$ as $visited$
-            \State NeighborPts = getAllPoints($P$, $\epsilon$)
-          \If{size(NeighborPts) $<$ MinPoints}
+            \State NeighborPts = \textsc{getAllPoints}($P$, $\epsilon$)
+          \If{size(NeighborPts) $< M$}
           \State{mark $P$ as noise}
           \Else
           \State{$c$ = next cluster}
-          \State{\textsc{addToCluster}($P$, NeighborPts, $c$, $\epsilon$, MinPoints)}
+          \State{\textsc{addToCluster}($P$, NeighborPts, $c$, $\epsilon$, $M$)}
           \EndIf
         \EndFor
-       \EndFunction
+       %\EndFunction
 
        \Function{addToCluster}{$P$, NeighborPts, c, $\epsilon$, MinPoints}
 	\State add $P$ to cluster $c$
