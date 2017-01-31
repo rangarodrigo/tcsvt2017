@@ -91,19 +91,19 @@ format static:motion. Highest mAP for Hollywood2 is achieved using a
 \begin{tabular}{|l||l|l|l|l|l|l|l|}
 \hline
 Class           & 100:0 & 80:20 & 60:40 & 50:50 & 40:60 & 20:80 & 0:100 \\ \hline \hline
-AnswerPhone       &     &     &     &     &   &&  \\
-DriveCar           &     &     &     &     &   &&  \\
-Eat           &     &     &     &     &    && \\
-FightPerson         &     &     &     &     &  &&   \\
-GetOutCar       &     &     &     &     &    && \\
-HandShake        &     &     &     &     &   &&  \\
-HugPerson       &     &     &     &     &   &&  \\
-Kiss        &     &     &     &     &   &&  \\
-Run        &     &     &     &     &  &&   \\
-SitDown           &     &     &     &     &  &&   \\
-SitUp           &     &     &     &     &   &&  \\
-StandUp           &     &     &     &     &   &&  \\ \hline
-mAP          &     &     &     &     &    && \\ \hline
+AnswerPhone     & 52.3\%& \textbf{76.6\%}& 49.6\%& 42.4\%& 38.2\%& 36.6\%& 28.2\%        \\
+DriveCar        & 54.6\%& \textbf{98.1\%}& 49.2\%& 42.5\%& 39.1\%& 37.7\%& 26.4\%            \\
+Eat             & 50.0\%& \textbf{62.1\%}& 55.6\%& 53.2\%& 53.2\%& 50.1\%& 40.0\%           \\
+FightPerson     & 72.2\%& \textbf{94.3\%}& 80.2\%& 72.8\%& 66.6\%& 57.4\%& 42.2\%  \\
+GetOutCar       & 56.9\%& \textbf{77.4\%}& 56.2\%& 50.2\%& 47.3\%& 40.2\%& 35.5\%\\
+HandShake       & 42.2\%& 78.9\%& \textbf{80.2\%}& 72.7\%& 64.4\%& 50.3\%& 42.7\% \\
+HugPerson       & 49.9\%& \textbf{77.1\%}& 64.3\%& 62.6\%& 57.2\%& 50.9\%& 40.6\% \\
+Kiss            & 49.9\%& 85.3\%& \textbf{86.4\%}& 70.2\%& 68.7\%& 60.8\%& 45.5\% \\
+Run             & 60.2\%& 78.2\%& \textbf{94.8\%}& 88.2\%& 82.3\%& 72.2\%& 64.5\%  \\
+SitDown         & 80.2\%& 86.2\%& \textbf{91.6\%}& 80.4\%& 76.9\%& 67.3\%& 56.9\%  \\
+SitUp           & 58.7\%& 75.0\%& \textbf{78.2\%}& 70.2\%& 67.4\%& 51.8\%& 47.2\% \\
+StandUp         & 55.5\%& 81.2\%& \textbf{97.4\%}& 73.6\%& 62.1\%& 48.3\%& 32.3\% \\ \hline
+mAP             &       &       &       &       &       &       & \\ \hline
 
 \end{tabular}
 \end{table*}
@@ -115,7 +115,21 @@ a critical role, for determining the action, and vise versa. This highlights
 our hypothesis, that being able to control this contribution explicitly, is vital for an action recognition system.
 
 
-
+\pgfplotstableread[row sep=\\,col sep=&]{
+    class     &   & RF  \\
+    Bshooting   & 96.3  & 90.2   \\
+    Biking       & 97.8 & 93.2    \\
+    Diving       & 95.8 & 93.2 \\
+    Gswinging   & 96.7 & 90.3  \\
+    Hriding     & 98.0  & 92.3 \\
+    Sjuggling   & 96.5  & 93.8  \\
+    Swinging     & 94.3  & 89.2  \\
+    Tswinging   & 96.9  & 91.3  \\
+    Tjumping    & 97.6  & 94.5  \\
+    Vspiking    & 93.4  & 89.6  \\
+    Wdog        & 96.7  & 91.9  \\
+    Accuracy     & 96.3  & 84.32  \\
+    }\mydata
 
 
 \begin{figure}
@@ -194,23 +208,24 @@ Accuracy &  96.3\%   &  90.5\%   &   91.06\%   \\ \hline
 \end{table}
 
 \begin{table}[]
+\centering
 \caption{Comparison of fusion models on Hollywood2 data set}\label{tbl:per-action fusionhollywood}
-\begin{tabular}{|l|l|l|l|l|l|}
+\begin{tabular}{|l||l|l|l|l|l|}
 \hline
-Class            & Ours & KLT\cite{lucas1981iterative} & Wang et al.\cite{wang2011action} & Ullah\cite{ullah2010improving}   \\ \hline \hline
-AnswerPhone       &     &     &     &         \\
-DriveCar           &     &     &     &      \\
-Eat           &     &     &     &          \\
-FightPerson         &     &     &     &          \\
-GetOutCar       &     &     &     &        \\
-HandShake        &     &     &     &          \\
-HugPerson       &     &     &     &          \\
-Kiss        &     &     &     &          \\
-Run        &     &     &     &          \\
-SitDown           &     &     &     &          \\
-SitUp           &     &     &     &          \\
-StandUp           &     &     &     &          \\ \hline
-mAP          &     &     &     &          \\ \hline
+Class            & Cholesky & Variance ratio & PCA   \\ \hline  \hline
+AnswerPhone      & \textbf{76.6\%}& 62.4\%    & 67.6\%           \\
+DriveCar         & \textbf{98.1\%}& 72.8\%    & 70.0\%       \\
+Eat              & \textbf{62.1\%}& 49.4\%    & 56.5\%          \\
+FightPerson      & \textbf{94.3\%}& 78.2\%    & 72.6\%         \\
+GetOutCar        & \textbf{77.4\%}& 46.9\%    & 56.7\%          \\
+HandShake        & \textbf{78.9\%}         & 56.9\%    & 55.6\%            \\
+HugPerson        & \textbf{77.1\%}& 52.4.6\%    & 60.6\%            \\
+Kiss             &\textbf{85.3\%}         & 64.0\%    & 66.6\%           \\
+Run              & \textbf{78.2\%}         & 58.3\%    & 54.3\%            \\
+SitDown          & \textbf{86.2\%}         & 72.0\%    & 68.6\%            \\
+SitUp            & \textbf{75.0\%}         & 50.0\%    & 54.7\%          \\
+StandUp          & \textbf{81.2\%}         & 54.4\%    & 50.0\%          \\ \hline
+mAP              &                &           &                    \\ \hline
 \end{tabular}
 \end{table}
 
@@ -270,20 +285,20 @@ Accuracy &  \textbf{96.3\%}   &  79.0\%   &  84.2\%   & 75.2\%    &   93.1\%  \\
 \caption{Per-class mAP comparison with state-of-the-art on Hollywood2.}\label{tbl:per-action hollywood}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
-Class            & Ours & KLT\cite{lucas1981iterative} & Wang et al.\cite{wang2011action} & Ullah\cite{ullah2010improving}   \\ \hline \hline
-AnswerPhone       &     &     &     &         \\
-DriveCar           &     &     &     &      \\
-Eat           &     &     &     &          \\
-FightPerson         &     &     &     &          \\
-GetOutCar       &     &     &     &        \\
-HandShake        &     &     &     &          \\
-HugPerson       &     &     &     &          \\
-Kiss        &     &     &     &          \\
-Run        &     &     &     &          \\
-SitDown           &     &     &     &          \\
-SitUp           &     &     &     &          \\
-StandUp           &     &     &     &          \\ \hline
-mAP          &     &     &     &          \\ \hline
+Class            & Ours           & KLT\cite{lucas1981iterative} & Wang et al.\cite{wang2011action} & Ullah\cite{ullah2010improving}   \\ \hline \hline
+AnswerPhone      & \textbf{76.6\%}& 18.3\%    & 32.6\%    & 25.9\%        \\
+DriveCar         & \textbf{98.1\%}& 88.8\%    & 88.0\%    & 85.9\%     \\
+Eat              & \textbf{62.1\%}& 73.4\%    & 65.2\%    & 56.4\%         \\
+FightPerson      & \textbf{94.3\%}& 74.2\%    & 81.4\%    & 74.9\%         \\
+GetOutCar        & \textbf{77.4\%}& 47.9\%    & 52.7\%    & 44.0\%       \\
+HandShake        & 78.9\%         & 18.4\%    & 29.6\%    & 29.7\%         \\
+HugPerson        & \textbf{77.1\%}& 42.6\%    & 54.2\%    & 46.1\%         \\
+Kiss             & 85.3\%         & 65.0\%    & 65.8\%    & 55.0\%         \\
+Run              & 78.2\%         & 76.3\%    & 82.1\%    & 69.4\%         \\
+SitDown          & 86.2\%         & 59.0\%    & 62.5\%    & 58.9\%         \\
+SitUp            & 75.0\%         & 27.7\%    & 20.0\%    & 18.4\%         \\
+StandUp          & 81.2\%         & 63.4\%    & 65.2\%    & 57.4\%         \\ \hline
+mAP              &                &           &           &          \\ \hline
 \end{tabular}
 \end{table*}
 
