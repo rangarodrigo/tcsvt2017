@@ -1,6 +1,6 @@
 \tikzset{ font={\fontsize{4pt}{5}\selectfont}}
 
-\IEEEPARstart{A}{utomatic} activity recognition in video 
+\IEEEPARstart{A}{utomatic} activity recognition in video
 an intensely researched area in computer vision due to its wide range of real-world applications in
 sports, health care, surveillance, robot vision, and human-computer interaction.
 Furthermore, the rapid growth of digital video data demands automatic
@@ -51,7 +51,7 @@ provide cues regarding an action in a video, the contribution ratio from each do
 and optimum contribution ratio of static and motion information may depend on the data set.
 The combined descriptor should contain the essence of both domains, and should not have a
 negative influence on each other. Recently, there has been attempts to answer this question \cite{7486474},\cite{simonyan2014two}. However,
-these existing methodologies lack the insight in to how much this ratio affects the final accuracy, and has no control over this ratio. 
+these existing methodologies lack the insight in to how much this ratio affects the final accuracy, and has no control over this ratio.
 One major requirement of the fusion method is to have a high-level intuitive interpretation on how much contribution each domain provides to the
 final descriptor, and have the ability to control level of contribution. This ability makes it possible
 to deeply investigate the optimum contribution of each domain for a better accuracy. In this study, we investigate this factor
@@ -64,11 +64,11 @@ descriptors to represent each segment. We propose \textit{motion tubes},
 a dense trajectory \cite{wang2011action} based tracking mechanism, to identify and track candidate moving areas
 separately. This enables independent modeling of the activities in each moving area.
 In order to capture motion patterns, we use histogram oriented optic flows (HOOF) \cite{chaudhry2009histograms}
-inside motion tubes. Then we apply a bag-of-words method on the generated
+inside motion tubes. Then we apply a bag-of-words (BoW) method on the generated
 features to capture the distributional properties of micro actions, such as body movements, and create high level, discriminative motion features.
 
 Inspired by the power  of object recognition of convolutional neural networks (CNNs), we create a seven-layer deep
-CNN, and pre-train it on the popular Imagenet data set \cite{deng2012imagenet}.
+CNN, and pre-train it on the popular ImageNet data set \cite{deng2012imagenet}.
 Afterwards, we use this trained CNN to create deep features, to synthesize static descriptors.
 Then, using a computationally efficient, yet powerful, mathematical model, we fuse static and motion feature vectors. We propose three such novel methods in this paper: based on
 Cholesky decomposition, variance ratio of motion and static vectors, and principal components analysis (PCA). The Choleskey decomposition based model provides the ability to
@@ -102,7 +102,7 @@ the ability to govern the contribution of each domain for the fused vector preci
 %Also, we show that the optimum contribution may vary depending on the data set, and affects the final accuracy significantly.
  \item We prove that the final recognition accuracy depends on the ratio of contribution of static and motion domains. Also we show that
  this optimum ratio depends on the data set. Hence, it is beneficial to exploit this optimum ratio for a better accuracy.
-  \item We model the underlying temporal evolution of sub-events for complex activity recognition using a LSTM network. We experimentally
+  \item We model the underlying temporal evolution of sub-events for complex activity recognition using an LSTM network. We experimentally
 prove that capturing these dynamics indeed benefits the final accuracy.
  \end{itemize}
 
