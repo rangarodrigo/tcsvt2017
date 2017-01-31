@@ -172,7 +172,7 @@ thus verifying that the number of action boxes per frame is equal for all frames
 \label{eqn:action box transformed}
 \begin{split}
 \MoveEqLeft
- h(g(v_{i,t})) = \big\{[b_{t,1,1},b_{i,1,2},\dots,b_{t,1,k}],\\
+ h(g(v_{i,t})) = \big\{[b_{t,1,1},b_{t,1,2},\dots,b_{t,1,k}],\\
  & [b_{t,2,1},b_{t,2,2},\dots,b_{t,2,k}],\dots,[b_{t,n,1},b_{t,n,2},\dots,b_{t,n,k}]\big\}
 \end{split}
 \end{equation}
@@ -195,7 +195,7 @@ D=\begin{bmatrix}
 \end{equation}
 
 
-where $D_{i,j}$ is the Euclidean distance between the centroids of $i^{th}$ action box in $k^{th}$ frame and $j^{th}$ action box in $(k+1)^{st}$ frame.
+where $D_{i,j}$ is the Euclidean distance between the centroids of $i^{th}$ action box in $k^{th}$ frame and $j^{th}$ action box in $(k+1)^{th}$ frame.
 Then $u^{th}$ action box at $k+1$, and $1^{st}$ action box at $k$ is linked, where $u$ is calculated using,
 
 
@@ -263,7 +263,7 @@ for each $k$ in $\{1,2,\dots, l\}$, where $h_{n,k}$ is the $k^{th}$ HOOF vector 
 \begin{equation}
 H_{n}(p) = H_{n}(p)+1
 \end{equation}
-where $H_{n}(p)$ is the $p^{th}$ value, $1<p<1000$, of histogram of the $n^{th}$ video segment $v_{i,n}$. After calculating the histogram vector $H_{n}$ for every video segment $v_{i,n}$
+where $H_{n}(p)$ is the $p^{th}$ value, $1\leq p\leq 1000$, of histogram of the $n^{th}$ video segment $v_{i,n}$. After calculating the histogram vector $H_{n}$ for every video segment $v_{i,n}$
 this $H = [H_{1},H_{2}, \dots, H_{n}]$ is the vector time series, which encodes the time evolution of motion information in the video.
 
 \begin{figure}
