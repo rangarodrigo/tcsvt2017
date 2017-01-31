@@ -18,8 +18,8 @@ Algorithm~\ref{alg:Clustering algorithm}  illustrates our clustering approach. E
    \label{alg:Clustering algorithm}
     \begin{algorithmic}[1]
     \Require  $\mathcal{D}$ \Comment{Data set of sub-areas in frame}
-    \Require $M$ \Comment{minimum no. of points}
-    \Require $\epsilon$ \Comment{$\epsilon$  parameter}
+    \Require $M$ \Comment{Min. no. of points}
+    \Require $\epsilon$ \Comment{Max. cluster radius}
       %\Function{dbScan}{DataSet, $\epsilon$, MinPoints}
         \State $c \leftarrow 0$ \Comment{initialize cluster no.}
         \ForEach {$P \in$ $\mathcal{D}$}
@@ -74,27 +74,28 @@ Eq. \ref{eq:chebichev}. We discard the furthest 20\% of the points from the clus
  D_{Chebychev} = \max(|X_{2} - X_{1}|,|Y_{2}-Y_{1}|)
 \end{equation}
 
-\begin{algorithm*}
+\begin{algorithm}
    \caption{Boundary noise removal algorithm of clusters.}
    \label{alg:boundary removal}
     \begin{algorithmic}[1]
-     \Function{formatCluster}{inCluster, maxChebichevDistance}
-	\State {$M_{d}$ = maxChebichevDistance}
-	\State {totalPoints = \textsc{getTotalPoints}(inCluster, $M_{d}$)}
-	\State {currentPoints $=$ totalPoints}
+    \Require $M_{d}$ \Comment{Max. Chebichev dist.}
+    \Require $\mathcal{C}$ \Comment{Input cluster}
+     %\Function{formatCluster}{inCluster,}
+	%\State {$M_{d}$ = maxChebichevDistance}
+	\State {totalPoints $\leftarrow$ points within $M_{d}$ of center of $\mathcal{C}$}
+	\State {currentPoints $\leftarrow$ totalPoints}
 	\While{$true$}
-	  \If{\textsc{count}(currentPoints) $<$ \textsc{count}(totalPoints) $\times80/100$}
-	    \State {$return$ all the points bellong to currentPoints}
+	  \If{\textsc{count}(currentPoints) $<$ \textsc{count}(totalPoints) $\times 0.8$}
+	    \Return {currentPoints}
 	  \EndIf
-	  \State {$M_{d}= M_{d} - 1$}
-	  \State {currentPoints $=$ \textsc{getTotalPoints}(inCluster, $M_{d}$)}
-	
+	  \State {$M_{d} \leftarrow M_{d} - 1$}
+	  \State {currentPoints $\leftarrow$ points within $M_{d}$ of center of $\mathcal{C}$}	
 	\EndWhile
-     \EndFunction
+     %\EndFunction
 
 
 \end{algorithmic}
-\end{algorithm*}
+\end{algorithm}
 
 After identifying square-shaped interest regions (action boxes), we represent each of them with a vector, $b = (x,y,r,f)$, where $x$ and $y$ are the coordinates
 of the top left corner of the box, $r$ is the height or width of the box, and $f$ is the frame number.
