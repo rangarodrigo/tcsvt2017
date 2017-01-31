@@ -58,9 +58,16 @@ h^t = o^t\tanh(c^t)
 where $W$ is the connection weight between two units and $\sigma(\cdot)$ is the sigmoid function.
 
 Since the LSTM network is used only for capturing the temporal dynamic patterns between sub actions, one LSTM layer is enough.
-Our LSTM network is shown in figure \ref{fi:layers}. The network consists of an input layer, a 128 unit LSTM layer with 0.8 dropout, and
+Our LSTM network is shown in Fig. \ref{fi:layers}. The network consists of an input layer, a 128 unit LSTM layer with 0.8 dropout, and
 a fully connected softmax output layer. As we have a sequence of activities per classification, we use a many to one approach
-for feeding the fused vectors to the network, as shown in figure \ref{fi:lstm}.
+for feeding the fused vectors to the network, as shown in Fig. \ref{fi:lstm}.
+
+\begin{figure}
+  \centering
+  \input{figures/layers}
+  \caption{A simple illustration of the LSTM network. The network consists of an input layer, a 128 unit LSTM layer with 0.8 dropout, and
+a fully connected softmax output layer.}\label{fi:layers}
+\end{figure}
 
 \begin{figure}
   \centering
@@ -69,10 +76,5 @@ for feeding the fused vectors to the network, as shown in figure \ref{fi:lstm}.
   video segment.}\label{fi:lstm}
 \end{figure}
 
-\begin{figure}
-  \centering
-  \input{figures/layers}
-  \caption{A simple illustration of the LSTM network. The network consists of an input layer, a 128 unit LSTM layer with 0.8 dropout, and
-a fully connected softmax output layer.}\label{fi:layers}
-\end{figure}
+
 
