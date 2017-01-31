@@ -16,7 +16,7 @@ have an infinite dynamic response. While training, it learns internal states of 
 and usually performs better in modeling complex dynamic temporal patterns of long sequences.
 
 
-However, it is not ideal to train standard RNNs to solve problems, 
+However, it is not ideal to train standard RNNs to solve problems,
 which require learning of long-term temporal dependencies. This is because of the vanishing-gradient problem, which occurs
 due to the exponential decay of gradient loss of the function with respect to time.
 
@@ -36,7 +36,7 @@ illustrated as follows:
 \begin{figure}
   \centering
   \input{figures/lstmblock}
-  \caption{Long short-term memory (LSTM) block cell. Source XX.}\label{fi:lstmblock}
+  \caption{Long short-term memory (LSTM) block cell. Source \cite{Graves2008supervised}.}\label{fi:lstmblock}
 \end{figure}
 
 \begin{equation}
