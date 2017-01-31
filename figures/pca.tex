@@ -1,0 +1,47 @@
+\begin{tikzpicture}
+\begin{axis}
+[
+	name=axis1,
+	title=PCA component 1 for Youtube,
+    xlabel={$n$},
+    ylabel={$\%$ standard deviation},
+]
+\addplot[scatter, each nth point=5, mark repeat=10,mark phase=0] table [x={n}, y={pca1}] {./youtube.dat};
+\end{axis}
+
+\begin{axis}
+[
+	name=axis2,
+	at={($(axis1.east)+(2.5cm, 0.0cm)$)},anchor= west,
+	title=PCA component 2 for Youtube,	
+    xlabel={$n$},
+    ylabel={$\%$ standard deviation},
+]
+\addplot[scatter, each nth point=5, mark repeat=10,mark phase=0] table [x={n}, y={pca2}] {./youtube.dat};
+\end{axis}
+
+
+\begin{axis}
+[
+	name=axis3,
+	at={($(axis1.west)+(0cm, -8.0cm)$)},anchor= west,
+	title=PCA component 1 for Hollywood,
+    xlabel={$n$},
+    ylabel={$\%$ standard deviation},
+]
+\addplot[scatter, each nth point=5, mark repeat=10,mark phase=0] table [x={n}, y={pca1}] {./hollywood.dat};
+\end{axis}
+
+\begin{axis}
+[
+	name=axis4,
+	at={($(axis3.east)+(2.5cm, 0.0cm)$)},anchor= west,
+	title=PCA component 2 for Hollywood,	
+    xlabel={$n$},
+    ylabel={$\%$ standard deviation},
+]
+\addplot[scatter, each nth point=5, mark repeat=10,mark phase=0] table [x={n}, y={pca2}] {./hollywood.dat};
+\end{axis}
+
+
+\end{tikzpicture} 
