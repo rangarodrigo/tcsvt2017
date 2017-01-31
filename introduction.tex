@@ -1,13 +1,12 @@
 \tikzset{ font={\fontsize{4pt}{5}\selectfont}}
 
-\IEEEPARstart{A}{utomatic} activity recognition in videos receives research attention
-in computer vision mostly due to its wide range of real-world applications in
+\IEEEPARstart{A}{utomatic} activity recognition in video 
+an intensely researched area in computer vision due to its wide range of real-world applications in
 sports, health care, surveillance, robot vision, and human-computer interaction.
 Furthermore, the rapid growth of digital video data demands automatic
 classification and indexing of videos. Despite the increased interest, state-of-the-art
-systems are still far from human-level performance, in contrast to the success in image classification \cite{girshick2014rich, krizhevsky2012imagenet}. This is partially due to the complex intra-class variations in videos. Some
-obvious causes behind this are the view point, background
-clutter, high dimensionality of data, lack of larger data sets, and low resolution.
+systems are still far from human-level performance, in contrast to the success in image classification \cite{girshick2014rich, krizhevsky2012imagenet}. This is partially due to the complex intra-class variations in videos, some obvious causes being the view point, background
+clutter, high dimensionality of data, lack of large data sets, and low resolution.
 
 Despite these reasons more-or-less affecting automatic image classification, it has been quite successful in recent years,
 largely owing to the rise of deep learning techniques. This is not the case in video classification, although deep learning is
@@ -24,7 +23,7 @@ single, high-level activity \cite{wang2011action, wang2013action, simonyan2014tw
 As the action becomes complex, the behavior and the
 temporal evolution of its underlying sub-events become complicated. For example,
 cooking may involve sub-events: cutting, turning on the cooker, and stirring. It may not always preserve this
-same low-order for the same action class. Instead, they may contain
+same lower order for the same action class. Instead, they may contain
 a higher-order temporal relationship among them. For example, turning on the cooker and cutting
 may appear in reverse order in another video in the same class.
 Therefore, this temporal pattern of sub-events is not easy to capture through a simple
@@ -52,7 +51,7 @@ provide cues regarding an action in a video, the contribution ratio from each do
 and optimum contribution ratio of static and motion information may depend on the data set.
 The combined descriptor should contain the essence of both domains, and should not have a
 negative influence on each other. Recently, there has been attempts to answer this question \cite{7486474},\cite{simonyan2014two}. However,
-these existing methodologies lack the insight in to how much this ratio affects the final accuracy, and has no control over this ratio.
+these existing methodologies lack the insight in to how much this ratio affects the final accuracy, and has no control over this ratio. 
 One major requirement of the fusion method is to have a high-level intuitive interpretation on how much contribution each domain provides to the
 final descriptor, and have the ability to control level of contribution. This ability makes it possible
 to deeply investigate the optimum contribution of each domain for a better accuracy. In this study, we investigate this factor
@@ -105,13 +104,11 @@ the ability to govern the contribution of each domain for the fused vector preci
  this optimum ratio depends on the data set. Hence, it is beneficial to exploit this optimum ratio for a better accuracy.
   \item We model the underlying temporal evolution of sub-events for complex activity recognition using a LSTM network. We experimentally
 prove that capturing these dynamics indeed benefits the final accuracy.
+ \end{itemize}
 
-\item With the proposed technique
+With the proposed technique
 %, and novel techniques,
 we outperform the existing best results for the popular data sets UCF-11 \cite{liu2009recognizing}
 and Hollywood2 \cite{marszalek2009actions}.
- \end{itemize}
-
-
 
 
