@@ -127,6 +127,37 @@ In the case where the action box count is lower than the previous frame, linear 
 is used for each $x,y$ and $r$ value of vector $b = (x,y,r,f)$
 up to that frame, in order to create artificial action boxes until the number of action boxes matches $N$.
 
+<<<<<<< HEAD
+=======
+\begin{equation}
+\label{eqn:linear regression}
+\begin{bmatrix}
+    Y_{1}     \\
+    Y_{2}     \\
+    \hdotsfor{1} \\
+    Y_{n}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    1 & X_{1}     \\
+    1 & X_{2}     \\
+    \hdotsfor{2} \\
+    1 & X_{n}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+    \beta_{0}     \\
+    \beta_{1}
+\end{bmatrix}
++
+\begin{bmatrix}
+    \epsilon_{1}     \\
+    \epsilon_{2}    \\
+    \hdotsfor{1} \\
+    \epsilon_{n}
+\end{bmatrix}
+\end{equation}
+>>>>>>> refs/remotes/rangarodrigo/master
 
 %\begin{equation}
 %\label{eqn:linear regression}
@@ -209,27 +240,29 @@ the video segment and keep them isolated from each other, which is vital for cap
 
 
 
+<<<<<<< HEAD
 Finally, we create matrix $M_{i}$ which encodes all the information of motion tubes in a particular video segment.
+=======
+Finally, we create a $(z\times n)$-by-$5$ matrix $M_{i}$---$z$ and $n$ are number-of-frames and number-of-action-boxes-per-frame, respectively---which
+encodes all the information of motion tubes, in a particular video segment $i$. The rows of $M_{i}$ for the $k^{th}$ frame is shown in Eq.~\ref{tubeMatrix},
+>>>>>>> refs/remotes/rangarodrigo/master
 \begin{equation}
-M=\begin{bmatrix}
-    1       & 1 & x_{1,1} & y_{1,1} & r_{1,1} \\
-    1       & 2 & x_{1,2} & y_{1,2} & r_{1,2} \\
+M_{i}=\begin{bmatrix}
+    k       & 1 & x_{z,1} & y_{z,1} & r_{z,1} \\
+    k       & 2 & x_{z,2} & y_{z,2} & r_{z,2} \\
     \vdots       & \vdots & \vdots & \vdots & \vdots \\
-    1       & n & x_{1,n} & y_{1,n} & r_{1,n} \\
-    2       & 1 & x_{2,1} & y_{2,1} & r_{2,1} \\
-    2       & 2 & x_{2,2} & y_{2,2} & r_{2,2} \\
-    \vdots       & \vdots & \vdots & \vdots & \vdots \\
-    2       & n & x_{2,n} & y_{2,n} & r_{2,n} \\
-    \vdots       & \vdots & \vdots & \vdots & \vdots \\
-    z       & 1 & x_{z,1} & y_{z,1} & r_{z,1} \\
-    z       & 2 & x_{z,2} & y_{z,2} & r_{z,2} \\
-    \vdots       & \vdots & \vdots & \vdots & \vdots \\
-    z       & n & x_{z,n} & y_{z,n} & r_{z,n} \\
-
+    k       & n & x_{z,n} & y_{z,n} & r_{z,n} \\
 \end{bmatrix}
+\label{tubeMatrix}
 \end{equation}
+<<<<<<< HEAD
 where the columns represent the frame number, action box number, $x$ coordinate of the top left corner,
 $y$ coordinate of the top left corner, and the width/height of the action box, respectively.
+=======
+
+where the columns represent the frame number, action box number, $x$ coordinate of the top left corner of the action box,
+$y$ coordinate of the top left corner of the action box, and the width/height of the action box, respectively.
+>>>>>>> refs/remotes/rangarodrigo/master
 
 \subsubsection{Histogram Oriented Optic Flows (HOOF)}
 Since each action box in a particular motion tube may differ in size, we take $R = \max(r_{i})$, for $\forall{i}$,
