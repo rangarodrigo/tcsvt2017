@@ -1,20 +1,19 @@
 This section discusses the detailed methodology of creating motion features, particularly, ``Motion tubes'', ``HOOF'', and ``BoW'' blocks as illustrated in Fig. \ref{fi:overall}.
 
 \subsubsection{Low level motion descriptor}
-A pixel level descriptor is required to identify moving points in the video. Dense trajectories \cite{wang2011action} is a powerful
-pixel-level algorithm, which captures and tracks motion across several frames. In this work
-we choose dense trajectories as the low level descriptor for capturing raw motion.
+A pixel-level descriptor is required to identify moving points in the video. Dense trajectories \cite{wang2011action} is a powerful
+pixel-level algorithm, which captures and tracks motion across several frames. In this work,
+we choose dense trajectories as the low-level descriptor for capturing raw motion.
 
 \subsubsection{Clustering}
 
-Initially we create dense trajectories for every frame in the video.
+Initially, we create dense trajectories \hl{for every frame} in the video.
 Then in order to isolate each sub area in a frame which contains significant motion we apply DBScan clustering on the calculated trajectory points.
 Algorithm~\ref{alg:Clustering algorithm}  illustrates our clustering approach. Empirically, we use 8 and 10 as $\epsilon$ and MinPoints parameters respectively.
 
 
-
 \begin{algorithm}
- \caption{DBScan Clustering algorithm.}
+ \caption{DBScan clustering algorithm.}
    \label{alg:Clustering algorithm}
     \begin{algorithmic}[1]
     \Require  $\mathcal{D}$ \Comment{Data set of sub-areas in frame}
@@ -37,14 +36,14 @@ Algorithm~\ref{alg:Clustering algorithm}  illustrates our clustering approach. E
         \EndFor
        %\EndFunction
 
-       \Function{addToCluster}{$P$, NeighborPts, c, $\epsilon$, MinPoints}
+       \Function{addToCluster}{$P$, NeighborPts, c, $\epsilon$, $M$}
 	\State add $P$ to cluster $c$
 	\ForEach  {point $np \in$ NeighborPts}
 	  \If{$P$ is not $visited$}
 	    \State mark $np$ as $visited$
-	    \State NeighborPts' = \textsc{getAllPoints}($np$, $\epsilon$)
-	    \If {size(NeighborPts) $\geq$ MinPoints}
-            \State NeighborPts' $\leftarrow$ NeighborPts joined with NeighborPts'
+	    \State NeighborPts$^\prime$ = \textsc{getAllPoints}($np$, $\epsilon$)
+	    \If {size(NeighborPts) $\geq$ $M$}
+            \State NeighborPts$^\prime$ $\leftarrow$ NeighborPts joined with NeighborPts$^\prime$
             \EndIf
 	
 	  \EndIf
@@ -63,16 +62,16 @@ Algorithm~\ref{alg:Clustering algorithm}  illustrates our clustering approach. E
 
 
 Despite the presence of many regions which contain motion in a video, some are neither significant nor descriptive.
-Those moving regions can be neglected without loss of performance. Therefore after clustering each trajectory point in to cluster groups non-significant cluster groups are neglected.
-We do this in order to prevent the algorithm focusing on small random moving areas in a video as well as to limit creation of motion tubes to areas which are significant and descriptive.
-Therefore all the clusters which are not at least 50\% of the largest cluster of the frame are discarded.
+Those moving regions can be neglected without loss of performance. Therefore, after clustering each trajectory point in to cluster groups non-significant cluster groups are ignored.
+We do this in order to prevent the algorithm focusing on small random moving areas in a video and to limit creation of motion tubes to areas which are significant and descriptive.
+Therefore all the clusters which are not at least \hl{50\%} the size of the largest cluster of the frame are discarded.
 
-After identifying the initial candidate clusters for creating action boxes further processing is done to each cluster to ensure that they contain only the important moving areas according to Algorithm~\ref{alg:boundary removal}. For each point the Chebychev distance from the centroid of the cluster is calculated as in
-Eq. \ref{eq:chebichev}. We discard the furthest 20\% of the points from the cluster. The reason behind the choice of Chebychev distance over Euclidean distance is due to the possibility of obtaining symmetric square shaped cluster groups as opposed to circular ones. This makes it easier to track moving areas and create motion tubes.
+After identifying the initial candidate clusters for creating action boxes, further processing is done to each cluster to ensure that it contains only the important moving areas according to Algorithm~\ref{alg:boundary removal}. For each point, the Chebychev distance from the centroid of the cluster is calculated. %as in Eq. \ref{eq:chebichev}.
+We discard the furthest 20\% of the points from the cluster. The reason behind the choice of Chebychev distance over Euclidean distance is due to the possibility of obtaining symmetric square shaped cluster groups as opposed to circular ones. This makes it easier to track moving areas and create motion tubes.
 
-\begin{equation}\label{eq:chebichev}
- D_{Chebychev} = \max(|X_{2} - X_{1}|,|Y_{2}-Y_{1}|)
-\end{equation}
+%\begin{equation}\label{eq:chebichev}
+% D_{Chebychev} = \max(|X_{2} - X_{1}|,|Y_{2}-Y_{1}|)
+%\end{equation}
 
 \begin{algorithm}
    \caption{Boundary noise removal algorithm of clusters.}
@@ -115,23 +114,21 @@ the action boxes within a segment $v_{i,t}$ can be represented as,
  & [b_{t,2,1},b_{t,2,2},\dots,b_{t,2,p}],\dots,[b_{t,n,1},b_{t,n,2},\dots,b_{t,n,k}]\big\}
 \end{split}
 \end{equation}
-
 where $b_{t,j,k}$ is the $k^{th}$ action box in $j^{th}$ frame of the $t^{th}$ video segment. Note that the number of
 action boxes differ from frame to frame.
 
-Therefore before linking the action boxes to create motion tubes further pre processing is needed to ensure the same number of action
-boxes exist in every frame within a video segment. Otherwise, different motion tubes could become joined halfway through the video and the
+Therefore, before linking the action boxes, to create motion tubes further pre-processing is needed to ensure the same number of action
+boxes exist in every frame within a video segment. Otherwise, different motion tubes could become joined halfway through the video, and the
 effort to capture dynamics of each moving object separately is disturbed.
 
-First we calculate the mean number of action boxes per frame in each segment. Then we obtain the rounded down value, $N$, of that number.
-Afterwards, we iterate through each frame starting from frame number $1$ until we come to a frame $W$ which has $N$ number of action boxes.
+For this purpose, first we calculate the mean number of action boxes per frame in each segment. Then we obtain the rounded down value, $N$, of the mean number. Afterwards, we iterate through each frame starting from frame number $1$ until we come to a frame $W$ which has $N$ number of action boxes. Then from frame $W$ we propagate forward and backward along the frames, either to eliminate or add action boxes. The procedure is explained below. \hl{If the action box count in a particular frame is larger than the previous frame, the smallest excess number of action boxes are removed.} %should smallest be there??
 
-Then from frame $W$ we propagate forward and backward along the frames, either to eliminate or add action boxes. The procedure is explained below.
-
-If the action box count in a particular frame is larger than the previous frame the smallest excess number of action boxes are removed.
-In the case where the action box count is lower than the previous frame, linear regression (Eq. \ref{eqn:linear regression}) is used for each $x,y$ and $r$ value of vector $b = (x,y,r,f)$
+In the case where the action box count is lower than the previous frame, linear regression %(Eq. \ref{eqn:linear regression})
+is used for each $x,y$ and $r$ value of vector $b = (x,y,r,f)$
 up to that frame, in order to create artificial action boxes until the number of action boxes matches $N$.
 
+<<<<<<< HEAD
+=======
 \begin{equation}
 \label{eqn:linear regression}
 \begin{bmatrix}
@@ -160,11 +157,42 @@ up to that frame, in order to create artificial action boxes until the number of
     \epsilon_{n}
 \end{bmatrix}
 \end{equation}
+>>>>>>> refs/remotes/rangarodrigo/master
 
-where $Y$ and $X$ would be either $x,y$ or $r$. Then least squares method is used to minimize the error, $\sum{\epsilon^2}$, and find the
-values for $\beta_{1}$ and $\beta_{0}$. Afterwards, using these values missing action boxes are predicted.
-Note that $n$ increases as the observed action boxes
-increase; hence the prediction becomes more accurate. Note how this processing results in Eq. \ref{eqn:action box}
+%\begin{equation}
+%\label{eqn:linear regression}
+%\begin{bmatrix}
+%    Y_{1}     \\
+%    Y_{2}     \\
+%    \hdotsfor{1} \\
+%    Y_{n}
+%\end{bmatrix}
+%=
+%\begin{bmatrix}
+%    1 & X_{1}     \\
+%    1 & X_{2}     \\
+%    \hdotsfor{2} \\
+%    1 & X_{n}
+%\end{bmatrix}
+%\times
+%\begin{bmatrix}
+%    \beta_{0}     \\
+%    \beta_{1}
+%\end{bmatrix}
+%+
+%\begin{bmatrix}
+%    \epsilon_{1}     \\
+%    \epsilon_{2}    \\
+%    \hdotsfor{1} \\
+%    \epsilon_{n}
+%\end{bmatrix}
+%\end{equation}
+%where $Y$ and $X$ would be either $x,y$ or $r$. Then least squares method is used to minimize the error, $\sum{\epsilon^2}$, and find the
+%values for $\beta_{1}$ and $\beta_{0}$. Afterwards, using these values missing action boxes are predicted.
+%Note that $n$ increases as the observed action boxes
+%increase; hence the prediction becomes more accurate.
+
+Note how this processing results in Eq. \ref{eqn:action box}
 being transformed in to Eq. \ref{eqn:action box transformed},
 thus verifying that the number of action boxes per frame is equal for all frames within a video segment.
 
@@ -193,16 +221,15 @@ D=\begin{bmatrix}
     D_{k1}       & D_{k2} & D_{k3} & \dots & D_{kk}
 \end{bmatrix}
 \end{equation}
-
-
 where $D_{i,j}$ is the Euclidean distance between the centroids of $i^{th}$ action box in $k^{th}$ frame and $j^{th}$ action box in $(k+1)^{st}$ frame.
-Then $u^{th}$ action box at $k+1$, and $1^{st}$ action box at $k$ is linked, where $u$ is calculated using,
+Then $u^{th}$ action box at $k+1$, and $1^{st}$ action box at $k$ are linked, where $u$ is found using,
 
 
 \begin{equation}
 u=\underset{j\in J}{\mathrm{argmin}_j}\{D_{1,j}\}, J=\{1,2,\dots,l\}
 \label{link eq}
 \end{equation}
+
 
 Then the $1^{st}$ row and the $u^{th}$ column are removed from the distance matrix, and we apply the same process repeatedly using Eq. \ref{link eq}
 to link each of the action boxes at $k$ with $k+1$.
@@ -213,8 +240,12 @@ the video segment and keep them isolated from each other, which is vital for cap
 
 
 
+<<<<<<< HEAD
+Finally, we create matrix $M_{i}$ which encodes all the information of motion tubes in a particular video segment.
+=======
 Finally, we create a $(z\times n)$-by-$5$ matrix $M_{i}$---$z$ and $n$ are number-of-frames and number-of-action-boxes-per-frame, respectively---which
 encodes all the information of motion tubes, in a particular video segment $i$. The rows of $M_{i}$ for the $k^{th}$ frame is shown in Eq.~\ref{tubeMatrix},
+>>>>>>> refs/remotes/rangarodrigo/master
 \begin{equation}
 M_{i}=\begin{bmatrix}
     k       & 1 & x_{z,1} & y_{z,1} & r_{z,1} \\
@@ -224,9 +255,14 @@ M_{i}=\begin{bmatrix}
 \end{bmatrix}
 \label{tubeMatrix}
 \end{equation}
+<<<<<<< HEAD
+where the columns represent the frame number, action box number, $x$ coordinate of the top left corner,
+$y$ coordinate of the top left corner, and the width/height of the action box, respectively.
+=======
 
 where the columns represent the frame number, action box number, $x$ coordinate of the top left corner of the action box,
 $y$ coordinate of the top left corner of the action box, and the width/height of the action box, respectively.
+>>>>>>> refs/remotes/rangarodrigo/master
 
 \subsubsection{Histogram Oriented Optic Flows (HOOF)}
 Since each action box in a particular motion tube may differ in size, we take $R = \max(r_{i})$, for $\forall{i}$,

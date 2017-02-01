@@ -1,33 +1,20 @@
-This sub section relates to
-the ``LSTM network'' block in Fig. \ref{fi:overall}.
+Our work requires analysing complex dynamic temporal patterns in the generated sequences. This sub section relates to the ``LSTM network'' block shown in Fig. \ref{fi:overall} used for this purpose.
 
-In our work, we represent a video as $n$
-fixed-length segments ($n$ differs for videos of different lengths) with overlapping frames.  Each segment
-is represented with a fused vector $c_{t}$. Therefore, each video can be represented as a vector time series.
+In our work, we represent each video as $n$ fixed-length segments ($n$ differs for videos of different lengths) with overlapping frames.  Each segment is represented with a fused vector $c_{t}$. Therefore, each video can be represented as a vector time series. 
 
+Now each vector time series could be analyzed using traditional time series modeling techniques, such as Auto Regressive Moving Average, to obtain features or model parameters that can describe the vector time series. But the main drawback of these methods is that they model current values of a series as a function of past values and have finite dynamic response to time series input. Also they lack the ability to grasp the internal state representations of a complex time series. RNNs maintain hidden layers with directed feedback connections, and hence, have an infinite dynamic response. While training, it learns internal states of a sequence and usually performs better in modeling complex dynamic temporal patterns of long sequences.
 
-Now each vector time series could be analyzed using traditional time series modeling techniques,
-such as Auto Regressive Moving Average, to obtain features or model parameters that can describe the
-vector time series.
-But the main drawback of these methods is that they model current values of a series as a function of past values
-and have finite dynamic response to time series input. Also they lack the ability to grasp the internal state
-representations of a complex time series. RNNs maintain hidden layers with directed feedback connections, and hence,
-have an infinite dynamic response. While training, it learns internal states of a sequence
-and usually performs better in modeling complex dynamic temporal patterns of long sequences.
-
-
-However, it is not ideal to train standard RNNs to solve problems,
-which require learning of long-term temporal dependencies. This is because of the vanishing-gradient problem, which occurs
+However, it is not ideal to train standard RNNs to solve problems, which require learning of long-term temporal dependencies. This is because of the vanishing-gradient problem, which occurs
 due to the exponential decay of gradient loss of the function with respect to time.
 
 In practice, LSTM networks typically perform better in such cases.
 LSTM networks are a special type of RNN, which include a ``memory cell'', and as the name suggests,
 it can maintain a certain state in memory for longer periods of time.
 It also has a set of control gates for controlling the removal or addition of information to the cell state.
-This special architecture gives them the ability to capture longer-term dependencies. First, we revise the operation of an LSTM network.
+This special architecture gives them the ability to capture more long-term dependencies. First, we revise the operation of an LSTM network.
 
-The most important structure of an LSTM unit is its memory cell $c_{t}$, which preserves the state. Basic structure of an LSTM unit is shown in figure \ref{fi:lstmblock}. The memory cell is self connected, and it has three gates(multiplicative units), i.e., input gate, forget gate and
-output gate, which are used to control how much to store, remove or output long range contextual information of a temporal sequence.
+The most important structure of an LSTM unit is its memory cell $c_{t}$, which preserves the state. Basic structure of an LSTM unit is shown in figure \ref{fi:lstmblock}. The memory cell is self connected, and it has three gates (multiplicative units), i.e., input gate, forget gate and
+output gate, which are used to control how much long range contextual information of a temporal sequence to store, remove or output.
 
 The detailed activation process of the memory cell and three gates, as shown in Fig. \ref{fi:lstmblock} is
 illustrated as follows:
