@@ -6,7 +6,7 @@ The three mathematical models we use
 to fuse the static and motion vectors are described next. This sub section relates to the ``Fusion layer'' block in Fig. \ref{fi:overall}.
 
 \subsubsection{Cholesky Transformation Based Method}
-
+\label{ss:cholesky}
 This derivation is based on the Cholesky transformation. An
 abstract version of Cholesky transformation is described below.
 
@@ -134,7 +134,7 @@ static and motion domain information for recognizing actions.
 
 \subsubsection{Variance Ratio Based Method}
 
-The second method employed to combine the motion and static vectors is based on a Gaussian probability model. We model each vector as a histogram. %Further, we assume the two vectors are independent to each other. This assumption is fair as the value of the correlation coefficient between the two vectors is negligible. 
+The second method employed to combine the motion and static vectors is based on a Gaussian probability model. We model each vector as a histogram. %Further, we assume the two vectors are independent to each other. This assumption is fair as the value of the correlation coefficient between the two vectors is negligible.
 Using the histogram model, the mean and variance of each vector are calculated in order to fit the two vectors into Gaussian distributions. The joint Gaussian distribution is then computed based on this data.
 
 \begin{equation}
@@ -166,7 +166,7 @@ N_s &= N \frac{\sigma_m}{\sigma_m+\sigma_s}  \\
 N_s &= N \frac{\sigma_s}{\sigma_m+\sigma_s}
 \end{align*}
 
-%Dropping our initial assumption of independence between the motion and static vectors, 
+%Dropping our initial assumption of independence between the motion and static vectors,
 Finally, we define the following distribution representative of the combined vector.
 
 \begin{equation}
