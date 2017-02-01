@@ -1,8 +1,8 @@
 
-This work depends on three factors; both static and motion information
+This work depends on \hl{three factors}; both static and motion information
 are vital for action recognition, but the final accuracy depends on the ratio of contribution of each domain,
 and the optimum contribution may depend on the data set. We derive our fusion models addressing all these aspects.
-The three mathematical models we used
+The three mathematical models we use
 to fuse the static and motion vectors are described next. This sub section relates to the ``Fusion layer'' block in Fig. \ref{fi:overall}.
 
 \subsubsection{Cholesky Transformation Based Method}
@@ -134,7 +134,8 @@ static and motion domain information for recognizing actions.
 
 \subsubsection{Variance Ratio Based Method}
 
-The second method employed to combine the motion and static vectors is based on a Gaussian probability model. We model each vector as a histogram. Further, we assume the two vectors are independent to each other. This assumption is fair as the value of the correlation coefficient between the two vectors is negligible. Using the histogram model, the mean and variance of each vector are calculated in order to fit the two vectors into Gaussian distributions. The joint Gaussian distribution is then computed based on this data.
+The second method employed to combine the motion and static vectors is based on a Gaussian probability model. We model each vector as a histogram. %Further, we assume the two vectors are independent to each other. This assumption is fair as the value of the correlation coefficient between the two vectors is negligible. 
+Using the histogram model, the mean and variance of each vector are calculated in order to fit the two vectors into Gaussian distributions. The joint Gaussian distribution is then computed based on this data.
 
 \begin{equation}
 G_{sm}(N)= \frac{1}{2\pi\sigma_m\sigma_s} e^{-\left[\frac{[N-\mu_s]^2}{2\sigma_s^2}+ \frac{[N-\mu_m]^2}{2\sigma_m^2} \right]}
@@ -145,7 +146,8 @@ This computation corresponds to the evaluation line obtained when equating the t
 It must be noted that both histograms (corresponding to static and motion components) do not contain equal information. Hence varying the contribution of each histogram to the resultant distribution is necessary. This requires varying of the evaluation line which can be achieved through scaling of the motion and static axes. This scaling process is carried out by the following matrix.
 
 
-\[
+
+\[\mathrm{Scaling~matrix} =
 \begin{bmatrix}
     \frac {\sigma_s}{\sigma_s + \sigma_m} & 0  \\
     0 & \frac {\sigma_m}{\sigma_s + \sigma_m}
@@ -164,7 +166,8 @@ N_s &= N \frac{\sigma_m}{\sigma_m+\sigma_s}  \\
 N_s &= N \frac{\sigma_s}{\sigma_m+\sigma_s}
 \end{align*}
 
-Dropping our initial assumption of independence between the motion and static vectors, we define the following distribution representative of the combined vector.
+%Dropping our initial assumption of independence between the motion and static vectors, 
+Finally, we define the following distribution representative of the combined vector.
 
 \begin{equation}
 G_{sm}(N)= \frac{e^{-\frac{1}{2(1-\rho^2)}\left[\frac{[N_s-\mu_s']^2}{2\sigma_s'^2} + \frac{[N_m-\mu_m']^2}{2\sigma_m'^2} - \frac{2\rho[N_s-\mu_s'][N_m-\mu_m']}{\sigma_s' \sigma_m'}  \right]}}{2\pi\sigma_m'\sigma_s'\sqrt{1-\rho^2}}
@@ -174,14 +177,13 @@ The corresponding mean and variance of this newly computed distribution are deno
 
 \subsubsection{PCA Based Method}
 
-The third fusion method is based on Principle Component Analysis (PCA). PCA is a statistical procedure that uses an orthogonal transformation to convert a
-set of observations of possibly correlated variables into a set of values of linearly uncorrelated
-variables called principal components. This transformation is defined in such a way that the first
-principal component has the largest possible variance (that it accounts for as much of the
-variability in the data as possible), and each succeeding component in turn has the highest
-variance possible under the constraint that it is orthogonal to the preceding components. The
-resulting vectors are an uncorrelated orthogonal basis set.
-
+The third fusion method is based on Principle Component Analysis (PCA). %PCA is a statistical procedure that uses an orthogonal transformation to convert a
+%set of observations of possibly correlated variables into a set of values of linearly uncorrelated
+%variables called principal components. This transformation is defined in such a way that the first
+%principal component has the largest possible variance (that it accounts for as much of the
+%variability in the data as possible), and each succeeding component in turn has the highest
+%variance possible under the constraint that it is orthogonal to the preceding components. The
+%resulting vectors are an uncorrelated orthogonal basis set.
 If there are $n$ number of features in the input vector of the PCA, the output of the
 PCA will provide a new set of $n$ features which are orthogonal and uncorrelated. Also, if
 $\mathrm{output} =[a_{1}, a_{2}, ..., a_{n}]$, then $\mathrm{var}(a_{1})> \mathrm{var}(a_{2})> \dots > \mathrm{var} (a_{n})$.
