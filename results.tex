@@ -534,10 +534,10 @@ mAP              &     \textbf{80.9\%}           &   54.6\%         &     58.3\%
 
 
 Per-action class results, are also compared in table \ref{tbl:per-action udf} and table \ref{tbl:per-action hollywood}. In UCF-11, our method excells
-in all the classes, when compared with Lucas et al.\cite{lucas1981iterative}, Wang et al.\cite{wang2011action}, Ikizler et al.\cite{ikizler2010object}
+in 8 out of 11 classes, when compared with Lucas et al.\cite{lucas1981iterative}, Wang et al.\cite{wang2011action}, Ikizler et al.\cite{ikizler2010object}
 and Ramasinghe \emph{et al.}~\cite{7486474}. In Hollywood2,
-we calculate the average precision of each class, and compare with Lucas et al.\cite{lucas1981iterative}, Wang et al.\cite{wang2011action}, and \cite{}.
-We achieve best results in 8 out of 12 classes in this case.
+we calculate the average precision of each class, and compare with Lucas et al.\cite{lucas1981iterative}, Wang et al.\cite{wang2011action}, and \cite{ullah2010improving}.
+We achieve best results in 10 out of 12 classes in this case.
 
 
 
@@ -546,7 +546,7 @@ We achieve best results in 8 out of 12 classes in this case.
 
 \subsection{Effectiveness of Capturing Time Evolution}
 As discussed in earlier sections, complex actions are composed of sub activities preserving
-a temporal pattern. In this work, we try to capture those underlying patterns by a LSTM network.
+a temporal pattern. In this work, we try to capture those underlying patterns by an LSTM network.
 It is interesting to verify whether this strategy has an impact on the accuracy of the
 classification. Here we directly feed the fused vectors to a random forest classifier, which
 does not capture sequential dynamic patterns, and compare it with the results obtained by
@@ -562,17 +562,17 @@ temporal patterns of sub activities, benefits complex action classification.
 
 \pgfplotstableread[row sep=\\,col sep=&]{
     class     & LSTM & RF  \\
-    Bshooting   & 96.3  & 90.2   \\
+    B\_shooting   & 96.3  & 90.2   \\
     Biking       & 97.8 & 93.2    \\
     Diving       & 95.8 & 93.2 \\
-    Gswinging   & 96.7 & 90.3  \\
-    Hriding     & 98.0  & 92.3 \\
-    Sjuggling   & 96.5  & 93.8  \\
+    G\_swinging   & 96.7 & 90.3  \\
+    H\_riding     & 98.0  & 92.3 \\
+    S\_juggling   & 96.5  & 93.8  \\
     Swinging     & 94.3  & 89.2  \\
-    Tswinging   & 96.9  & 91.3  \\
-    Tjumping    & 97.6  & 94.5  \\
-    Vspiking    & 93.4  & 89.6  \\
-    Wdog        & 96.7  & 91.9  \\
+    T\_swinging   & 96.9  & 91.3  \\
+    T\_jumping    & 97.6  & 94.5  \\
+    V\_spiking    & 93.4  & 89.6  \\
+    W\_dog        & 96.7  & 91.9  \\
     Accuracy     & 96.3  & 84.32  \\
     }\mydata
 
@@ -588,7 +588,7 @@ temporal patterns of sub activities, benefits complex action classification.
     ymajorgrids=true,
     grid style=dashed,
     legend style={at={(0.5,-0.5)},anchor=north},
-            symbolic x coords={Bshooting,Biking,Diving,Gswinging,Hriding,Sjuggling,Swinging,Tswinging,Tjumping,Vspiking,Wdog,Accuracy},
+            symbolic x coords={B\_shooting,Biking,Diving,G\_swinging,H\_riding,S\_juggling,Swinging,T\_swinging,T\_jumping,V\_spiking,W\_dog,Accuracy},
             x tick label style={rotate=45, anchor=north east, inner sep=0mm},
             xtick=data,
             ymin=0,ymax=100,
@@ -606,20 +606,23 @@ when the temporal dynamics of sub events are captured.}
 \end{figure}
 
 \pgfplotstableread[row sep=\\,col sep=&]{
-    class     & LSTM & RF  \\
-    Bshooting   & 96.3  & 90.2   \\
-    Biking       & 97.8 & 93.2    \\
-    Diving       & 95.8 & 93.2 \\
-    Gswinging   & 96.7 & 90.3  \\
-    Hriding     & 98.0  & 92.3 \\
-    Sjuggling   & 96.5  & 93.8  \\
-    Swinging     & 94.3  & 89.2  \\
-    Tswinging   & 96.9  & 91.3  \\
-    Tjumping    & 97.6  & 94.5  \\
-    Vspiking    & 93.4  & 89.6  \\
-    Wdog        & 96.7  & 91.9  \\
-    Accuracy     & 96.3  & 84.32  \\
+class     & LSTM & RF  \\
+AnswerPhone      & 76.6    & 70.2    \\
+DriveCar         & 98.1   & 90.4   \\
+Eat              & 62.1 & 58.4       \\
+FightPerson      & 94.3 &  90.0    \\
+GetOutCar        & 77.4  & 60.2  \\
+HandShake        & 78.9          & 74.2     \\
+HugPerson        & 77.1   & 42.6      \\
+Kiss             & 85.3          & 82.3     \\
+Run              & 78.2          & 70.3     \\
+SitDown          & 86.2          & 80.4     \\
+SitUp            & 75.0          & 71.2      \\
+StandUp          & 81.2          & 76.6      \\ 
+mAP              &                &                   \\
     }\mydata
+    
+    
 
   \begin{figure}
    \begin{tikzpicture}
@@ -633,7 +636,7 @@ when the temporal dynamics of sub events are captured.}
     ymajorgrids=true,
     grid style=dashed,
     legend style={at={(0.5,-0.5)},anchor=north},
-            symbolic x coords={Bshooting,Biking,Diving,Gswinging,Hriding,Sjuggling,Swinging,Tswinging,Tjumping,Vspiking,Wdog,Accuracy},
+            symbolic x coords={AnswerPhone,DriveCar,Eat,FightPerson,GetOutCar,HandShake,HugPerson,Kiss,Run,SitDown,SitUp,StandUp,mAP},
             x tick label style={rotate=45, anchor=north east, inner sep=0mm},
             xtick=data,
             ymin=0,ymax=100,
