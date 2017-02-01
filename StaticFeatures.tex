@@ -1,7 +1,7 @@
 In this sub section we discuss crafting of static features. This section relates to
 the ``CNN'' and ``Addition'' blocks in Fig. \ref{fi:overall}.
 
-In order to create static descriptors, we create a CNN of 1000 output classes, and train it on the ImageNet data set. The architecture is shown in figure \ref{fi:cnn}.
+In order to create static descriptors, we create a CNN of 1000 output classes, and train it on the ImageNet dataset. The architecture is shown in figure \ref{fi:cnn}.
 After training, we apply the trained model on each individual frame of each video segment. Then we average the output vectors of the CNN
 along indices and obtain a static descriptor $s_{i}$ for each video segment $v_{i}$. Following the same
 procedure for every $v_{i}$, we develop a vector time series,
