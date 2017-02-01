@@ -3,16 +3,16 @@ on both static and motion features. Our approach relies on deep features,
 for creating static vectors, and \textit{motion tubes} for motion features.
 Motion tubes are a novel concept we introduce in this paper which can be
 used to track individual actors or objects across frames, and model micro level actions.
-We present three novel methods: Based on Cholesky transformation, variance ratio, and PCA for efficient combining of features
+We present three novel methods: Based on Cholesky transformation, variance ratio, and PCA for efficient combination of features
 from different domains, which is a vital requirement in action classification.
 Cholesky method provides the power to control the contribution of each domain in exactly, and
 variance ratio based method  provides an optimum ratio for contribution based on feature statistics. We show that the statistical
 and experimental values agree with each other. We run experiments to show that the accuracy depends on the ratio of this contribution, and the optimum contribution of
 static and motion domains may vary depending on the richness of the motion information.
 
-Through our experiments we also show that our static and motion features are complementary,
+Through our experiments, we also show that our static and motion features are complementary,
 and contribute to the final result. We also compare our three fusion algorithms, and
-show that Choleky based method is superior, although all three of them give good results. We also model the temporal progression of sub-events using an LSTM network. Experimental
+show that Cholesky based method is superior, although all three of them give good results. We also model the temporal progression of sub-events using an LSTM network. Experimental
 results indicate that this is indeed beneficiary, compared to using models which so not capture temporal dynamics. Comparison of our work with multiple state-of-the-art algorithms, on the two popular data sets, UCF-11 and Hollywood2, show that our system performs better.
 
 
