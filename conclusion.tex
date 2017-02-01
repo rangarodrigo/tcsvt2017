@@ -5,9 +5,9 @@ Motion tubes are a novel concept we introduce in this paper which can be
 used to track individual actors or objects across frames, and model micro level actions.
 We present three novel methods: Based on Cholesky transformation, variance ratio, and PCA for efficient combining of features
 from different domains, which is a vital requirement in action classification.
-Cholesky method provide the power to control the contribution of each domain in exact numbers, and
-variance ratio based method mathematically provides an optimum ratio for contribution. We show that these mathematical
-and experimental values agree with each other. We run experiments to show that the accuracy depends on the ratio of this contribution and the optimum contribution of
+Cholesky method provides the power to control the contribution of each domain in exactly, and
+variance ratio based method  provides an optimum ratio for contribution based on feature statistics. We show that the statistical
+and experimental values agree with each other. We run experiments to show that the accuracy depends on the ratio of this contribution, and the optimum contribution of
 static and motion domains may vary depending on the richness of the motion information.
 
 Through our experiments we also show that our static and motion features are complementary,
@@ -17,6 +17,6 @@ results indicate that this is indeed beneficiary, compared to using models which
 
 
 In the future, it would be interesting to improve the motion tubes, so that, it can maintain an identity over each actor object.
-While it is mostly the case even in the present system, there is no guarantee. 
+While it is mostly the case even in the present system, there is no guarantee.
 Also exploring more powerful methods to describe micro actions inside motion tubes would also be interesting, since it may increase the descriptiveness of the motion features and
 contribute well to the final accuracy.
