@@ -7,7 +7,7 @@ we choose dense trajectories as the low-level descriptor for capturing raw motio
 
 \subsubsection{Clustering}
 
-Initially, we create dense trajectories \hl{for every frame} in the video.
+Initially, we create dense trajectories {for every frame} in the video.
 Then in order to isolate each sub area in a frame which contains significant motion we apply DBScan clustering on the calculated trajectory points.
 Algorithm~\ref{alg:Clustering algorithm}  illustrates our clustering approach. Empirically, we use 8 and 10 as $\epsilon$ and MinPoints parameters respectively.
 
@@ -64,7 +64,7 @@ Algorithm~\ref{alg:Clustering algorithm}  illustrates our clustering approach. E
 Despite the presence of many regions which contain motion in a video, some are neither significant nor descriptive.
 Those moving regions can be neglected without loss of performance. Therefore, after clustering each trajectory point in to cluster groups non-significant cluster groups are ignored.
 We do this in order to prevent the algorithm focusing on small random moving areas in a video and to limit creation of motion tubes to areas which are significant and descriptive.
-Therefore all the clusters which are not at least \hl{50\%} the size of the largest cluster of the frame are discarded.
+Therefore all the clusters which are not at least {50\%} the size of the largest cluster of the frame are discarded.
 
 After identifying the initial candidate clusters for creating action boxes, further processing is done to each cluster to ensure that it contains only the important moving areas according to Algorithm~\ref{alg:boundary removal}. For each point, the Chebychev distance from the centroid of the cluster is calculated. %as in Eq. \ref{eq:chebichev}.
 We discard the furthest 20\% of the points from the cluster. The reason behind the choice of Chebychev distance over Euclidean distance is due to the possibility of obtaining symmetric square shaped cluster groups as opposed to circular ones. This makes it easier to track moving areas and create motion tubes.
@@ -121,7 +121,9 @@ Therefore, before linking the action boxes, to create motion tubes further pre-p
 boxes exist in every frame within a video segment. Otherwise, different motion tubes could become joined halfway through the video, and the
 effort to capture dynamics of each moving object separately is disturbed.
 
-For this purpose, first we calculate the mean number of action boxes per frame in each segment. Then we obtain the rounded down value, $N$, of the mean number. Afterwards, we iterate through each frame starting from frame number $1$ until we come to a frame $W$ which has $N$ number of action boxes. Then from frame $W$ we propagate forward and backward along the frames, either to eliminate or add action boxes. The procedure is explained below. \hl{If the action box count in a particular frame is larger than the previous frame, the smallest excess number of action boxes are removed.} %should smallest be there??
+For this purpose, first we calculate the mean number of action boxes per frame in each segment. Then we obtain the rounded down value, $N$, of the mean number. Afterwards, we iterate through each frame starting from frame number $1$ until we come to a frame $W$ which has $N$ number of action boxes. Then from frame $W$ we propagate forward and backward along the frames, either to eliminate or add action boxes. The procedure is explained below. 
+%\hl
+{If the action box count in a particular frame is larger than the previous frame, the smallest excess number of action boxes are removed.} %should smallest be there??
 
 In the case where the action box count is lower than the previous frame, linear regression %(Eq. \ref{eqn:linear regression})
 is used for each $x,y$ and $r$ value of vector $b = (x,y,r,f)$
