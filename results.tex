@@ -133,7 +133,7 @@ our hypothesis, that being able to control this contribution explicitly, is vita
 
 
 \begin{figure}
-\begin{tikzpicture}
+\begin{tikzpicture}[scale=\textwidth/22cm,samples=200]
 \begin{axis}[
     title={},
     xlabel={Contribution level of motion and static domains},
@@ -141,43 +141,45 @@ our hypothesis, that being able to control this contribution explicitly, is vita
     ymin=80, ymax=100,
     symbolic x coords={100:0,80:20,60:40,50:50,40:60,20:80,0:100},
     ytick={80,85,90,95,100,105,110},
-    legend pos=north west,
+    %legend pos=north west,
     ymajorgrids=true,
-    label style={font=\small},
+    %label style={font=\small},
     grid style=dashed,
-    legend style={at={(0.5,-0.2)},anchor=north}
+    %legend style={at={(0.5,-0.2)},anchor=north,align=left}
+	legend style ={ at={(1.03,1)}, 
+        anchor=north west, draw=black, 
+        fill=white,align=left},
+	cycle list name= color
 ]
 
-    \addplot[
-    color=blue,
-    mark=square,
+
+    \addplot+[
+    color=blue
     ]
     coordinates {
     (100:0,92.4)(80:20,96.3)(60:40,92.7)(50:50,96.3)(40:60,91.3)(20:80,91.9)(0:100,91.3)
     };
     \addlegendentry{B shooting}
 
-    \addplot[
-    color=red,
-    mark=square,
+   
+ \addplot+[
+    color=red
     ]
     coordinates {
     (100:0,94.3)(80:20,97.8)(60:40,95.6)(50:50,95.4)(40:60,95.4)(20:80,92.6)(0:100,89.5)
     };
     \addlegendentry{Biking}
 
-\addplot[
-    color=cyan,
-    mark=square,
+\addplot+[
+    color=cyan
     ]
     coordinates {
     (100:0,90.3)(80:20,95.8)(60:40,94.3)(50:50,94.3)(40:60,93.1)(20:80,89.6)(0:100,86.2)
     };
     \addlegendentry{Diving}
 
-\addplot[
-    color=green,
-    mark=square,
+\addplot+[
+    color=green
     ]
     coordinates {
     (100:0,  93.2)(80:20, 96.7 )(60:40, 96.0 )(50:50,95.8  )(40:60,93.3  )(20:80, 92.8 )(0:100, 90.5 )
@@ -185,9 +187,8 @@ our hypothesis, that being able to control this contribution explicitly, is vita
     \addlegendentry{G swinging}
 
 
-\addplot[
-    color=magenta,
-    mark=square,
+\addplot+[
+    color=magenta
     ]
     coordinates {
     (100:0, 94.0 )(80:20,  98.0)(60:40, 96.6 )(50:50,95.6  )(40:60, 93.1 )(20:80,90.2  )(0:100, 87.2 )
@@ -195,9 +196,8 @@ our hypothesis, that being able to control this contribution explicitly, is vita
     \addlegendentry{H riding}
 
 
-\addplot[
-    color=black,
-    mark=square,
+\addplot+[
+    color=black
     ]
     coordinates {
     (100:0,92.4  )(80:20, 96.5 )(60:40, 96.0 )(50:50,96.0  )(40:60, 93.7 )(20:80, 90.2 )(0:100, 85.4 )
@@ -206,9 +206,8 @@ our hypothesis, that being able to control this contribution explicitly, is vita
 
 
 
-\addplot[
-    color=lime,
-    mark=square,
+\addplot+[
+    color=lime
     ]
     coordinates {
     (100:0, 89.3 )(80:20, 94.3 )(60:40,94.3  )(50:50, 93.6 )(40:60, 94.1 )(20:80, 91.7 )(0:100, 88.2 )
@@ -216,19 +215,17 @@ our hypothesis, that being able to control this contribution explicitly, is vita
     \addlegendentry{ Swinging   }
 
 
-\addplot[
-    color=yellow,
-    mark=square,
-    ]
+\addplot+[
+    color=yellow
+]
     coordinates {
     (100:0, 92.3 )(80:20,96.9  )(60:40, 95.7 )(50:50, 94.5 )(40:60, 94.1 )(20:80, 93.3 )(0:100, 90.6 )
     };
     \addlegendentry{  T swinging  }
 
 
-\addplot[
-    color=olive,
-    mark=square,
+\addplot+[
+    color=olive
     ]
     coordinates {
     (100:0, 93.7 )(80:20, 97.6 )(60:40, 96.7 )(50:50, 94.5 )(40:60,94.1  )(20:80, 93.1 )(0:100, 90.6 )
@@ -236,9 +233,8 @@ our hypothesis, that being able to control this contribution explicitly, is vita
     \addlegendentry{  T jumping  }
 
 
-\addplot[
-    color=gray,
-    mark=square,
+\addplot+[
+    color=gray
     ]
     coordinates {
     (100:0, 88.2 )(80:20, 93.4 )(60:40, 94.2 )(50:50, 97.2 )(40:60, 94.1 )(20:80, 93.0 )(0:100,  89.3 )
@@ -246,9 +242,8 @@ our hypothesis, that being able to control this contribution explicitly, is vita
     \addlegendentry{   V spiking }
 
 
-\addplot[
-    color=orange,
-    mark=square,
+\addplot+[
+    color=orange
     ]
     coordinates {
     (100:0, 90.2 )(80:20, 96.7 )(60:40,96.2  )(50:50,95.4  )(40:60,  93.3)(20:80, 91.9 )(0:100, 87.2 )
@@ -267,7 +262,7 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
 
 
 \begin{figure}
-\begin{tikzpicture}
+\begin{tikzpicture}[scale=\textwidth/22cm,samples=200]
 \begin{axis}[
     title={},
     xlabel={Contribution level of motion and static domains},
@@ -275,16 +270,19 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
     ymin=0, ymax=100,
     symbolic x coords={100:0,80:20,60:40,50:50,40:60,20:80,0:100},
     ytick={0,20,40,60,80,100,120},
-    legend pos=north west,
+    %legend pos=north west,
     ymajorgrids=true,
-    label style={font=\small},
+    %label style={font=\small},
     grid style=dashed,
-    legend style={at={(0.5,-0.2)},anchor=north}
+    %legend style={at={(0.5,-0.2)},anchor=north}
+	legend style ={ at={(1.03,1)}, 
+        anchor=north west, draw=black, 
+        fill=white,align=left},
+	cycle list name= color
 ]
 
-\addplot[
-    color=blue,
-    mark=square,
+\addplot+[
+    color=blue
     ]
     coordinates {
     (100:0, 52.3 )(80:20, 76.6 )(60:40, 49.6  )(50:50, 42.4   )(40:60,   38.2 )(20:80,   36.6   )(0:100,  28.2   )
@@ -292,9 +290,8 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
     \addlegendentry{    AnswerPhone    }
 
 
-\addplot[
-    color=red,
-    mark=square,
+\addplot+[
+    color=red
     ]
     coordinates {
     (100:0, 54.6 )(80:20,98.1  )(60:40, 49.2  )(50:50, 42.5   )(40:60, 39.1   )(20:80,   37.7   )(0:100,  26.4   )
@@ -305,9 +302,8 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
 
 
 
-\addplot[
-    color=cyan,
-    mark=square,
+\addplot+[
+    color=cyan
     ]
     coordinates {
     (100:0,50.0  )(80:20, 62.1 )(60:40, 55.6  )(50:50,  53.2  )(40:60,  53.2  )(20:80,   50.1   )(0:100,  40.0   )
@@ -315,18 +311,16 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
     \addlegendentry{    Eat    }
 
 
-\addplot[
-    color=green,
-    mark=square,
+\addplot+[
+    color=green
     ]
     coordinates {
     (100:0, 72.2 )(80:20, 94.3 )(60:40, 80.2  )(50:50,  72.8  )(40:60,  66.6  )(20:80,   57.4   )(0:100,   42.2  )
     };
     \addlegendentry{    FightPerson    }
 
-\addplot[
-    color=magenta,
-    mark=square,
+\addplot+[
+    color=magenta
     ]
     coordinates {
     (100:0, 56.9 )(80:20, 77.4 )(60:40,  56.2 )(50:50, 50.2   )(40:60,  47.3  )(20:80,   40.2   )(0:100,  35.5   )
@@ -334,9 +328,8 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
     \addlegendentry{   GetOutCar     }
 
 
-\addplot[
-    color=black,
-    mark=square,
+\addplot+[
+    color=black
     ]
     coordinates {
     (100:0, 42.2 )(80:20, 78.9 )(60:40,  80.2 )(50:50,  72.7  )(40:60, 64.4   )(20:80,  50.3    )(0:100,   42.7  )
@@ -344,9 +337,8 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
     \addlegendentry{     HandShake   }
 
 
-\addplot[
-    color=yellow,
-    mark=square,
+\addplot+[
+    color=yellow
     ]
     coordinates {
     (100:0, 49.9 )(80:20, 77.1 )(60:40, 64.3  )(50:50,  62.6  )(40:60,  57.2  )(20:80,  50.9   )(0:100,   40.6  )
@@ -355,9 +347,8 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
 
 
 
-\addplot[
-    color=lime,
-    mark=square,
+\addplot+[
+    color=lime
     ]
     coordinates {
     (100:0,49.9  )(80:20, 85.3 )(60:40, 86.4  )(50:50, 70.2   )(40:60,  68.7  )(20:80,  60.8    )(0:100,   45.5  )
@@ -365,9 +356,8 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
     \addlegendentry{     Kiss   }
 
 
-\addplot[
-    color=olive,
-    mark=square,
+\addplot+[
+    color=olive
     ]
     coordinates {
     (100:0, 60.2 )(80:20, 78.2 )(60:40,94.8   )(50:50,  88.2  )(40:60, 82.3   )(20:80,   72.2   )(0:100, 64.5    )
@@ -376,9 +366,8 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
 
 
 
-\addplot[
-    color=gray,
-    mark=square,
+\addplot+[
+    color=gray
     ]
     coordinates {
     (100:0, 80.2 )(80:20, 86.2 )(60:40, 91.6  )(50:50,  80.4  )(40:60, 76.9   )(20:80,  67.3    )(0:100,   56.9  )
@@ -386,9 +375,8 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
     \addlegendentry{    SitDown    }
 
 
-\addplot[
-    color=orange,
-    mark=square,
+\addplot+[
+    color=orange
     ]
     coordinates {
     (100:0, 58.7 )(80:20,75.0  )(60:40,  78.2 )(50:50, 70.2   )(40:60,   67.4 )(20:80,  51.8    )(0:100,  47.2   )
@@ -396,9 +384,8 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
     \addlegendentry{    SitUp    }
 
 
-\addplot[
-    color=teal,
-    mark=square,
+\addplot+[
+    color=teal
     ]
     coordinates {
     (100:0, 55.5 )(80:20,81.2  )(60:40,  97.4 )(50:50,  73.6  )(40:60,    62.1)(20:80, 48.3     )(0:100, 32.3    )
