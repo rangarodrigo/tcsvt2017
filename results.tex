@@ -1,28 +1,28 @@
-%This section details our experimental methodology and the  video  data sets used.
-We evaluate our activity recognition system on the two popular data sets: UCF-11 and Hollywood2. Our results surpass the state-of-the-art
-results for both the data sets. We also vary the contribution of static and motion features for the calculation
+%This section details our experimental methodology and the  video  datasets used.
+We evaluate our activity recognition system on the two popular datasets: UCF-11 and Hollywood2. Our results surpass the state-of-the-art
+results for both the datasets. We also vary the contribution of static and motion features for the calculation
 of combined vector series and explore what the optimum contribution is from each domain. We show that the optimum contribution
-may vary depending on the data set. We also show that static and motion features
+may vary depending on the richness of the motion information. We also show that static and motion features
 are complementary and provide vital information about the actions occurring in a video. We compare our three fusion models and show that
 all the methods are better or on par with the state-of-the-art. Furthermore, we highlight the importance of considering the time evolution
 of sub activities in order to identify complex events by comparing the results of LSTM and random forest classification algorithm (which does not capture
 the temporal dynamics), when applied on our features.
 
-\subsection{Data Sets}
+\subsection{DataSets}
 \noindent
 \textbf{Holywood 2} \cite{marszalek2009actions}: This consists of 12 classes of human actions distributed over 1500 video clips:
 \textit{answer phone, drive car, eat, fight person, get out car, hand shake,
 hug person, kiss, run, sit down, sit up, }and \textit{stand up}.
-The data set is challenging one, comprising video clips from 69 movies.
+The dataset is challenging one, comprising video clips from 69 movies.
 
 \noindent
 \textbf{UCF-11} \cite{liu2009recognizing}: This consists over 1000
-sports and home videos from YouTube. This data set contains 11 action classes:
+sports and home videos from YouTube. This dataset contains 11 action classes:
 \textit{basketball shooting, cycle, dive, golf swing, horse
 back ride, soccer juggle, swing, tennis swing, trampoline
 jump, volleyball spike}, and \textit{walk with a dog}. Each of the action
 sets is subdivided into 25 groups sharing similar environment conditions.
-This too is a challenging data set with
+This too is a challenging dataset with
 camera jitter, cluttered backgrounds, and varying illumination.
 
 
@@ -54,11 +54,10 @@ Table \ref{tbl:rho change}
 
 \end{table}
 
-Results for these different contribution values for UCF-11 and Hollywood2 data sets, are shown in Table \ref{tbl:rho ucf}
+Results for these different contribution values for UCF-11 and Hollywood2 datasets, are shown in Table \ref{tbl:rho ucf}
  and Table \ref{tbl:rho hollywood2}.
 We use accuracy and mean average precision as performance metrics, for UCF-11 and
-Hollywood2, respectively. For UCF-11, we obtain the optimum contribution ratio as 80:20 between static and motion vectors.
-For Hollywood2, it is 60:40.
+Hollywood2, respectively. We obtain the optimum contribution ratio as 80:20 between static and motion vectors for both datasets.
 
 \begin{table}[]
 \centering
@@ -85,9 +84,9 @@ Accuracy        &   91.8&  \textbf{96.3}    &   95.3&  95.3  &  93.6   & 91.8  &
 
 \begin{table}[]
 \centering
-\caption{mAP for each class for different contribution of static and motion vectors to the fused vector for Hollywood2. ratios are indicated in the
+\caption{AP for each class for different contribution of static and motion vectors to the fused vector for Hollywood2. ratios are indicated in the
 format static:motion. Highest mAP for Hollywood2 is achieved using a
-80:20 ratio between static and motion vectors (percent accuracy values).}\label{tbl:rho hollywood2}
+80:20 ratio between static and motion vectors (average precision values).}\label{tbl:rho hollywood2}
 \begin{tabular}{@{} l c c c c c c r @{} }
 \toprule
 Class           & 100:0 & 80:20 & 60:40 & 50:50 & 40:60 & 20:80 & 0:100 \\ \midrule \midrule
@@ -108,9 +107,9 @@ mAP             & 56.9& 80.9   &  73.6    &  64.9   &    60.3   &   51.9    &  4
 \end{tabular}
 \end{table}
 
-An overview distribution of the overall performance over different contribution levels, from static and motion domains, for both data sets is shown in Fig. \ref{contribution chart}.
+An overview distribution of the overall performance over different contribution levels, from static and motion domains, for both datasets is shown in Fig. \ref{contribution chart}.
 We can see that the performance change for different contribution percentages of motion and static domain. Also, the optimum contribution may change
-depending on the nature of the data set. For example, if the motion patterns are indistinguishable across actions, static information plays
+depending on the nature of the dataset. For example, if the motion patterns are indistinguishable across actions, static information plays
 a critical role, for determining the action, and vise versa. This highlights
 our hypothesis, that being able to control this contribution explicitly, is vital for an action recognition system.
 
@@ -409,27 +408,27 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
 \end{axis}
 \end{tikzpicture}
 \caption{Accuracy distribution for different contribution levels of motion and static domains.
-This figure illustrates that motion:static ratio affects the accuracy and the optimum contribution depends on the Hollywood2 data set.}
+This figure illustrates that motion:static ratio affects the accuracy and the optimum contribution depends on the Hollywood2 dataset.}
 \label{contribution chart}
 \end{figure}
 
 \subsection{Mathematical Validation of Optimum Contribution}
 
 As it is evident from the results of Table \ref{tbl:rho ucf} and Table \ref{tbl:rho hollywood2}, we experimentally obtain the
-optimum contribution ratio for each data set as 80:20 and 60:40, for UCF-11 and Hollywood2, respectively. In section III, in the derivation of the variance ratio based fusion model,
-we mathematically obtained values for the optimum contribution as 70:30 and 60:40 for the same data sets. It should be noted that these values closely
+optimum contribution ratio for both datasets as 80:20. In section III, in the derivation of the variance ratio based fusion model,
+we mathematically obtained values for the optimum contribution as 70:30 for the same datasets. It should be noted that these values closely
 represent the experimental values, and hence, the results are further verified.
 
 \subsection{Comparison of Fusion Models}
 The per-class accuracies obtained for each fusion model is illustrated in Table \ref{tbl:per-action fusionucf} and
 Table \ref{tbl:per-action fusionhollywood}. Although all three methods give impressive results, Cholesky based fusion
-model is superior, and has an overall accuracy of 96.3\% for UCF-11. For Hollywood2 data set, it achieves a mean average precision
+model is superior, and has an overall accuracy of 96.3\% for UCF-11. For Hollywood2 dataset, it achieves a mean average precision
 of .
 
 
 \begin{table}[]
 \centering
-\caption{Comparison of fusion models on UCF-11 data set (percent accuracy values).}\label{tbl:per-action fusionucf}
+\caption{Comparison of fusion models on UCF-11 dataset (percent accuracy values).}\label{tbl:per-action fusionucf}
 \begin{tabular}{@{} l c c c c r @{} }
 \toprule
 Class            & Cholesky & Variance ratio & PCA   \\ \midrule  \midrule
@@ -450,7 +449,7 @@ Accuracy &  96.3   &  90.5   &   91.06   \\ \bottomrule
 
 \begin{table}[]
 \centering
-\caption{Comparison of fusion models on Hollywood2 data set (percent accuracy values).}\label{tbl:per-action fusionhollywood}
+\caption{Comparison of fusion models on Hollywood2 dataset (percent accuracy values).}\label{tbl:per-action fusionhollywood}
 \begin{tabular}{@{} l c c c c r @{}}
 \toprule
 Class            & Cholesky & Variance ratio & PCA   \\ \midrule \midrule
@@ -473,16 +472,16 @@ mAP              &      80.9          &   59.8        &       61.1             \
 
 \subsection{Comparison with the state-of-the-art}
 
-Table \ref{tbl:comparison} compares our results to state of the art. We use a motion:static ratio of 20:80 for UCF-11 and 60:40
-for Hollywood2 to combine the static and motion vectors,
-since these values gave the best results for the corresponding data sets. On UCF-11, we significantly outperform
-the state of the art Ramasinghe \emph{et al.}~\cite{7486474} by 3.2\%. A mean average precision of \% is achieved by our system for Hollywood2, which outperforms
-the state-of-the-art by \%.
+Table \ref{tbl:comparison} compares our results to state of the art. We use a motion:static ratio of 20:80 for UCF-11 and
+Hollywood2 to combine the static and motion vectors,
+since these values gave the best results for the corresponding datasets. On UCF-11, we significantly outperform
+the state of the art Ramasinghe \emph{et al.}~\cite{7486474} by 3.2\%. A mean average precision of 80.9\% is achieved by our system for Hollywood2, which outperforms
+the state-of-the-art by 16.6\%.
 
 \begin{table}[]
 \centering
-\caption{Comparison of our method with the state-of-the-art methods in the literature. Motion:static ratios are 20:10 and 60:40 for
-UCF-11 and Hollywood2 respectively (percent accuracy values).}\label{tbl:comparison}
+\caption{Comparison of our method with the state-of-the-art methods in the literature. Motion:static ratios are 20:80 for both
+UCF-11 and Hollywood2}\label{tbl:comparison}
 \begin{tabular}{@{}lllr@{}}
 \toprule
 \multicolumn{2}{c}{UCF-11}    & \multicolumn{2}{c}{Hollywood2} \\ \midrule
@@ -523,7 +522,7 @@ Accuracy &  \textbf{96.3}   &  79.0   &  84.2   & 75.2    &   93.1  \\ \bottomru
 
 \begin{table}[]
 \centering
-\caption{Per-class mAP comparison with state-of-the-art on Hollywood2 (percent accuracy values).}\label{tbl:per-action hollywood}
+\caption{Per-class mAP comparison with state-of-the-art on Hollywood2 (average precision values).}\label{tbl:per-action hollywood}
 \begin{tabular}{@{} l c c c r}
 \toprule
 Class            & \rot{Ours}           & \rot{KLT\cite{lucas1981iterative}} & \rot{Wang et al.\cite{wang2011action}} & \rot{Ullah\cite{ullah2010improving}}   \\ \midrule 
@@ -567,7 +566,7 @@ the LSTM network. The results are shown in Fig. \ref{randomucf} and Fig. \ref{ra
 
 
 As it is evident from the results in in Fig. \ref{randomucf} and Fig. \ref{randomHollywood}, LSTM network significantly outperforms the
-random forest classifier for both data sets. In Hollywood2, the LSTM network wins by a 12\% margin. In UCF-11, the LSTM network wins by a 12\% margin.
+random forest classifier for both datasets. In Hollywood2, the LSTM network wins by a 12\% margin. In UCF-11, the LSTM network wins by a 12\% margin.
 Therefore, it can be concluded that, exploiting
 temporal patterns of sub activities, benefits complex action classification.
 
@@ -613,7 +612,7 @@ temporal patterns of sub activities, benefits complex action classification.
         \legend{LSTM, Random Forest}
     \end{axis}
 \end{tikzpicture}
-\caption{Accuracy comparison between Random Forest Classifier and LSTM for UCF-11 data set. Motion:static ratio of 20:80 is used. Accuracy is significantly higher
+\caption{Accuracy comparison between Random Forest Classifier and LSTM for UCF-11 dataset. Motion:static ratio of 20:80 is used. Accuracy is significantly higher
 when the temporal dynamics of sub events are captured.}
 \label{randomucf}
 \end{figure}
@@ -661,7 +660,7 @@ mAP              &                &                   \\
         \legend{LSTM, Random Forest}
     \end{axis}
 \end{tikzpicture}
-\caption{mAP comparison for Random Forest Classifier and LSTM for Hollywood2 data set. Motion:static ratio of 20:80 is used. mAP is significantly higher
+\caption{mAP comparison for Random Forest Classifier and LSTM for Hollywood2 dataset. Motion:static ratio of 20:80 is used. mAP is significantly higher
 when the temporal dynamics of sub events are captured.}
 \label{randomHollywood}
 \end{figure}

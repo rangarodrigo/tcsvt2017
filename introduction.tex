@@ -6,7 +6,7 @@ sports, health care, surveillance, robot vision, and human-computer interaction.
 Furthermore, the rapid growth of digital video data demands automatic
 classification and indexing of videos. Despite the increased interest, state-of-the-art
 systems are still far from human-level performance, in contrast to the success in image classification \cite{girshick2014rich, krizhevsky2012imagenet}. This is partially due to the complex intra-class variations in videos, some obvious causes being the view point, background
-clutter, high dimensionality of data, lack of large data sets, and low resolution.
+clutter, high dimensionality of data, lack of large datasets, and low resolution.
 
 Despite these reasons more-or-less affecting automatic image classification, it has been quite successful in recent years,
 largely owing to the rise of deep learning techniques. This is not the case in video classification, although deep learning is
@@ -48,7 +48,7 @@ and long durations, can be used to identify high level actions. In the proposed 
 
 Furthermore, how to optimally combine or fuse these motion and static descriptors remains a challenge for three key reasons: both static and motion information
 provide cues regarding an action in a video, the contribution ratio from each domain affects the final recognition accuracy,
-and optimum contribution ratio of static and motion information may depend on the data set.
+and optimum contribution ratio of static and motion information may depend on the richness of the motion information.
 The combined descriptor should contain the essence of both domains, and should not have a
 negative influence on each other. Recently, there has been attempts to answer this question \cite{7486474},\cite{simonyan2014two}. However,
 these existing methodologies lack the insight in to how much this ratio affects the final accuracy, and has no control over this ratio.
@@ -68,7 +68,7 @@ inside motion tubes. Then we apply a bag-of-words (BoW) method on the generated
 features to capture the distributional properties of micro actions, such as body movements, and create high level, discriminative motion features.
 
 Inspired by the power  of object recognition of convolutional neural networks (CNNs), we create a seven-layer deep
-CNN, and pre-train it on the popular ImageNet data set \cite{deng2012imagenet}.
+CNN, and pre-train it on the popular ImageNet dataset \cite{deng2012imagenet}.
 Afterwards, we use this trained CNN to create deep features, to synthesize static descriptors.
 Then, using a computationally efficient, yet powerful, mathematical model, we fuse static and motion feature vectors. We propose three such novel methods in this paper: based on
 Cholesky decomposition, variance ratio of motion and static vectors, and principal components analysis (PCA). The Choleskey decomposition based model provides the ability to
@@ -76,16 +76,16 @@ precisely control the contribution of static and motion domains to the final fus
 optimum contribution of each domain, experimentally.  The variance ratio based method also provides us this ability, and additionally, lets us
 obtain the optimum contribution ratio mathematically. We show that the optimum contribution ratio obtained experimentally using the Choleskey based method,
 matches with the ratio obtained mathematically from the variance based method. Furthermore, we show that this optimum contribution may
-vary depending on the data set, and affects the final accuracy significantly.
+vary depending on the richness of the motion information, and affects the final accuracy significantly.
 %The PCA-based method also provides good results.
 
 
 In order to model the temporal progression of sub events, we feed the fused vectors to
 a long short-term memory (LSTM) network. The LSTM network discovers the underlying temporal patterns of the sub events, and classifies high level actions.
 We feed the same vectors to a classifier which does not capture temporal dynamics to show that modeling temporal progression of sub events indeed contribute for a better
-accuracy. We carry out our experiments on the two popular action data sets, UCF-11 \cite{liu2009recognizing}
+accuracy. We carry out our experiments on the two popular action datasets, UCF-11 \cite{liu2009recognizing}
 and Hollywood2 \cite{marszalek2009actions}. Our results surpass existing  state-of-the-art
-results on these data sets, to the best of our knowledge.
+results on these datasets, to the best of our knowledge.
 
 The key contributions of this paper are as follows:
 
@@ -99,16 +99,16 @@ at a high level afterwards.
  \item We propose three novel, simple, and an efficient mathematical models for fusing two vectors,
 in two different domains, based on Choleskey transformation, variance ratio of motion and static vectors, and PCA. \hl{The first two methods} provide
 the ability to govern the contribution of each domain for the fused vector precisely and find the optimum contribution of the two domains, mathematically or empirically. Using this advantage, we prove that both static and motion information are complementary and vital for activity recognition through experiments.
-%Also, we show that the optimum contribution may vary depending on the data set, and affects the final accuracy significantly.
+%Also, we show that the optimum contribution may vary depending on the dataset, and affects the final accuracy significantly.
  \item We prove that the final recognition accuracy depends on the ratio of contribution of static and motion domains. Also we show that
- this optimum ratio depends on the data set. Hence, it is beneficial to exploit this optimum ratio for a better accuracy.
+ this optimum ratio depends on the dataset. Hence, it is beneficial to exploit this optimum ratio for a better accuracy.
   \item We model the underlying temporal evolution of sub-events for complex activity recognition using an LSTM network. We experimentally
 prove that capturing these dynamics indeed benefits the final accuracy.
  \end{itemize}
 
 With the proposed technique
 %, and novel techniques,
-we outperform the existing best results for the popular data sets UCF-11 \cite{liu2009recognizing}
+we outperform the existing best results for the popular datasets UCF-11 \cite{liu2009recognizing}
 and Hollywood2 \cite{marszalek2009actions}.
 
 
