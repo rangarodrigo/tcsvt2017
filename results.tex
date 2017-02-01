@@ -107,7 +107,8 @@ mAP             & 56.9& 80.9   &  73.6    &  64.9   &    60.3   &   51.9    &  4
 \end{tabular}
 \end{table}
 
-An overview distribution of the overall performance over different contribution levels, from static and motion domains, for both datasets is shown in Fig. \ref{contribution chart}.
+An overview distribution of the overall performance over different contribution levels, from static and motion domains, for both datasets is shown in Fig. \ref{contribution chart ucf}
+and Fig. \ref{contribution chart hollywood}. 
 We can see that the performance change for different contribution percentages of motion and static domain. Also, the optimum contribution may change
 depending on the nature of the dataset. For example, if the motion patterns are indistinguishable across actions, static information plays
 a critical role, for determining the action, and vise versa. 
@@ -256,7 +257,7 @@ handshake}---, the optimum motion:static ratio is 40:60. For other action classe
 \end{tikzpicture}
 \caption{Accuracy distribution for different contribution levels of motion and static domains.
 This figure illustrates that motion:static ratio affects the accuracy and the optimum contribution depends on the UCF-11 dataset for each classes.}
-\label{contribution chart}
+\label{contribution chart ucf}
 \end{figure}
 
 
@@ -398,7 +399,7 @@ This figure illustrates that motion:static ratio affects the accuracy and the op
 \end{tikzpicture}
 \caption{Accuracy distribution for different contribution levels of motion and static domains.
 This figure illustrates that motion:static ratio affects the accuracy and the optimum contribution depends on the Hollywood2 data set.}
-\label{contribution chart}
+\label{contribution chart hollywood}
 \end{figure}
 
 \subsection{Mathematical Validation of Optimum Contribution}
@@ -412,7 +413,7 @@ represent the experimental values, and hence, the results are further verified.
 The per-class accuracies obtained for each fusion model is illustrated in Table \ref{tbl:per-action fusionucf} and
 Table \ref{tbl:per-action fusionhollywood}. Although all three methods give impressive results, Cholesky based fusion
 model is superior, and has an overall accuracy of 96.3\% for UCF-11. For Hollywood2 dataset, it achieves a mean average precision
-of .
+of 80.9\%.
 
 
 \begin{table}[]
@@ -438,7 +439,7 @@ Accuracy &  96.3   &  90.5   &   91.06   \\ \bottomrule
 
 \begin{table}[]
 \centering
-\caption{Comparison of fusion models on Hollywood2 dataset (percent accuracy values).}\label{tbl:per-action fusionhollywood}
+\caption{Comparison of fusion models on Hollywood2 dataset (average precision values).}\label{tbl:per-action fusionhollywood}
 \begin{tabular}{@{} l c c c c r @{}}
 \toprule
 Class            & Cholesky & Variance ratio & PCA   \\ \midrule \midrule
@@ -448,7 +449,7 @@ Eat              & \textbf{62.1}& 49.4    & 56.5          \\
 FightPerson      & \textbf{94.3}& 78.2    & 72.6         \\
 GetOutCar        & \textbf{77.4}& 46.9    & 56.7          \\
 HandShake        & \textbf{78.9}         & 56.9    & 55.6            \\
-HugPerson        & \textbf{77.1}& 52.4.6\   & 60.6            \\
+HugPerson        & \textbf{77.1}& 52.4\   & 60.6            \\
 Kiss             &\textbf{85.3}         & 64.0    & 66.6           \\
 Run              & \textbf{78.2}         & 58.3    & 54.3            \\
 SitDown          & \textbf{86.2}         & 72.0    & 68.6            \\
@@ -534,7 +535,7 @@ mAP              &     \textbf{80.9}           &   54.6         &     58.3      
 
 
 
-Per-action class results, are also compared in Table \ref{tbl:per-action udf} and Table \ref{tbl:per-action hollywood}. In UCF-11, our method excells
+Per-action class results, are also compared in Table \ref{tbl:per-action ucf} and Table \ref{tbl:per-action hollywood}. In UCF-11, our method excells
 in 8 out of 11 classes, when compared with Lucas et al.\cite{lucas1981iterative}, Wang et al.\cite{wang2011action}, Ikizler et al.\cite{ikizler2010object}
 and Ramasinghe \emph{et al.}~\cite{7486474}. In Hollywood2,
 we calculate the average precision of each class, and compare with Lucas et al.\cite{lucas1981iterative}, Wang et al.\cite{wang2011action}, and \cite{ullah2010improving}.
@@ -555,7 +556,7 @@ the LSTM network. The results are shown in Fig. \ref{randomucf} and Fig. \ref{ra
 
 
 As it is evident from the results in in Fig. \ref{randomucf} and Fig. \ref{randomHollywood}, LSTM network significantly outperforms the
-random forest classifier for both datasets. In Hollywood2, the LSTM network wins by a 12\% margin. In UCF-11, the LSTM network wins by a 12\% margin.
+random forest classifier for both datasets. In Hollywood2, the LSTM network wins by a 12\% margin. In UCF-11, the LSTM network wins by a 8.7\% margin.
 Therefore, it can be concluded that, exploiting
 temporal patterns of sub activities, benefits complex action classification.
 
@@ -620,7 +621,7 @@ Run              & 78.2          & 70.3     \\
 SitDown          & 86.2          & 80.4     \\
 SitUp            & 75.0          & 71.2      \\
 StandUp          & 81.2          & 76.6      \\
-mAP              &                &                   \\
+mAP              & 80.9              & 72.2                   \\
     }\mydata
 
 
