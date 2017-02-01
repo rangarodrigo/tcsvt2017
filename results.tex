@@ -60,7 +60,7 @@ We use accuracy and mean average precision as performance metrics, for UCF-11 an
 Hollywood2, respectively. For UCF-11, we obtain the optimum contribution ratio as 80:20 between static and motion vectors.
 For Hollywood2, it is 60:40.
 
-\begin{table*}[]
+\begin{table}[]
 \centering
 \caption{Per-class accuracy for different contribution of static and motion vectors for UCF-11. The vectors are fused using Cholesky method. Ratios are indicated in the
 format static:motion. Highest accuracy for UCF-11 is achieved using a
@@ -81,9 +81,9 @@ V\_spiking       & 88.2&  93.4    &  94.2 &  \textbf{97.2}  &  94.1   &  93.0 & 
 W\_dog           & 90.2&  \textbf{96.7 }   &   96.2&  95.4  &  93.3   &  91.9 & 87.2 \\  \midrule
 Accuracy        &   91.8&  \textbf{96.3}    &   95.3&  95.3  &  93.6   & 91.8  & 88.72  \\ \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 
-\begin{table*}[]
+\begin{table}[]
 \centering
 \caption{mAP for each class for different contribution of static and motion vectors to the fused vector for Hollywood2. ratios are indicated in the
 format static:motion. Highest mAP for Hollywood2 is achieved using a
@@ -106,7 +106,7 @@ StandUp         & 55.5& 81.2& \textbf{97.4}& 73.6& 62.1& 48.3& 32.3 \\ \midrule
 mAP             & 56.9& 80.9   &  73.6    &  64.9   &    60.3   &   51.9    &  41.8\\ \bottomrule
 
 \end{tabular}
-\end{table*}
+\end{table}
 
 An overview distribution of the overall performance over different contribution levels, from static and motion domains, for both data sets is shown in Fig. \ref{contribution chart}.
 We can see that the performance change for different contribution percentages of motion and static domain. Also, the optimum contribution may change
@@ -500,12 +500,12 @@ Our method(Cholesky)  & \textbf{96.3}       & Our method        &        \textbf
 
 
 
-\begin{table*}[]
+\begin{table}[]
 \centering
 \caption{Per-class accuracy comparison with state-of-the-art on UCF-11 (percent accuracy values).}\label{tbl:per-action ucf}
 \begin{tabular}{@{} l c c c c r @{}}
 \toprule
-Class            & Ours(Cholesky) & KLT\cite{lucas1981iterative} & Wang \emph{et al.}\cite{wang2011action} & Ikizler-Cinbis\cite{ikizler2010object} & Ramasinghe \emph{et al.}\cite{7486474} \\ \midrule \midrule
+Class            & \rot{Ours (Cholesky)} & \rot{KLT\cite{lucas1981iterative}} & \rot{Wang \emph{et al.}\cite{wang2011action}} & \rot{Ikizler-Cinbis\cite{ikizler2010object}} & \rot{Ramasinghe \emph{et al.}\cite{7486474}} \\ \midrule 
 B\_shooting       & \textbf{96.3}    &  34.0   &  43.0   & 48.5    &   95.6  \\
 Biking           & \textbf{97.8}    &  87.6   &  91.7   & 75.17    &  93.1   \\
 Diving           & 95.8    &  \textbf{99.0}   &  \textbf{99.0}   & 95.0    &   92.8  \\
@@ -519,14 +519,14 @@ V\_spiking        & 93.4    &  \textbf{96.0}   &  95.0   & 85.0    &   93.2  \\
 W\_dog            & \textbf{96.7}    &  76.4   &  87.0   & 66.7    &   91.4  \\ \midrule
 Accuracy &  \textbf{96.3}   &  79.0   &  84.2   & 75.2    &   93.1  \\ \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 
-\begin{table*}[]
+\begin{table}[]
 \centering
 \caption{Per-class mAP comparison with state-of-the-art on Hollywood2 (percent accuracy values).}\label{tbl:per-action hollywood}
 \begin{tabular}{@{} l c c c r}
 \toprule
-Class            & Ours           & KLT\cite{lucas1981iterative} & Wang et al.\cite{wang2011action} & Ullah\cite{ullah2010improving}   \\ \midrule \midrule
+Class            & \rot{Ours}           & \rot{KLT\cite{lucas1981iterative}} & \rot{Wang et al.\cite{wang2011action}} & \rot{Ullah\cite{ullah2010improving}}   \\ \midrule 
 AnswerPhone      & \textbf{76.6}& 18.3    & 32.6    & 25.9        \\
 DriveCar         & \textbf{98.1}& 88.8    & 88.0    & 85.9     \\
 Eat              & \textbf{62.1}& 73.4    & 65.2    & 56.4         \\
@@ -541,7 +541,7 @@ SitUp            & \textbf{75.0}         & 27.7    & 20.0    & 18.4         \\
 StandUp          & \textbf{81.2}         & 63.4    & 65.2    & 57.4         \\ \midrule
 mAP              &     \textbf{80.9}           &   54.6         &     58.3       &     51.8      \\ \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 
 
 
