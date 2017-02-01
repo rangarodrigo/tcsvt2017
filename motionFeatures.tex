@@ -127,37 +127,7 @@ In the case where the action box count is lower than the previous frame, linear 
 is used for each $x,y$ and $r$ value of vector $b = (x,y,r,f)$
 up to that frame, in order to create artificial action boxes until the number of action boxes matches $N$.
 
-<<<<<<< HEAD
-=======
-\begin{equation}
-\label{eqn:linear regression}
-\begin{bmatrix}
-    Y_{1}     \\
-    Y_{2}     \\
-    \hdotsfor{1} \\
-    Y_{n}
-\end{bmatrix}
-=
-\begin{bmatrix}
-    1 & X_{1}     \\
-    1 & X_{2}     \\
-    \hdotsfor{2} \\
-    1 & X_{n}
-\end{bmatrix}
-\times
-\begin{bmatrix}
-    \beta_{0}     \\
-    \beta_{1}
-\end{bmatrix}
-+
-\begin{bmatrix}
-    \epsilon_{1}     \\
-    \epsilon_{2}    \\
-    \hdotsfor{1} \\
-    \epsilon_{n}
-\end{bmatrix}
-\end{equation}
->>>>>>> refs/remotes/rangarodrigo/master
+
 
 %\begin{equation}
 %\label{eqn:linear regression}
@@ -200,7 +170,7 @@ thus verifying that the number of action boxes per frame is equal for all frames
 \label{eqn:action box transformed}
 \begin{split}
 \MoveEqLeft
- h(g(v_{i,t})) = \big\{[b_{t,1,1},b_{i,1,2},\dots,b_{t,1,k}],\\
+ h(g(v_{i,t})) = \big\{[b_{t,1,1},b_{t,1,2},\dots,b_{t,1,k}],\\
  & [b_{t,2,1},b_{t,2,2},\dots,b_{t,2,k}],\dots,[b_{t,n,1},b_{t,n,2},\dots,b_{t,n,k}]\big\}
 \end{split}
 \end{equation}
@@ -221,8 +191,10 @@ D=\begin{bmatrix}
     D_{k1}       & D_{k2} & D_{k3} & \dots & D_{kk}
 \end{bmatrix}
 \end{equation}
+
 where $D_{i,j}$ is the Euclidean distance between the centroids of $i^{th}$ action box in $k^{th}$ frame and $j^{th}$ action box in $(k+1)^{st}$ frame.
 Then $u^{th}$ action box at $k+1$, and $1^{st}$ action box at $k$ are linked, where $u$ is found using,
+
 
 
 \begin{equation}
@@ -240,12 +212,10 @@ the video segment and keep them isolated from each other, which is vital for cap
 
 
 
-<<<<<<< HEAD
-Finally, we create matrix $M_{i}$ which encodes all the information of motion tubes in a particular video segment.
-=======
+
 Finally, we create a $(z\times n)$-by-$5$ matrix $M_{i}$---$z$ and $n$ are number-of-frames and number-of-action-boxes-per-frame, respectively---which
 encodes all the information of motion tubes, in a particular video segment $i$. The rows of $M_{i}$ for the $k^{th}$ frame is shown in Eq.~\ref{tubeMatrix},
->>>>>>> refs/remotes/rangarodrigo/master
+
 \begin{equation}
 M_{i}=\begin{bmatrix}
     k       & 1 & x_{z,1} & y_{z,1} & r_{z,1} \\
@@ -255,14 +225,9 @@ M_{i}=\begin{bmatrix}
 \end{bmatrix}
 \label{tubeMatrix}
 \end{equation}
-<<<<<<< HEAD
-where the columns represent the frame number, action box number, $x$ coordinate of the top left corner,
-$y$ coordinate of the top left corner, and the width/height of the action box, respectively.
-=======
-
 where the columns represent the frame number, action box number, $x$ coordinate of the top left corner of the action box,
 $y$ coordinate of the top left corner of the action box, and the width/height of the action box, respectively.
->>>>>>> refs/remotes/rangarodrigo/master
+
 
 \subsubsection{Histogram Oriented Optic Flows (HOOF)}
 Since each action box in a particular motion tube may differ in size, we take $R = \max(r_{i})$, for $\forall{i}$,
@@ -299,7 +264,7 @@ for each $k$ in $\{1,2,\dots, l\}$, where $h_{n,k}$ is the $k^{th}$ HOOF vector 
 \begin{equation}
 H_{n}(p) = H_{n}(p)+1
 \end{equation}
-where $H_{n}(p)$ is the $p^{th}$ value, $1<p<1000$, of histogram of the $n^{th}$ video segment $v_{i,n}$. After calculating the histogram vector $H_{n}$ for every video segment $v_{i,n}$
+where $H_{n}(p)$ is the $p^{th}$ value, $1\leq p\leq 1000$, of histogram of the $n^{th}$ video segment $v_{i,n}$. After calculating the histogram vector $H_{n}$ for every video segment $v_{i,n}$
 this $H = [H_{1},H_{2}, \dots, H_{n}]$ is the vector time series, which encodes the time evolution of motion information in the video.
 
 \begin{figure}

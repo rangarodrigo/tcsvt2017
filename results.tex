@@ -103,7 +103,7 @@ Run             & 60.2\%& 78.2\%& \textbf{94.8\%}& 88.2\%& 82.3\%& 72.2\%& 64.5\
 SitDown         & 80.2\%& 86.2\%& \textbf{91.6\%}& 80.4\%& 76.9\%& 67.3\%& 56.9\%  \\
 SitUp           & 58.7\%& 75.0\%& \textbf{78.2\%}& 70.2\%& 67.4\%& 51.8\%& 47.2\% \\
 StandUp         & 55.5\%& 81.2\%& \textbf{97.4\%}& 73.6\%& 62.1\%& 48.3\%& 32.3\% \\ \hline
-mAP             &       &       &       &       &       &       & \\ \hline
+mAP             &  56.9\% & 80.9\%   &  73.6\%    &    64.9\%   &    60.3\%   &   51.9\%    &  41.8\%\\ \hline
 
 \end{tabular}
 \end{table*}
@@ -138,6 +138,140 @@ our hypothesis, that being able to control this contribution explicitly, is vita
     title={},
     xlabel={Contribution level of motion and static domains},
     ylabel={Accuracy},
+    ymin=80, ymax=100,
+    symbolic x coords={100:0,80:20,60:40,50:50,40:60,20:80,0:100},
+    ytick={80,85,90,95,100,105,110},
+    legend pos=north west,
+    ymajorgrids=true,
+    label style={font=\small},
+    grid style=dashed,
+    legend style={at={(0.5,-0.2)},anchor=north}
+]
+
+    \addplot[
+    color=blue,
+    mark=square,
+    ]
+    coordinates {
+    (100:0,92.4)(80:20,96.3)(60:40,92.7)(50:50,96.3)(40:60,91.3)(20:80,91.9)(0:100,91.3)
+    };
+    \addlegendentry{B shooting}
+
+    \addplot[
+    color=red,
+    mark=square,
+    ]
+    coordinates {
+    (100:0,94.3)(80:20,97.8)(60:40,95.6)(50:50,95.4)(40:60,95.4)(20:80,92.6)(0:100,89.5)
+    };
+    \addlegendentry{Biking}
+
+\addplot[
+    color=cyan,
+    mark=square,
+    ]
+    coordinates {
+    (100:0,90.3)(80:20,95.8)(60:40,94.3)(50:50,94.3)(40:60,93.1)(20:80,89.6)(0:100,86.2)
+    };
+    \addlegendentry{Diving}
+
+\addplot[
+    color=green,
+    mark=square,
+    ]
+    coordinates {
+    (100:0,  93.2)(80:20, 96.7 )(60:40, 96.0 )(50:50,95.8  )(40:60,93.3  )(20:80, 92.8 )(0:100, 90.5 )
+    };
+    \addlegendentry{G swinging}
+
+
+\addplot[
+    color=magenta,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 94.0 )(80:20,  98.0)(60:40, 96.6 )(50:50,95.6  )(40:60, 93.1 )(20:80,90.2  )(0:100, 87.2 )
+    };
+    \addlegendentry{H riding}
+
+
+\addplot[
+    color=black,
+    mark=square,
+    ]
+    coordinates {
+    (100:0,92.4  )(80:20, 96.5 )(60:40, 96.0 )(50:50,96.0  )(40:60, 93.7 )(20:80, 90.2 )(0:100, 85.4 )
+    };
+    \addlegendentry{S juggling}
+
+
+
+\addplot[
+    color=lime,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 89.3 )(80:20, 94.3 )(60:40,94.3  )(50:50, 93.6 )(40:60, 94.1 )(20:80, 91.7 )(0:100, 88.2 )
+    };
+    \addlegendentry{ Swinging   }
+
+
+\addplot[
+    color=yellow,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 92.3 )(80:20,96.9  )(60:40, 95.7 )(50:50, 94.5 )(40:60, 94.1 )(20:80, 93.3 )(0:100, 90.6 )
+    };
+    \addlegendentry{  T swinging  }
+
+
+\addplot[
+    color=olive,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 93.7 )(80:20, 97.6 )(60:40, 96.7 )(50:50, 94.5 )(40:60,94.1  )(20:80, 93.1 )(0:100, 90.6 )
+    };
+    \addlegendentry{  T jumping  }
+
+
+\addplot[
+    color=gray,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 88.2 )(80:20, 93.4 )(60:40, 94.2 )(50:50, 97.2 )(40:60, 94.1 )(20:80, 93.0 )(0:100,  89.3 )
+    };
+    \addlegendentry{   V spiking }
+
+
+\addplot[
+    color=orange,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 90.2 )(80:20, 96.7 )(60:40,96.2  )(50:50,95.4  )(40:60,  93.3)(20:80, 91.9 )(0:100, 87.2 )
+    };
+    \addlegendentry{  W dog  }
+
+
+\end{axis}
+\end{tikzpicture}
+\caption{Accuracy distribution for different contribution levels of motion and static domains.
+This figure illustrates that motion:static ratio affects the accuracy and the optimum contribution depends on the UCF-11 dataset for each classes.}
+\label{contribution chart}
+\end{figure}
+
+
+
+
+\begin{figure}
+\begin{tikzpicture}
+\begin{axis}[
+    title={},
+    xlabel={Contribution level of motion and static domains},
+    ylabel={Accuracy},
     ymin=0, ymax=100,
     symbolic x coords={100:0,80:20,60:40,50:50,40:60,20:80,0:100},
     ytick={0,20,40,60,80,100,120},
@@ -153,25 +287,131 @@ our hypothesis, that being able to control this contribution explicitly, is vita
     mark=square,
     ]
     coordinates {
-    (100:0,91.8)(80:20,96.3)(60:40,95.3)(50:50,95.3)(40:60,93.6)(20:80,91.8)(0:100,88.72)
+    (100:0, 52.3 )(80:20, 76.6 )(60:40, 49.6  )(50:50, 42.4   )(40:60,   38.2 )(20:80,   36.6   )(0:100,  28.2   )
     };
-    \addlegendentry{UCF-11}
+    \addlegendentry{    AnswerPhone    }
 
-    \addplot[
+
+\addplot[
     color=red,
     mark=square,
     ]
     coordinates {
-    (100:0,50)(80:20,52)(60:40,55)(50:50,58)(40:60,65)(20:80,62)(0:100,58)
+    (100:0, 54.6 )(80:20,98.1  )(60:40, 49.2  )(50:50, 42.5   )(40:60, 39.1   )(20:80,   37.7   )(0:100,  26.4   )
     };
-    \addlegendentry{Hollywood2}
+    \addlegendentry{    DriveCar    }
+
+
+
+
+
+\addplot[
+    color=cyan,
+    mark=square,
+    ]
+    coordinates {
+    (100:0,50.0  )(80:20, 62.1 )(60:40, 55.6  )(50:50,  53.2  )(40:60,  53.2  )(20:80,   50.1   )(0:100,  40.0   )
+    };
+    \addlegendentry{    Eat    }
+
+
+\addplot[
+    color=green,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 72.2 )(80:20, 94.3 )(60:40, 80.2  )(50:50,  72.8  )(40:60,  66.6  )(20:80,   57.4   )(0:100,   42.2  )
+    };
+    \addlegendentry{    FightPerson    }
+
+\addplot[
+    color=magenta,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 56.9 )(80:20, 77.4 )(60:40,  56.2 )(50:50, 50.2   )(40:60,  47.3  )(20:80,   40.2   )(0:100,  35.5   )
+    };
+    \addlegendentry{   GetOutCar     }
+
+
+\addplot[
+    color=black,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 42.2 )(80:20, 78.9 )(60:40,  80.2 )(50:50,  72.7  )(40:60, 64.4   )(20:80,  50.3    )(0:100,   42.7  )
+    };
+    \addlegendentry{     HandShake   }
+
+
+\addplot[
+    color=yellow,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 49.9 )(80:20, 77.1 )(60:40, 64.3  )(50:50,  62.6  )(40:60,  57.2  )(20:80,  50.9   )(0:100,   40.6  )
+    };
+    \addlegendentry{    HugPerson    }
+
+
+
+\addplot[
+    color=lime,
+    mark=square,
+    ]
+    coordinates {
+    (100:0,49.9  )(80:20, 85.3 )(60:40, 86.4  )(50:50, 70.2   )(40:60,  68.7  )(20:80,  60.8    )(0:100,   45.5  )
+    };
+    \addlegendentry{     Kiss   }
+
+
+\addplot[
+    color=olive,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 60.2 )(80:20, 78.2 )(60:40,94.8   )(50:50,  88.2  )(40:60, 82.3   )(20:80,   72.2   )(0:100, 64.5    )
+    };
+    \addlegendentry{     Run   }
+
+
+
+\addplot[
+    color=gray,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 80.2 )(80:20, 86.2 )(60:40, 91.6  )(50:50,  80.4  )(40:60, 76.9   )(20:80,  67.3    )(0:100,   56.9  )
+    };
+    \addlegendentry{    SitDown    }
+
+
+\addplot[
+    color=orange,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 58.7 )(80:20,75.0  )(60:40,  78.2 )(50:50, 70.2   )(40:60,   67.4 )(20:80,  51.8    )(0:100,  47.2   )
+    };
+    \addlegendentry{    SitUp    }
+
+
+\addplot[
+    color=teal,
+    mark=square,
+    ]
+    coordinates {
+    (100:0, 55.5 )(80:20,81.2  )(60:40,  97.4 )(50:50,  73.6  )(40:60,    62.1)(20:80, 48.3     )(0:100, 32.3    )
+    };
+    \addlegendentry{    StandUp    }
+
+    
 \end{axis}
 \end{tikzpicture}
 \caption{Accuracy distribution for different contribution levels of motion and static domains.
-This figure illustrates that motion:static ratio affects the accuracy and the optimum contribution depends on the data set.}
+This figure illustrates that motion:static ratio affects the accuracy and the optimum contribution depends on the Hollywood2 data set.}
 \label{contribution chart}
 \end{figure}
-
 
 \subsection{Mathematical Validation of Optimum Contribution}
 
@@ -226,7 +466,7 @@ Run              & \textbf{78.2\%}         & 58.3\%    & 54.3\%            \\
 SitDown          & \textbf{86.2\%}         & 72.0\%    & 68.6\%            \\
 SitUp            & \textbf{75.0\%}         & 50.0\%    & 54.7\%          \\
 StandUp          & \textbf{81.2\%}         & 54.4\%    & 50.0\%          \\ \hline
-mAP              &                &           &                    \\ \hline
+mAP              &      80.9\%          &   59.8\%        &       61.1\%             \\ \hline
 \end{tabular}
 \end{table}
 
@@ -252,7 +492,7 @@ Wang \textit{et al.}\cite{wang2011action}    & 84.2\%  & Mathe \textit{et al.}\c
 Sameera \textit{et al.}\cite{7486474}         & 93.1\%        & Jain \textit{et al.}\cite{jain2013better}           & 62.5\%      \\
                       &         & Wang \textit{et al.}\cite{wang2011action}             & 58.3\%      \\
                       &         & Wang \textit{et al.}\cite{wang2013action}          & 64.3\%      \\ \hline \hline
-Our method(Cholesky)  & \textbf{96.3\%}       & Our method        &             \\ \hline
+Our method(Cholesky)  & \textbf{96.3\%}       & Our method        &        \textbf{80.9\%}       \\ \hline
 
 \end{tabular}
 
@@ -299,7 +539,7 @@ Run              & 78.2\%         & 76.3\%    & 82.1\%    & 69.4\%         \\
 SitDown          & 86.2\%         & 59.0\%    & 62.5\%    & 58.9\%         \\
 SitUp            & 75.0\%         & 27.7\%    & 20.0\%    & 18.4\%         \\
 StandUp          & 81.2\%         & 63.4\%    & 65.2\%    & 57.4\%         \\ \hline
-mAP              &                &           &           &          \\ \hline
+mAP              &     \textbf{80.9\%}           &   54.6\%         &     58.3\%       &     51.8\%      \\ \hline
 \end{tabular}
 \end{table*}
 
